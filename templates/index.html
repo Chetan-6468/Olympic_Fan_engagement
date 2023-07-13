@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympics Data Analysis</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #sidebar {
+            background-color: #f1f1f1;
+            width: 200px;
+            height: 100vh;
+            float: left;
+            padding: 20px;
+        }
+
+        #sidebar h1 {
+            font-size: 25px;
+        }
+
+        #sidebar h2 {
+            margin-bottom: 10px;
+        }
+
+        #sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        #sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px;
+            display: block;
+            border-radius: 5px;
+        }
+
+        #sidebar ul li a:hover {
+            background-color: #ccc;
+        }
+
+        #content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        .hidden {
+    display: none;
+}
+
+.medal-tally-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.medal-tally-table th,
+.medal-tally-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.medal-tally-table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+}
+
+.container {
+    margin-top: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.paragraph2 {
+    margin-top: 10px;
+}
+
+#result {
+    margin-top: 20px;
+}
+
+#result table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#result table th,
+#result table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+#result table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+}
+
+.paragraph1 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: #000;
+}
+
+button {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #fff;
+    background-color: #000;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.paragraph1,
+.paragraph2 {
+    color: #000;
+    font-family: sans-serif;
+}
+
+.container {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+#imageContainer {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 38%;
+    margin-top:2%;
+    
+  }
+        
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h1>Olympics Data Analysis</h1>
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="#" onclick="showMedalTally()">Medal Tally</a></li>
+            <li><a href="#" onclick="showOverallAnalysis()">Overall Analysis</a></li>
+            <li><a href="#" onclick="showCountryWiseAnalysis()">Country-wise Analysis</a></li>
+            <li><a href="#" onclick="showAthleteWiseAnalysis()">Athlete-wise Analysis</a></li>
+        </ul>
+    </div>
+
+
+
+    <div id="content">
+        <div id="medalTallyContent" class="hidden">
+            <section>
+                <h5 class="paragraph1">Medal tally</h5>
+                <div class="container">
+                    <form method="POST" action="{% url 'fetch_medal' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="year">Year:</label>
+                            <input type="text" id="year" name="year" placeholder="Enter year">
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Select country:</label>
+                            <input type="text" id="country" name="country" placeholder="Enter country">
+                        </div>
+                        <div class="paragraph2">
+                            <button type="submit">Medal Tally</button>
+                        </div>
+                    </form>
+                    <div id="result">
+                        <table>
+                            
+                            <tbody>
+                                {% for row in fetch_medal %}
+                                    <tr>
+                                        <td>{{ row.region }}</td>
+                                        <td>{{ row.Gold }}</td>
+                                        <td>{{ row.Silver }}</td>
+                                        <td>{{ row.Bronze }}</td>
+                                        <td>{{ row.total }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div id="imageContainer">
+        <img src="/static/img/7.png" alt="background img" width="650" height="280">
+      </div>
+
+    <script>
+        function showMedalTally() {
+            var medalTallyContent = document.getElementById("medalTallyContent");
+            medalTallyContent.classList.remove("hidden");
+        }
+
+        function showOverallAnalysis() {
+            // Implement the code to show the Overall Analysis results
+        }
+
+        function showCountryWiseAnalysis() {
+            // Implement the code to show the Country-wise Analysis results
+        }
+
+        function showAthleteWiseAnalysis() {
+            // Implement the code to show the Athlete-wise Analysis results
+        }
+
+        function fetchMedalData(year, country) {
+            fetch('/fetch_medal/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    'year': year,
+                    'country': country
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                updateMedalTable(data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+
+        function updateMedalTable(data) {
+            var tableBody = document.querySelector("#medalTallyContent table tbody");
+
+            // Clear the existing table rows
+            tableBody.innerHTML = "";
+
+            // Iterate through the fetched data and add rows to the table
+            data.forEach(function (row) {
+                var newRow = document.createElement("tr");
+
+                var regionCell = document.createElement("td");
+                regionCell.textContent = row.region;
+                newRow.appendChild(regionCell);
+
+                var goldCell = document.createElement("td");
+                goldCell.textContent = row.Gold;
+                newRow.appendChild(goldCell);
+
+                var silverCell = document.createElement("td");
+                silverCell.textContent = row.Silver;
+                newRow.appendChild(silverCell);
+
+                var bronzeCell = document.createElement("td");
+                bronzeCell.textContent = row.Bronze;
+                newRow.appendChild(bronzeCell);
+
+                var totalCell = document.createElement("td");
+                totalCell.textContent = row.total;
+                newRow.appendChild(totalCell);
+
+                tableBody.appendChild(newRow);
+            });
+        }
+    </script>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Olympic Vibes</title>
+<link rel="stylesheet" href="static/css/styles.css">
+<link rel="stylesheet" href="static/css/responsive.css">
+<link rel="stylesheet" href="static/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"  />
+<link rel="stylesheet" href="static/css/slick.css">
+<!-- animated slider -->
+<link rel="stylesheet" href="static/css/animated-slider.css">
+
+<style>
+  footer {
+    background-color: #f8f8f8;
+    padding: 50px 0;
+    color: #333;
+  }
+  
+  footer h4 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  footer p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  
+  .social-media {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .social-media li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .social-media li a {
+    display: inline-block;
+    color: #333;
+    font-size: 20px;
+    transition: color 0.3s ease;
+  }
+  
+  .social-media li a:hover {
+    color: #ff6b6b;
+  }
+  
+  footer p:last-child {
+    margin-top: 30px;
+    font-size: 12px;
+    color: black;
+  }
+  
+  footer p:last-child a {
+    color: black;
+    text-decoration: none;
+  }
+  
+  footer p:last-child a:hover {
+    color: #333;
+  }
+  
+</style>
+
+
+<link rel="stylesheet" href="static/css/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+   <script>
+    $(document).ready(function(){
+        $("#sidebarCollapse").on('click', function(){
+            $("#sidebar").toggleClass('active');
+        });
+    });
+</script>
+</head>
+
+<body>
+
+
+  <section>
+      <div class="wrapper">
+          <nav id="sidebar">
+              <div class="sidebar-header">
+                  <h3>Olympic Vibes</h3>
+                  <hr>
+              </div>
+              <ul class="list-unstyled components">
+                  <p>MENU</p>
+                  <li>
+                      <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Predictions</a>
+                      <ul class="collapse list-unstyled" id="homeSubmenu">
+                          <li><a href="#">Upcoming Events</a></li>
+                          <li><a href="#">Make Predictions</a></li>
+                          <li><a href="#">Leaderboards</a></li>
+                      </ul>
+                  </li>
+                  <li><a href={% url 'index' %}>Player Statistics</a></li>
+                  <li><a href="#">Event Information</a></li>
+                  <li><a href="#">Player Stories</a></li>
+                  <li><a href="#">Games</a></li>
+              </ul>
+              <ul class="list-unstyled CTAs">
+                  <li><a href="#" class="download">Subscribe</a></li>
+              </ul>
+          </nav>
+          <div id="content">
+              <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  <button type="button" id="sidebarCollapse" class="btn btn-info">
+                      <i class="fa fa-align-justify"></i>
+                  </button>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                      <ul class="navbar-nav ml-auto">
+                          <li class="nav-item active">
+                              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">Features</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">Pricing</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="/contact">Contact</a>
+                          </li>
+                      </ul>
+                  </div>
+              </nav>
+              <div class="content-wrapper">
+                  <h2>Welcome to Olympic Fan Engagement</h2>
+                  <p>Engage with the Olympics like never before! Join our community of passionate fans and explore a world of exciting features and content.</p>
+                  <p>Make predictions, explore player statistics, get event information, dive into inspiring player stories, and play interactive games related to the Olympics. There's something for everyone!</p>
+                  <div class="line"></div>
+              </div>
+          </div>
+      </div>
+  </section>
+ <section><br><br><br>
+<!-- testimonial area Start  -->
+<div class="testimonial-section sbs-testimonial-section pd-top-105 pd-bottom-120" style="background-image:url(assets/img/bg/1h3.png);">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-5 col-lg-6 pd-xl-5 order-lg-12 align-self-center ">
+        <div class="section-title style-two mb-0">
+          <h2 class="title">What Our <span>Client Say?</span></h2>
+          <p>At OlympicVibes, our clients are thrilled with our accurate predictions, engaging fan features, and comprehensive athlete statistics. Don't just take our word for it - see what they have to say!</p>
+        </div>
+      </div>
+      <div class="col-lg-6 order-lg-1">
+        <div class="sbs-testimonial-slider">
+          <div class="choose_slider">
+            <div class="choose_slider_items">
+              <ul id="testimonial-slider">
+                <li class="current_item">
+                  <div class="media"> <img class="media-left" src="static/img/3.png" alt="client">
+                    <div class="media-body">
+                      <h6>John </h6>
+                      <p class="designation"> Basketball Analyst</p>
+                      <span> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </span> </div>
+                  </div>
+                  <p>OlympicVibes has transformed the way I follow sports. The player statistics and game recommendations have been spot on. The engaging platform keeps me hooked throughout the event!</p>
+                </li>
+                <li class="current_item">
+                  <div class="media"> <img class="media-left" src="static/img/2.png" alt="client">
+                    <div class="media-body">
+                      <h6>Sarah Johnson</h6>
+                      <p class="designation">Gymnastics Coach</p>
+                      <span> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </span> </div>
+                  </div>
+                  <p>I'm amazed by the predictive analysis provided by OlympicVibes. Their accurate predictions have helped me make informed bets. The fan engagement features make the whole experience even more enjoyable.</p>
+                </li>
+                <li class="current_item">
+                  <div class="media"> <img class="media-left" src="static/img/1.png" alt="client">
+                    <div class="media-body">
+                      <h6>Jessica Lee</h6>
+                      <p class="designation">Tennis Player</p>
+                      <span> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </span> </div>
+                  </div>
+                  <p>I'm grateful for OlympicVibes' holistic approach to sports coverage. The website not only provides accurate player statistics and predictions but also fosters a sense of community among fans. Highly recommended!</p>
+                </li>
+                <li class="current_item">
+                  <div class="media"> <img class="media-left" src="static/img/5.png" alt="client">
+                    <div class="media-body">
+                      <h6>Emily Wilson</h6>
+                      <p class="designation">Track and Field Athlete</p>
+                      <span> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </span> </div>
+                  </div>
+                  <p>As a passionate sports fan, OlympicVibes has become my ultimate companion. The website's game recommendations and detailed player statistics keep me engaged and enhance my overall viewing experience.</p>
+                </li>
+                <li class="current_item">
+                  <div class="media"> <img class="media-left" src="static/img/4.png" alt="client">
+                    <div class="media-body">
+                      <h6>David Thompson</h6>
+                      <p class="designation"> Swimming Coach </p>
+                      <span> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </span> </div>
+                  </div>
+                  <p>OlympicVibes offers a comprehensive collection of athlete statistics and analysis. The platform's user-friendly interface and real-time updates make it my go-to source for Olympic insights.</p>
+                </li>
+                <li class="current_item">
+                  <div class="media"> <img class="media-left" src="static/img/6.png" alt="client">
+                    <div class="media-body">
+                      <h6>Michael Anderson</h6>
+                      <p class="designation">Soccer Statistician</p>
+                      <span> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </span> </div>
+                  </div>
+                  <p>OlympicVibes is a game-changer! The platform's fan engagement features, such as live chats and interactive polls, create a vibrant community atmosphere. It's a must-have for every Olympics enthusiast.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="sbs-arrowleft"><a id="btn_next" href="#"><i class="fa fa-long-arrow-left"></i></a></div>
+          <div class="sbs-arrowright"><a id="btn_prev" href="#"><i class="fa fa-long-arrow-right"></i></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section> <br><br><br><br><br><br><br><br>
+
+{% comment %} --------------------------footer---------------------- {% endcomment %}
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h4>About Olympic Vibes</h4>
+        <p>Olympic Vibes is a platform that provides player statistics, game recommendations, predictions, and fan engagement for Olympic enthusiasts.</p>
+      </div>
+      <div class="col-md-4">
+        <h4>Contact Us</h4>
+        <p>Email: info@olympicvibes.com</p>
+        <p>Phone: +1 (123) 456-7890</p>
+      </div>
+      <div class="col-md-4">
+        <h4>Follow Us</h4>
+        <ul class="social-media">
+          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p>&copy; 2023 Olympic Vibes. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- testimonial area End --> 
+
+
+<script src="static/js/jquery.magnific-popup.js"></script> 
+<script src="static/js/wow.min.js"></script> 
+<script src="static/js/jquery.cssslider.min.js"></script> 
+<script src="static/js/main.js"></script>
+
+
+</body>
+</html>
