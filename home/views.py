@@ -15,6 +15,15 @@ def index(request):
 def contact(request):
     return render(request, 'contact.html')
 
+def about(request):
+    return render(request, 'about.html')
+
+def feature(request):
+    return render(request, 'feature.html')
+
+def stories(request):
+    return render(request, 'stories.html')
+
 from django.shortcuts import render
 
 # def index(request):

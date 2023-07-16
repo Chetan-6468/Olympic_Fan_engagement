@@ -67,6 +67,61 @@
     color: #333;
   }
   
+
+
+  
+
+  .content-wrapper {
+    background-color: #f9f9f9;
+    padding: 60px 0;
+    text-align: center;
+  }
+
+  .content-wrapper h2 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .content-wrapper p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    color: #666;
+  }
+
+  .content-wrapper .btn-primary {
+    background-color: #ff6b6b;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .content-wrapper .btn-primary:hover {
+    background-color: #e24c4c;
+  }
+
+  .content-wrapper .image-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .content-wrapper img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+
+
+ 
+
 </style>
 
 
@@ -96,7 +151,7 @@
               <div class="sidebar-header">
                   <h3>Olympic Vibes</h3>
                   <hr>
-              </div>
+                </div>
               <ul class="list-unstyled components">
                   <p>MENU</p>
                   <li>
@@ -109,46 +164,58 @@
                   </li>
                   <li><a href={% url 'index' %}>Player Statistics</a></li>
                   <li><a href="#">Event Information</a></li>
-                  <li><a href="#">Player Stories</a></li>
+                  <li><a href={% url 'stories' %}>Player Stories</a></li>
                   <li><a href="#">Games</a></li>
               </ul>
               <ul class="list-unstyled CTAs">
-                  <li><a href="#" class="download">Subscribe</a></li>
+                  <li><a href="/about" class="download">About-us</a></li>
               </ul>
           </nav>
           <div id="content">
               <nav class="navbar navbar-expand-lg navbar-light bg-light">
                   <button type="button" id="sidebarCollapse" class="btn btn-info">
-                      <i class="fa fa-align-justify"></i>
+                    <i class="fa fa-align-justify"></i>
+                        <span>Menu</span>
                   </button>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNav">
-                      <ul class="navbar-nav ml-auto">
-                          <li class="nav-item active">
-                              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                          </li>
+                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/feature">Features</a>
+                    </li>
                           <li class="nav-item">
-                              <a class="nav-link" href="#">Features</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Pricing</a>
+                              <a class="nav-link" href="/about">About</a>
                           </li>
                           <li class="nav-item">
                               <a class="nav-link" href="/contact">Contact</a>
                           </li>
                       </ul>
+                      <div class="navbar-brand mx-auto">
+                        <img src="/static/img/logo2.png" alt="Olympic Vibes Logo" width="180" height="60">
+                      </div>
                   </div>
               </nav>
               <div class="content-wrapper">
-                  <h2>Welcome to Olympic Fan Engagement</h2>
-                  <p>Engage with the Olympics like never before! Join our community of passionate fans and explore a world of exciting features and content.</p>
-                  <p>Make predictions, explore player statistics, get event information, dive into inspiring player stories, and play interactive games related to the Olympics. There's something for everyone!</p>
-                  <div class="line"></div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h2>Welcome to Olympic Vibes</h2>
+                      <p class="lead">Engage with the Olympics like never before! Join our community of passionate fans and explore a world of exciting features and content.</p>
+                      <p>Make predictions, explore player statistics, get event information, dive into inspiring player stories, and play interactive games related to the Olympics. There's something for everyone!</p>
+                      <a href="/feature" class="btn btn-primary">Explore Features</a>
+                    </div>
+                    <div class="col-md-6">
+                      <img src="static/img/8.png" alt="Olympic Fans" class="img-fluid">
+                    </div>
+                  </div>
+                </div>
               </div>
-          </div>
       </div>
   </section>
  <section><br><br><br>
@@ -262,6 +329,7 @@
     </div>
   </div>
 </footer>
+
 
 
 <!-- testimonial area End --> 
