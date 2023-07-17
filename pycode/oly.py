@@ -106,6 +106,9 @@ def most_successful_athletecountry(temp_df,country):
     x.rename(columns={'index':'Name','Name_x':'Medals'},inplace=True)
     return x
 
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+
 '''
 #ATHLEYTE WISE ANALYSIS
 

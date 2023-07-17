@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game Recommendation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f1f1f1;
+    }
+    
+    h1 {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: #fff;
+      margin-bottom: 30px;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    button {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    #recommendations {
+      margin-top: 30px;
+    }
+    
+    #recommendations h3 {
+      margin-bottom: 10px;
+    }
+    
+    #games-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    #games-list li {
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+    }
+    
+    #games-list li img {
+      width: 60px;
+      height: 60px;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+    
+    #games-list li p {
+      margin: 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Game Recommendation</h1>
+  
+  <div class="container">
+    <label for="genre">Genre:</label>
+    <select id="genre">
+      <option value="action">Action</option>
+      <option value="adventure">Adventure</option>
+      <option value="rpg">RPG</option>
+      <option value="strategy">Strategy</option>
+      <option value="puzzle">Puzzle</option>
+    </select>
+    
+    <label for="platform">Platform:</label>
+    <select id="platform">
+      <option value="pc">PC</option>
+      <option value="ps4">PlayStation 4</option>
+      <option value="xbox">Xbox One</option>
+      <option value="switch">Nintendo Switch</option>
+      <option value="mobile">Mobile</option>
+    </select>
+    
+    <button onclick="recommendGames()">Recommend</button>
+    
+    <div id="recommendations">
+      <h3>Recommended Games:</h3>
+      <ul id="games-list"></ul>
+    </div>
+  </div>
+  
+  <script>
+    function recommendGames() {
+      var genre = document.getElementById("genre").value;
+      var platform = document.getElementById("platform").value;
+      
+      // You can add your recommendation logic here
+      
+      // Example: Displaying dummy recommendations
+      var recommendations = [
+        { name: "Game 1", image: "https://dummyimage.com/60x60/ccc/fff" },
+        { name: "Game 2", image: "https://dummyimage.com/60x60/ccc/fff" },
+        { name: "Game 3", image: "https://dummyimage.com/60x60/ccc/fff" },
+        { name: "Game 4", image: "https://dummyimage.com/60x60/ccc/fff" },
+        { name: "Game 5", image: "https://dummyimage.com/60x60/ccc/fff" }
+      ];
+      
+      var gamesList = document.getElementById("games-list");
+      gamesList.innerHTML = "";
+      
+      for (var i = 0; i < recommendations.length; i++) {
+        var listItem = document.createElement("li");
+        var gameName = document.createElement("p");
+        var gameImage = document.createElement("img");
+        
+        gameName.innerText = recommendations[i].name;
+        gameImage.src = recommendations[i].image;
+        
+        listItem.appendChild(gameImage);
+        listItem.appendChild(gameName);
+        
+        gamesList.appendChild(listItem);
+      }
+    }
+  </script>
+</body>
+</html>
