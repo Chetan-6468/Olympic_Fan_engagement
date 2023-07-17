@@ -1,6 +1,6 @@
 # views.py
 
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 import pandas as pd
 from pycode.oly import fetch_medal_tally
 from home.forms import inputform
@@ -23,7 +23,7 @@ def feature(request):
 
 def stories(request):
     return render(request, 'stories.html')
-
+import pycode.game
 def game_recommendation(request):
     return render(request, 'game_recommendation.html')
 
@@ -65,9 +65,9 @@ df = df.merge(region_df, on='NOC', how='left')
 df.drop_duplicates(inplace=True)
 df = pd.concat([df, pd.get_dummies(df['Medal'])], axis=1)
 
-from pycode.oly import fetch_medal_tally, yearwise_medal, country_medal_heatmap, most_successful_athletecountry
+from pycode.oly import yearwise_medal, country_medal_heatmap, most_successful_athletecountry
 
-def country_analysis(request):
+'''def country_analysis(request):
     if request.method == 'POST':
         year = request.POST['year']
         country = request.POST['country']
@@ -85,4 +85,11 @@ def country_analysis(request):
             'mostSuccessfulAthletes': most_successful_athletes
         })
 
-    return render(request, 'country_analysis.html')
+    return render(request, 'country_analysis.html')'''
+    
+def yearwise_medal(request):
+    if request.method=='POST':
+        country=request.POST['country']
+        yearwise=yearwise_medal(df,country)
+        yearwise_medal_data=yearwise.to_html()
+        return HttpResponse(request, 'country_analysis.html',{'yearwiseMedalData':yearwise_medal_data})

@@ -71,7 +71,13 @@
             <!-- Populate the table dynamically using JavaScript -->
         </tbody>
     </table>
-
+    <div class="form-group">
+        <label for="country">Select country:</label>
+        <input type="text" id="country" name="country" placeholder="Enter country">
+    </div>
+    <div class="paragraph2">
+        <button type="submit">Show</button>
+    </div>
     <!-- Include any necessary JavaScript code here -->
     <script>
         // Function to update the country analysis using the received data
@@ -91,55 +97,7 @@
             };
             Plotly.newPlot(yearwiseMedalChart, [yearwiseMedalFig], yearwiseMedalLayout);
     
-            // Update sport-wise medal chart
-            const sportwiseMedalChart = document.getElementById("sportwiseMedalChart");
-            const sportwiseMedalData = data.sportwiseMedal;
-            const sportwiseMedalFig = {
-                z: Object.values(sportwiseMedalData),
-                x: Object.keys(sportwiseMedalData[0]),
-                y: Object.keys(sportwiseMedalData),
-                type: 'heatmap'
-            };
-            const sportwiseMedalLayout = {
-                title: 'Sport-wise Medals',
-                xaxis: { title: 'Year' },
-                yaxis: { title: 'Sport' }
-            };
-            Plotly.newPlot(sportwiseMedalChart, [sportwiseMedalFig], sportwiseMedalLayout);
-    
-            // Update most successful athletes table
-            const mostSuccessfulAthletesTable = document.getElementById("mostSuccessfulAthletesTable");
-            const mostSuccessfulAthletesData = data.mostSuccessfulAthletes;
-            mostSuccessfulAthletesTable.innerHTML = mostSuccessfulAthletesData;
-        }
-    
-        // Function to fetch the country analysis data
-        function fetchCountryAnalysis(year, country) {
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    
-            fetch("/country_analysis/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": csrfToken
-                },
-                body: JSON.stringify({
-                    year: year,
-                    country: country
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                updateCountryAnalysis(data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        }
-    
-        // Call the fetchCountryAnalysis function with the desired year and country values
-        // You can update these values based on your requirements
-        fetchCountryAnalysis('2021', 'United States');
+            
     </script>
     
     
