@@ -57,8 +57,8 @@ def fetch_medal(request):
 
 
 
-df = pd.read_csv(r'C:\Users\Chetan\Downloads\athlete_events.csv')
-region_df = pd.read_csv(r'C:\Users\Chetan\Downloads\noc_regions.csv')
+df = pd.read_csv(r'dataframe/athlete_events.csv')
+region_df = pd.read_csv(r'dataframe/noc_regions.csv')
 
 df = df[df['Season'] == 'Summer']
 df = df.merge(region_df, on='NOC', how='left')
