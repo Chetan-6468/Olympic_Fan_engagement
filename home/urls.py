@@ -13,6 +13,10 @@ urlpatterns = [
     path('feature/', views.feature, name='feature'),
     path('stories/', views.stories, name='stories'),
     path('game_recommendation/', views.game_recommendation, name='game_recommendation'),
+     path("recommend_games/", views.recommend_games, name="recommend_games"),
     path('country_analysis/', views.country_analysis, name='country_analysis'),
+    path('game_prediction/', views.game_prediction, name='game_prediction'),
+    path('football_game/', views.football_game, name='football_game'),
+    path('empty/', views.empty, name='empty'),
 
 ]

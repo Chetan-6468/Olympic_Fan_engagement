@@ -1,154 +1,212 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+
   <title>Game Recommendation</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f1f1f1;
-    }
-    
-    h1 {
-      text-align: center;
-      padding: 20px;
-      background-color: #333;
-      color: #fff;
-      margin-bottom: 30px;
-    }
-    
-    .container {
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 10px;
-    }
-    
-    input[type="text"],
-    select {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-    
-    button {
-      background-color: #333;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    
-    #recommendations {
-      margin-top: 30px;
-    }
-    
-    #recommendations h3 {
-      margin-bottom: 10px;
-    }
-    
-    #games-list {
-      list-style: none;
-      padding: 0;
-    }
-    
-    #games-list li {
-      margin-bottom: 10px;
-      background-color: #f9f9f9;
-      padding: 10px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-    }
-    
-    #games-list li img {
-      width: 60px;
-      height: 60px;
-      margin-right: 10px;
-      border-radius: 4px;
-    }
-    
-    #games-list li p {
-      margin: 0;
-      font-weight: bold;
-    }
-  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <link rel="stylesheet" href="/static/css/game_recommendation.css">
 </head>
 <body>
   <h1>Game Recommendation</h1>
-  
+  <form method="post"  id="my-form">
+      {% csrf_token %}
   <div class="container">
-    <label for="genre">Genre:</label>
-    <select id="genre">
-      <option value="action">Action</option>
-      <option value="adventure">Adventure</option>
-      <option value="rpg">RPG</option>
-      <option value="strategy">Strategy</option>
-      <option value="puzzle">Puzzle</option>
-    </select>
+    <label for="favorite-game">Favorite Game:</label>
+    <input type="text" id="favorite-game"  name="favorite-game" placeholder="Enter your favorite game">
     
-    <label for="platform">Platform:</label>
-    <select id="platform">
-      <option value="pc">PC</option>
-      <option value="ps4">PlayStation 4</option>
-      <option value="xbox">Xbox One</option>
-      <option value="switch">Nintendo Switch</option>
-      <option value="mobile">Mobile</option>
-    </select>
+    <div id="games-dropdown">
+      <select id="games" multiple="" title="Select favorite games">
+
+        <option value="Athletics">Athletics</option>
+        <option value="Swimming">Swimming</option>
+        <option value="Badminton">Badminton</option>
+        <option value="Sailing">Sailing</option>
+        <option value="Gymnastics">Gymnastics</option>
+      <option value="Handball">Handball</option>
+      <option value="Weightlifting">Weightlifting</option>
+      <option value="Wrestling">Wrestling</option>
+      <option value="Water Polo">Water Polo</option>
+      <option value="Rowing">Rowing</option>
+      <option value="Fencing">Fencing</option>
+      <option value="Shooting">Shooting</option>
+      <option value="Boxing">Boxing</option>
+      <option value="Diving">Diving</option>
+      <option value="Cycling">Cycling</option>
+      <option value="Canoeing">Canoeing</option>
+      <option value="Tennis">Tennis</option>
+      <option value="Golf">Golf</option>
+      <option value="Softball">Softball</option>
+      <option value="Archery">Archery</option>
+      <option value="Volleyball">Volleyball</option>
+      <option value="Baseball">Baseball</option>
+      <option value="Rythmic">Rythmic </option>
+      <option value="Hockey">Hockey</option>
+      <option value="Polo">Polo</option>
+      <option value="Tug-of-war">Tug-of-war</option>
+      <option value="Speed Skating">Speed Skating</option>
+      <option value="Cross Country Skiing">Cross Country Skiing</option>
+      <option value="Baithlon">Baithlon</option>
+      <option value="Luge">Luge</option>
+      <option value="Taekwondo">Taekwondo</option>
+      <option value="Bobsleigh">Bobsleigh</option>
+      <option value="Equestrianism">Equestrianism</option>
+      <option value="Rugby Sevens">Rugby Sevens</option>
+      <option value="Trampolining">Trampolining</option>
+      <option value="Triathlon">Triathlon</option>
+      <option value="Ski Jumping">Ski Jumping</option>
+      <option value="Curling">Curling</option>
+       <option value="Snowboarding">Snowboarding</option>
+          <option value="Lacrosse">Lacrosse</option>
+          <option value="Racquets">Racquets</option>
+          <option value="Motorboating">Motorboating</option>
+          <option value="Aeronautics">Aeronautics</option>
+          <option value="Football">Football</option>
+          <option value="Judo">Judo</option>
+          <option value="Basketball">Basketball</option>
+ 
+        <!-- Add more games from the provided list -->
+      </select>
+    </div>
     
-    <button onclick="recommendGames()">Recommend</button>
+    <button  type="submit" onclick="recommendGames(event)">Recommend</button>
+
     
     <div id="recommendations">
       <h3>Recommended Games:</h3>
       <ul id="games-list"></ul>
     </div>
   </div>
-  
+</form> 
   <script>
-    function recommendGames() {
-      var genre = document.getElementById("genre").value;
-      var platform = document.getElementById("platform").value;
+    // Games data
+    var gamesData = [
+  { name: "Athletics", image: "https://source.unsplash.com/random/40x40" },
+  { name: "Swimming", image: "https://source.unsplash.com/random/40x40" },
+  { name: "Badminton", image: "https://source.unsplash.com/random/40x40" },
+  { name: "Handball", image: "https://source.unsplash.com/random/40x40" },
+  { name: "Weightlifting", image: "https://source.unsplash.com/random/40x40" },
+  { name: "Wrestling", image: "wrestling.png" },
+  { name: "Water Polo", image: "water-polo.png" },
+  { name: "Rowing", image: "rowing.png" },
+  { name: "Fencing", image: "fencing.png" },
+  { name: "Shooting", image: "shooting.png" },
+  { name: "Boxing", image: "boxing.png" },
+  { name: "Diving", image: "diving.png" },
+  { name: "Cycling", image: "cycling.png" },
+  { name: "Canoeing", image: "canoeing.png" },
+  { name: "Tennis", image: "tennis.png" },
+  { name: "Golf", image: "golf.png" },
+  { name: "Softball", image: "softball.png" },
+  { name: "Archery", image: "archery.png" },
+  { name: "Volleyball", image: "volleyball.png" },
+  { name: "Baseball", image: "baseball.png" },
+  { name: "Rythmic", image: "rythmic.png" },
+  { name: "Hockey", image: "hockey.png" },
+  { name: "Polo", image: "polo.png" },
+  { name: "Tug-of-war", image: "tug-of-war.png" },
+  { name: "Speed Skating", image: "speed-skating.png" },
+  { name: "Cross Country Skiing", image: "cross-country-skiing.png" },
+  { name: "Baithlon", image: "biathlon.png" },
+  { name: "Luge", image: "luge.png" },
+  { name: "Taekwondo", image: "taekwondo.png" },
+  { name: "Bobsleigh", image: "bobsleigh.png" },
+  { name: "Equestrianism", image: "equestrianism.png" },
+  { name: "Rugby Sevens", image: "rugby-sevens.png" },
+  { name: "Trampolining", image: "trampolining.png" },
+  { name: "Triathlon", image: "triathlon.png" },
+  { name: "Ski Jumping", image: "ski-jumping.png" },
+  { name: "Curling", image: "curling.png" },
+  { name: "Snowboarding", image: "Snowboarding.png" },
+  { name: "Lacrosse", image: "Lacrosse.png" },
+  { name: "Racquets", image: "Racquets.png" },
+  { name: "Motorboating", image: "Motorboating.png" },
+  { name: "Aeronautics", image: "Aeronautics.png" },
+  { name: "Football", image: "Football.png" },
+  { name: "Judo", image: "Judo.png" },
+  { name: "Basketball", image: "Basketball.png" },
+
+      // Add more games from the provided list
+    ];
+    
+       // Filter games based on input value
+    function filterGames(inputValue) {
+      var filteredGames = gamesData.filter(function(game) {
+        return game.name.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      return filteredGames;
+    }
+
+    // Update the dropdown list based on the input value
+    function updateDropdown(inputValue) {
+      var dropdown = document.getElementById("games");
+      dropdown.innerHTML = "";
+
+      var filteredGames = filterGames(inputValue);
+
+      filteredGames.forEach(function(game) {
+        var option = document.createElement("option");
+        option.value = game.name;
+        option.textContent = game.name;
+        dropdown.appendChild(option);
+      });
+    }
+
+    // Listen for input changes
+    var input = document.getElementById("favorite-game");
+    input.addEventListener("input", function() {
+      var inputValue = input.value;
+      updateDropdown(inputValue);
+    });
+
+    function recommendGames(event) {
+      event.preventDefault();
       
-      // You can add your recommendation logic here
-      
-      // Example: Displaying dummy recommendations
-      var recommendations = [
-        { name: "Game 1", image: "https://dummyimage.com/60x60/ccc/fff" },
-        { name: "Game 2", image: "https://dummyimage.com/60x60/ccc/fff" },
-        { name: "Game 3", image: "https://dummyimage.com/60x60/ccc/fff" },
-        { name: "Game 4", image: "https://dummyimage.com/60x60/ccc/fff" },
-        { name: "Game 5", image: "https://dummyimage.com/60x60/ccc/fff" }
-      ];
-      
+      var favoriteGame = document.getElementById("favorite-game").value;
       var gamesList = document.getElementById("games-list");
       gamesList.innerHTML = "";
-      
-      for (var i = 0; i < recommendations.length; i++) {
-        var listItem = document.createElement("li");
-        var gameName = document.createElement("p");
-        var gameImage = document.createElement("img");
-        
-        gameName.innerText = recommendations[i].name;
-        gameImage.src = recommendations[i].image;
-        
-        listItem.appendChild(gameImage);
-        listItem.appendChild(gameName);
-        
-        gamesList.appendChild(listItem);
-      }
+
+      // Fetch the CSRF token value from the hidden input field
+      var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+      // Fetch data from the server
+      fetch("/recommend_games/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
+        },
+        body: JSON.stringify({
+          "favorite-game": favoriteGame,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.length === 0) {
+            var listItem = document.createElement("li");
+            listItem.innerText = "No recommendations found for this game.";
+            gamesList.appendChild(listItem);
+          } else {
+            data.forEach(function (game) {
+              var listItem = document.createElement("li");
+              var gameName = document.createElement("p");
+              var gameImage = document.createElement("img");
+
+              gameName.innerText = game.Title;
+              gameImage.src = game.image;
+              gameImage.classList.add("game-image");
+
+              listItem.appendChild(gameImage);
+              listItem.appendChild(gameName);
+
+              gamesList.appendChild(listItem);
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching recommendations:", error);
+        });
     }
   </script>
 </body>

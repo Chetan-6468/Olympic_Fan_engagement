@@ -28,6 +28,14 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# Security settings
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+
+CSRF_COOKIE_SECURE = True
+# Set the default charset to utf-8
+DEFAULT_CHARSET = 'utf-8'
+
 # Application definition
 
 INSTALLED_APPS = [

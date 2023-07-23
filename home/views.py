@@ -27,6 +27,17 @@ def stories(request):
 def game_recommendation(request):
     return render(request, 'game_recommendation.html')
 
+def game_prediction(request):
+    return render(request, 'game_prediction.html')
+
+def football_game(request):
+    return render(request, 'football_game.html')
+
+def empty(request):
+    return render(request, 'empty.html')
+
+
+
 from django.shortcuts import render
 
 # def index(request):
@@ -86,3 +97,31 @@ def country_analysis(request):
         })
 
     return render(request, 'country_analysis.html')
+
+
+# -----------------------game recommenation---------------
+
+# views.py
+
+from django.http import JsonResponse
+from pycode.game import recommend
+import pandas as pd
+from django.views.decorators.csrf import csrf_exempt
+
+df = pd.read_csv("dataframe/gamedata.csv")
+df.dropna(inplace=True)
+
+@csrf_exempt
+def recommend_games(request):
+    if request.method == "POST":
+        favorite_game = str(request.POST.get("favorite-game"))  # Convert to string
+        recommendations = recommend(favorite_game)
+        
+        if not recommendations:
+            return JsonResponse([], safe=False)
+        
+        # Create a list of dictionaries with required keys for the frontend
+        result = [{"Title": game["Title"], "image": game["genre"]} for game in recommendations]
+        return JsonResponse(result, safe=False, charset='utf-8')
+    
+    return JsonResponse({}, safe=False)
