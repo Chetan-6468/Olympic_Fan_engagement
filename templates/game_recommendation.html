@@ -80,134 +80,58 @@
     </div>
   </div>
 </form> 
-  <script>
-    // Games data
-    var gamesData = [
-  { name: "Athletics", image: "https://source.unsplash.com/random/40x40" },
-  { name: "Swimming", image: "https://source.unsplash.com/random/40x40" },
-  { name: "Badminton", image: "https://source.unsplash.com/random/40x40" },
-  { name: "Handball", image: "https://source.unsplash.com/random/40x40" },
-  { name: "Weightlifting", image: "https://source.unsplash.com/random/40x40" },
-  { name: "Wrestling", image: "wrestling.png" },
-  { name: "Water Polo", image: "water-polo.png" },
-  { name: "Rowing", image: "rowing.png" },
-  { name: "Fencing", image: "fencing.png" },
-  { name: "Shooting", image: "shooting.png" },
-  { name: "Boxing", image: "boxing.png" },
-  { name: "Diving", image: "diving.png" },
-  { name: "Cycling", image: "cycling.png" },
-  { name: "Canoeing", image: "canoeing.png" },
-  { name: "Tennis", image: "tennis.png" },
-  { name: "Golf", image: "golf.png" },
-  { name: "Softball", image: "softball.png" },
-  { name: "Archery", image: "archery.png" },
-  { name: "Volleyball", image: "volleyball.png" },
-  { name: "Baseball", image: "baseball.png" },
-  { name: "Rythmic", image: "rythmic.png" },
-  { name: "Hockey", image: "hockey.png" },
-  { name: "Polo", image: "polo.png" },
-  { name: "Tug-of-war", image: "tug-of-war.png" },
-  { name: "Speed Skating", image: "speed-skating.png" },
-  { name: "Cross Country Skiing", image: "cross-country-skiing.png" },
-  { name: "Baithlon", image: "biathlon.png" },
-  { name: "Luge", image: "luge.png" },
-  { name: "Taekwondo", image: "taekwondo.png" },
-  { name: "Bobsleigh", image: "bobsleigh.png" },
-  { name: "Equestrianism", image: "equestrianism.png" },
-  { name: "Rugby Sevens", image: "rugby-sevens.png" },
-  { name: "Trampolining", image: "trampolining.png" },
-  { name: "Triathlon", image: "triathlon.png" },
-  { name: "Ski Jumping", image: "ski-jumping.png" },
-  { name: "Curling", image: "curling.png" },
-  { name: "Snowboarding", image: "Snowboarding.png" },
-  { name: "Lacrosse", image: "Lacrosse.png" },
-  { name: "Racquets", image: "Racquets.png" },
-  { name: "Motorboating", image: "Motorboating.png" },
-  { name: "Aeronautics", image: "Aeronautics.png" },
-  { name: "Football", image: "Football.png" },
-  { name: "Judo", image: "Judo.png" },
-  { name: "Basketball", image: "Basketball.png" },
-
-      // Add more games from the provided list
-    ];
-    
-       // Filter games based on input value
-    function filterGames(inputValue) {
-      var filteredGames = gamesData.filter(function(game) {
-        return game.name.toLowerCase().includes(inputValue.toLowerCase());
-      });
-      return filteredGames;
-    }
-
-    // Update the dropdown list based on the input value
-    function updateDropdown(inputValue) {
-      var dropdown = document.getElementById("games");
-      dropdown.innerHTML = "";
-
-      var filteredGames = filterGames(inputValue);
-
-      filteredGames.forEach(function(game) {
-        var option = document.createElement("option");
-        option.value = game.name;
-        option.textContent = game.name;
-        dropdown.appendChild(option);
-      });
-    }
-
-    // Listen for input changes
-    var input = document.getElementById("favorite-game");
-    input.addEventListener("input", function() {
-      var inputValue = input.value;
-      updateDropdown(inputValue);
-    });
-
-    function recommendGames(event) {
-      event.preventDefault();
-      
-      var favoriteGame = document.getElementById("favorite-game").value;
-      var gamesList = document.getElementById("games-list");
-      gamesList.innerHTML = "";
-
-      // Fetch the CSRF token value from the hidden input field
-      var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-      // Fetch data from the server
-      fetch("/recommend_games/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,
-        },
-        body: JSON.stringify({
-          "favorite-game": favoriteGame,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.length === 0) {
+<script>
+  function recommendGames(event) {
+    event.preventDefault();
+  
+    var favoriteGame = document.getElementById("favorite-game").value.trim(); // Trim any leading/trailing whitespaces
+    console.log("Favorite game:", favoriteGame); // Add this line to check the favorite game value
+  
+    var gamesList = document.getElementById("games-list");
+    gamesList.innerHTML = "";
+  
+    // Fetch the CSRF token value from the hidden input field
+    var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    console.log("CSRF Token:", csrfToken);
+    // Fetch data from the server
+    fetch("/recommend_games/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken,
+      },
+      body: JSON.stringify({ "favorite-game": favoriteGame }), // Send the data as a JSON object
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Server response:", data); // Add this line to check the server response
+  
+        if (data.length === 0) {
+          var listItem = document.createElement("li");
+          listItem.innerText = "No recommendations found for this game.";
+          gamesList.appendChild(listItem);
+        } else {
+          data.forEach(function (game) {
             var listItem = document.createElement("li");
-            listItem.innerText = "No recommendations found for this game.";
+            var gameName = document.createElement("p");
+            var gameImage = document.createElement("img");
+  
+            gameName.innerText = game.Title;
+            gameImage.src = game.image;
+            gameImage.classList.add("game-image");
+  
+            listItem.appendChild(gameImage);
+            listItem.appendChild(gameName);
+  
             gamesList.appendChild(listItem);
-          } else {
-            data.forEach(function (game) {
-              var listItem = document.createElement("li");
-              var gameName = document.createElement("p");
-              var gameImage = document.createElement("img");
-
-              gameName.innerText = game.Title;
-              gameImage.src = game.image;
-              gameImage.classList.add("game-image");
-
-              listItem.appendChild(gameImage);
-              listItem.appendChild(gameName);
-
-              gamesList.appendChild(listItem);
-            });
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching recommendations:", error);
-        });
-    }
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching recommendations:", error);
+      });
+  }
   </script>
+  
 </body>
 </html>

@@ -114,14 +114,17 @@ df.dropna(inplace=True)
 @csrf_exempt
 def recommend_games(request):
     if request.method == "POST":
-        favorite_game = str(request.POST.get("favorite-game"))  # Convert to string
+        favorite_game = str(request.POST.get("favorite-game", "")).strip()  # Convert to string and remove leading/trailing whitespaces
+        print("Favorite game received from frontend:", favorite_game)
+
         recommendations = recommend(favorite_game)
-        
+
         if not recommendations:
+            print("No recommendations found for this game.")
             return JsonResponse([], safe=False)
-        
+
         # Create a list of dictionaries with required keys for the frontend
-        result = [{"Title": game["Title"], "image": game["genre"]} for game in recommendations]
+        result = [{"Title": game["Title"], "genre": game["genre"]} for game in recommendations]
         return JsonResponse(result, safe=False, charset='utf-8')
-    
+
     return JsonResponse({}, safe=False)
