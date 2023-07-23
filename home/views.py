@@ -101,8 +101,6 @@ def country_analysis(request):
 
 # -----------------------game recommenation---------------
 
-# views.py
-
 from django.http import JsonResponse
 from pycode.game import recommend
 import pandas as pd
@@ -114,7 +112,7 @@ df.dropna(inplace=True)
 @csrf_exempt
 def recommend_games(request):
     if request.method == "POST":
-        favorite_game = str(request.POST.get("favorite-game", "")).strip()  # Convert to string and remove leading/trailing whitespaces
+        favorite_game = str(request.POST.get("favorite-game", "")).strip()
         print("Favorite game received from frontend:", favorite_game)
 
         recommendations = recommend(favorite_game)
@@ -123,8 +121,10 @@ def recommend_games(request):
             print("No recommendations found for this game.")
             return JsonResponse([], safe=False)
 
-        # Create a list of dictionaries with required keys for the frontend
-        result = [{"Title": game["Title"], "genre": game["genre"]} for game in recommendations]
-        return JsonResponse(result, safe=False, charset='utf-8')
+        # Create a list of game titles from the recommendations
+        titles = [game["Title"] for game in recommendations]
+        return JsonResponse(titles, safe=False, charset='utf-8')
 
     return JsonResponse({}, safe=False)
+
+

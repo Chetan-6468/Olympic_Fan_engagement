@@ -7,73 +7,307 @@
   <title>Game Recommendation</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <link rel="stylesheet" href="/static/css/game_recommendation.css">
+  <!-- <link rel="stylesheet" href="/static/css/game_recommendation.css"> -->
+
+
+  <style> 
+  /* CSS for the "playstore-views" class */
+.playstore-views {
+  background-color: #4CAF50;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.playstore-views:hover {
+  background-color: #45a049;
+}
+
+/* Position the "playstore-views" to the right side */
+li {
+  position: relative;
+}
+
+.playstore-views {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+}
+
+/* CSS for the recommended games list */
+#games-list {
+  list-style: none;
+  padding: 0;
+}
+
+#games-list li {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+#games-list li:last-child {
+  border-bottom: none;
+}
+
+#games-list li img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+#games-list li .playstore-views {
+  background-color: #4CAF50;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#games-list li .playstore-views:hover {
+  background-color: #45a049;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+  }
+  
+
+  
+  .container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+   
+  }
+  
+  button:hover
+{
+ background-color:green;
+}
+
+  #recommendations {
+    margin-top: 30px;
+  }
+  
+  #recommendations h3 {
+    margin-bottom: 10px;
+  }
+  
+  #games-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  #games-list li {
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+  }
+  
+  #games-list li img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+  
+  #games-list li p {
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .game-image {
+width: 40px;
+height: 40px;
+margin-right: 10px;
+border-radius: 50%;
+}
+
+ /* CSS for the Navbar */
+    .navbar-top {
+      background-color: #318fb5;
+      color: #fff;
+      padding: 15px 0;
+    }
+
+    .hello {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .navbar-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar-links li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .navbar-links li:last-child {
+      margin-right: 0;
+    }
+
+    .navbar-links a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .navbar-links a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Additional Styling for the body */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f1f1f1;
+    }
+
+
+
+
+  </style>
 </head>
 <body>
-  <h1>Game Recommendation</h1>
-  <form method="post"  id="my-form">
+  <div class="navbar-top">
+    <div class="hello">
+        <ul class="navbar-links">
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <h1>Game Recommendations</h1>
+        <img src="/static/img/logo3.png" alt="Logo" class="logo">
+    </div>
+</div>
+  <form method="post" id="my-form">
       {% csrf_token %}
   <div class="container">
     <label for="favorite-game">Favorite Game:</label>
-    <input type="text" id="favorite-game"  name="favorite-game" placeholder="Enter your favorite game">
-    
+    <input type="text" id="favorite-game"  name="favorite-game" placeholder="Enter your favorite game"> 
     <div id="games-dropdown">
-      <select id="games" multiple="" title="Select favorite games">
+            <select id="games" multiple>
+              <option value="Athletics">Athletics</option>
+              <option value="Swimming">Swimming</option>
+              <option value="Badminton">Badminton</option>
+              <option value="Sailing">Sailing</option>
+              <option value="Gymnastics">Gymnastics</option>
+            <option value="Handball">Handball</option>
+            <option value="Weightlifting">Weightlifting</option>
+            <option value="Wrestling">Wrestling</option>
+            <option value="Water Polo">Water Polo</option>
+            <option value="Rowing">Rowing</option>
+            <option value="Fencing">Fencing</option>
+            <option value="Shooting">Shooting</option>
+            <option value="Boxing">Boxing</option>
+            <option value="Diving">Diving</option>
+            <option value="Cycling">Cycling</option>
+            <option value="Canoeing">Canoeing</option>
+            <option value="Tennis">Tennis</option>
+            <option value="Golf">Golf</option>
+            <option value="Softball">Softball</option>
+            <option value="Archery">Archery</option>
+            <option value="Volleyball">Volleyball</option>
+            <option value="Baseball">Baseball</option>
+            <option value="Rythmic">Rythmic </option>
+            <option value="Hockey">Hockey</option>
+            <option value="Polo">Polo</option>
+            <option value="Tug-of-war">Tug-of-war</option>
+            <option value="Speed Skating">Speed Skating</option>
+            <option value="Cross Country Skiing">Cross Country Skiing</option>
+            <option value="Baithlon">Baithlon</option>
+            <option value="Luge">Luge</option>
+            <option value="Taekwondo">Taekwondo</option>
+            <option value="Bobsleigh">Bobsleigh</option>
+            <option value="Equestrianism">Equestrianism</option>
+            <option value="Rugby Sevens">Rugby Sevens</option>
+            <option value="Trampolining">Trampolining</option>
+            <option value="Triathlon">Triathlon</option>
+            <option value="Ski Jumping">Ski Jumping</option>
+            <option value="Curling">Curling</option>
+             <option value="Snowboarding">Snowboarding</option>
+                <option value="Lacrosse">Lacrosse</option>
+                <option value="Racquets">Racquets</option>
+                <option value="Motorboating">Motorboating</option>
+                <option value="Aeronautics">Aeronautics</option>
+                <option value="Football">Football</option>
+                <option value="Judo">Judo</option>
+                <option value="Basketball">Basketball</option>
+       
+              <!-- Add more games from the provided list -->
+            </select>
+          </div>
+      
 
-        <option value="Athletics">Athletics</option>
-        <option value="Swimming">Swimming</option>
-        <option value="Badminton">Badminton</option>
-        <option value="Sailing">Sailing</option>
-        <option value="Gymnastics">Gymnastics</option>
-      <option value="Handball">Handball</option>
-      <option value="Weightlifting">Weightlifting</option>
-      <option value="Wrestling">Wrestling</option>
-      <option value="Water Polo">Water Polo</option>
-      <option value="Rowing">Rowing</option>
-      <option value="Fencing">Fencing</option>
-      <option value="Shooting">Shooting</option>
-      <option value="Boxing">Boxing</option>
-      <option value="Diving">Diving</option>
-      <option value="Cycling">Cycling</option>
-      <option value="Canoeing">Canoeing</option>
-      <option value="Tennis">Tennis</option>
-      <option value="Golf">Golf</option>
-      <option value="Softball">Softball</option>
-      <option value="Archery">Archery</option>
-      <option value="Volleyball">Volleyball</option>
-      <option value="Baseball">Baseball</option>
-      <option value="Rythmic">Rythmic </option>
-      <option value="Hockey">Hockey</option>
-      <option value="Polo">Polo</option>
-      <option value="Tug-of-war">Tug-of-war</option>
-      <option value="Speed Skating">Speed Skating</option>
-      <option value="Cross Country Skiing">Cross Country Skiing</option>
-      <option value="Baithlon">Baithlon</option>
-      <option value="Luge">Luge</option>
-      <option value="Taekwondo">Taekwondo</option>
-      <option value="Bobsleigh">Bobsleigh</option>
-      <option value="Equestrianism">Equestrianism</option>
-      <option value="Rugby Sevens">Rugby Sevens</option>
-      <option value="Trampolining">Trampolining</option>
-      <option value="Triathlon">Triathlon</option>
-      <option value="Ski Jumping">Ski Jumping</option>
-      <option value="Curling">Curling</option>
-       <option value="Snowboarding">Snowboarding</option>
-          <option value="Lacrosse">Lacrosse</option>
-          <option value="Racquets">Racquets</option>
-          <option value="Motorboating">Motorboating</option>
-          <option value="Aeronautics">Aeronautics</option>
-          <option value="Football">Football</option>
-          <option value="Judo">Judo</option>
-          <option value="Basketball">Basketball</option>
- 
-        <!-- Add more games from the provided list -->
-      </select>
-    </div>
-    
-    <button  type="submit" onclick="recommendGames(event)">Recommend</button>
-
-    
+    <button id="recommend-button" type="button">Recommend</button>
     <div id="recommendations">
       <h3>Recommended Games:</h3>
       <ul id="games-list"></ul>
@@ -81,56 +315,124 @@
   </div>
 </form> 
 <script>
-  function recommendGames(event) {
-    event.preventDefault();
-  
-    var favoriteGame = document.getElementById("favorite-game").value.trim(); // Trim any leading/trailing whitespaces
-    console.log("Favorite game:", favoriteGame); // Add this line to check the favorite game value
-  
-    var gamesList = document.getElementById("games-list");
-    gamesList.innerHTML = "";
-  
-    // Fetch the CSRF token value from the hidden input field
-    var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-    console.log("CSRF Token:", csrfToken);
-    // Fetch data from the server
+   var gamesData = [
+  { name: "Athletics", image: "https://source.unsplash.com/random/40x40" },
+  { name: "Swimming", image: "https://source.unsplash.com/random/40x40" },
+  { name: "Badminton", image: "https://source.unsplash.com/random/40x40" },
+  { name: "Handball", image: "https://source.unsplash.com/random/40x40" },
+  { name: "Weightlifting", image: "https://source.unsplash.com/random/40x40" },
+  { name: "Wrestling", image: "wrestling.png" },
+  { name: "Water Polo", image: "water-polo.png" },
+  { name: "Rowing", image: "rowing.png" },
+  { name: "Fencing", image: "fencing.png" },
+  { name: "Shooting", image: "shooting.png" },
+  { name: "Boxing", image: "boxing.png" },
+  { name: "Diving", image: "diving.png" },
+  { name: "Cycling", image: "cycling.png" },
+  { name: "Canoeing", image: "canoeing.png" },
+  { name: "Tennis", image: "tennis.png" },
+  { name: "Golf", image: "golf.png" },
+  { name: "Softball", image: "softball.png" },
+  { name: "Archery", image: "archery.png" },
+  { name: "Volleyball", image: "volleyball.png" },
+  { name: "Baseball", image: "baseball.png" },
+  { name: "Rythmic", image: "rythmic.png" },
+  { name: "Hockey", image: "hockey.png" },
+  { name: "Polo", image: "polo.png" },
+  { name: "Tug-of-war", image: "tug-of-war.png" },
+  { name: "Speed Skating", image: "speed-skating.png" },
+  { name: "Cross Country Skiing", image: "cross-country-skiing.png" },
+  { name: "Baithlon", image: "biathlon.png" },
+  { name: "Luge", image: "luge.png" },
+  { name: "Taekwondo", image: "taekwondo.png" },
+  { name: "Bobsleigh", image: "bobsleigh.png" },
+  { name: "Equestrianism", image: "equestrianism.png" },
+  { name: "Rugby Sevens", image: "rugby-sevens.png" },
+  { name: "Trampolining", image: "trampolining.png" },
+  { name: "Triathlon", image: "triathlon.png" },
+  { name: "Ski Jumping", image: "ski-jumping.png" },
+  { name: "Curling", image: "curling.png" },
+  { name: "Snowboarding", image: "Snowboarding.png" },
+  { name: "Lacrosse", image: "Lacrosse.png" },
+  { name: "Racquets", image: "Racquets.png" },
+  { name: "Motorboating", image: "Motorboating.png" },
+  { name: "Aeronautics", image: "Aeronautics.png" },
+  { name: "Football", image: "Football.png" },
+  { name: "Judo", image: "Judo.png" },
+  { name: "Basketball", image: "Basketball.png" },
+      // Add more games from the provided list
+    ];
+    
+
+//       
+
+
+ //Filter games based on input value
+    function filterGames(inputValue) {
+      var filteredGames = gamesData.filter(function(game) {
+        return game.name.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      return filteredGames;
+    }
+    // Update the dropdown list based on the input value
+    function updateDropdown(inputValue) {
+      var dropdown = document.getElementById("games");
+      dropdown.innerHTML = "";
+      var filteredGames = filterGames(inputValue);
+      filteredGames.forEach(function(game) {
+        var option = document.createElement("option");
+        option.value = game.name;
+        option.textContent = game.name;
+        dropdown.appendChild(option);
+      });
+    }
+   // Listen for input changes
+    var input = document.getElementById("favorite-game");
+    input.addEventListener("input", function() {
+      var inputValue = input.value;
+      updateDropdown(inputValue);
+   });
+
+
+
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+const favoriteGameInput = document.getElementById("favorite-game");
+const recommendButton = document.getElementById("recommend-button");
+const gameList = document.getElementById("games-list");
+
+recommendButton.addEventListener("click", () => {
+  const favoriteGame = favoriteGameInput.value.trim();
+
+  if (favoriteGame !== "") {
+    const formData = new FormData();
+    formData.append("favorite-game", favoriteGame);
+
     fetch("/recommend_games/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         "X-CSRFToken": csrfToken,
       },
-      body: JSON.stringify({ "favorite-game": favoriteGame }), // Send the data as a JSON object
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Server response:", data); // Add this line to check the server response
-  
-        if (data.length === 0) {
-          var listItem = document.createElement("li");
-          listItem.innerText = "No recommendations found for this game.";
-          gamesList.appendChild(listItem);
-        } else {
-          data.forEach(function (game) {
-            var listItem = document.createElement("li");
-            var gameName = document.createElement("p");
-            var gameImage = document.createElement("img");
-  
-            gameName.innerText = game.Title;
-            gameImage.src = game.image;
-            gameImage.classList.add("game-image");
-  
-            listItem.appendChild(gameImage);
-            listItem.appendChild(gameName);
-  
-            gamesList.appendChild(listItem);
+        console.log("Server response:", data);
+        gameList.innerHTML = ""; // Clear previous game list
+
+        if (data.length > 0) {
+          data.forEach((game) => {
+            // Display the titles of the games that match the specified genre
+            gameList.innerHTML += `<li>${game}  <span class="playstore-views">Views on Playstore</span> </li>`;
           });
+        } else {
+          gameList.innerHTML = "<li>No recommendations found for this game.</li>";
         }
       })
       .catch((error) => {
-        console.error("Error fetching recommendations:", error);
+        console.error("Error:", error);
       });
   }
+});
   </script>
   
 </body>
