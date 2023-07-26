@@ -79,34 +79,32 @@ def most_successful(temp_df,sport):
 
 #COUNTRY WISE ANALYSIS
 
-#yearwise medals of diff  countries
-def yearwise_medal(df,country):
-    temp_df=df.dropna(subset=['Medal'])
-    temp_df.drop_duplicates(subset=['Team','NOC','Games','Year','City','Sport','Event','Medal'],inplace=True)
-    new_df=temp_df[temp_df['region']==country]
-    final_df=new_df.groupby('Year').count()['Medal'].reset_index()
-    fig=px.line(final_df,x='Year',y='Medal')
-    return fig.show()
+import plotly.offline as pyo
+# Function to get year-wise medal data for a specific country
+def yearwise_medal(df, country):
+    temp_df = df.dropna(subset=['Medal'])
+    temp_df.drop_duplicates(subset=['Team', 'NOC', 'Games', 'Year', 'City', 'Sport', 'Event', 'Medal'], inplace=True)
+    new_df = temp_df[temp_df['NOC'] == country]
+    final_df = new_df.groupby('Year').count()['Medal'].reset_index()
+    return final_df.to_dict(orient='records')  # Convert DataFrame to a list of dictionaries
 
-#sport wise medals of diff countries
-def country_medal_heatmap(df,country):
-    temp_df=df.dropna(subset=['Medal'])
-    temp_df.drop_duplicates(subset=['Team','NOC','Games','Year','City','Sport','Event','Medal'],inplace=True)
-    new_df=temp_df[temp_df['region']==country]
-    plt.figure(figsize=(20,20))
-    pt=sns.heatmap(new_df.pivot_table(index='Sport',columns='Year',values='Medal',aggfunc='count').fillna(0).astype(int),annot=True)
-    return pt
+# Function to get sport-wise medal data for a specific country
+def country_medal_heatmap(df, country):
+    temp_df = df.dropna(subset=['Medal'])
+    temp_df.drop_duplicates(subset=['Team', 'NOC', 'Games', 'Year', 'City', 'Sport', 'Event', 'Medal'], inplace=True)
+    new_df = temp_df[temp_df['NOC'] == country]
+    sportwise_medal_data = new_df.pivot_table(index='Sport', columns='Year', values='Medal', aggfunc='count').fillna(0).astype(int)
+    sportwise_medal_data.reset_index(inplace=True)
+    return sportwise_medal_data.to_dict(orient='list')  # Convert DataFrame to a dictionary of lists
 
-#mostsuccessful athletes country wise
-def most_successful_athletecountry(temp_df,country):
-    temp_df=df.dropna(subset=['Medal'])
-    temp_df=temp_df[temp_df['region']==country]
-    
-    x= temp_df['Name'].value_counts().reset_index().head(10).merge(df,left_on='index',right_on='Name',how='left')[['index','Name_x','Sport']].drop_duplicates('index')
-    x.rename(columns={'index':'Name','Name_x':'Medals'},inplace=True)
-    return x
+# Function to get most successful athletes data for a specific country
+def most_successful_athletecountry(df, country):
+    temp_df = df.dropna(subset=['Medal'])
+    temp_df = temp_df[temp_df['NOC'] == country]
 
-
+    x = temp_df['Name'].value_counts().reset_index().head(10).merge(df, left_on='index', right_on='Name', how='left')[['index', 'Name_x', 'Sport']].drop_duplicates('index')
+    x.rename(columns={'index': 'Name', 'Name_x': 'Medals'}, inplace=True)
+    return x.to_dict(orient='records')  # Convert DataFrame to a list of dictionaries
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 
 '''

@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Football Prediction</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+  }
+  
+  .container {
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #318fb5;
+  }
+  
+  .team-selection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .team-selection h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #318fb5;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f5f5f5;
+    color: #555;
+    font-size: 16px;
+  }
+  
+  select:focus {
+    outline: none;
+    border-color: #318fb5;
+  }
+  
+  button {
+    width: 100%;
+    background-color: #318fb5;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #34a936;
+  }
+  
+  .team-preview {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .team-preview h3 {
+    margin-bottom: 10px;
+    color: #318fb5;
+  }
+  
+  /* Adjust font size to fit all content within one page */
+  @media screen and (max-width: 800px) {
+    body {
+      font-size: 14px;
+    }
+  
+    .container {
+      font-size: 16px;
+    }
+  
+    select,
+    button {
+      font-size: 14px;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    body {
+      font-size: 12px;
+    }
+  
+    .container {
+      font-size: 14px;
+    }
+  
+    select,
+    button {
+      font-size: 12px;
+    }
+  }
+
+  .navbar-top {
+            background-color: #318fb5;;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        
+        .hello {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        h1 {
+            font-size: 40px;
+            margin: 0;
+            color: #fff;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        
+        .navbar-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        
+        .navbar-links li {
+            margin-right: 20px;
+        }
+        
+        .navbar-links li:last-child {
+            margin-right: 0;
+        }
+        
+        .navbar-links li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .navbar-links li a:hover {
+            background-color: #71a2b5;;
+        }
+
+
+        footer {
+  background-color: #f8f8f8;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+  
+  </style>
+</head>
+<body>
+  <div class="navbar-top">
+    <div class="hello">
+        <ul class="navbar-links">
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <h1>Game Predictions</h1>
+        <img src="/static/img/logo3.png" alt="Logo" class="logo">
+    </div>
+</div>
+<form id="prediction-form">
+    <div class="container">
+      <div class="team-selection">
+        <div class="home-team">
+          <h2 for="home-team">Home Team</h2>
+          <div class="form-group">
+            <label for="home-team">Select Home Team:</label>
+            <select id="home-team">
+              <!-- Add options for home teams here -->
+              <option value="">Select</option>
+              <option value="India">India</option>
+                <option value="South Korea">South Korea</option>
+                <option value="Thailand">Thailand</option>
+                <option value="Senegal">Senegal</option>
+                <option value="Guinea">Guinea</option>
+                <option value="Mauritius">Mauritius</option>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Cambodia">Cambodia</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Myanmar">Myanmar</option>
+                <option value="Algeria">Algeria</option>
+                <option value="Qatar">Qatar</option>
+                <option value="Hong Kong">Hong Kong</option>
+                <option value="Syria">Syria</option>
+                <option value="Libya">Libya</option>
+                <option value="Morocco">Morocco</option>
+                <option value="Kenya">Kenya</option>
+                <option value="Czechoslovakia">Czechoslovakia</option>
+                <option value="Tunisia">Tunisia</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Zambia">Zambia</option>
+                <option value="Iran">Iran</option>
+                <option value="Paraguay">Paraguay</option>
+                <option value="Guinea-Bissau">Guinea-Bissau</option>
+                <option value="Cameroon">Cameroon</option>
+                <option value="Gambia">Gambia</option>
+                <option value="Italy">Italy</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="Mali">Mali</option>
+                <option value="Rwanda">Rwanda</option>
+                <option value="Ivory Coast">Ivory Coast</option>
+                <option value="Germany">Germany</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Uganda">Uganda</option>
+                <option value="Egypt">Egypt</option>
+                <option value="Brazil">Brazil</option>
+                <option value="Sierra Leone">Sierra Leone</option>
+                <option value="Iraq">Iraq</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Ghana">Ghana</option>
+                <option value="Saudi Arabia">Saudi Arabia</option>
+                <option value="Malawi">Malawi</option>
+                <option value="Chad">Chad</option>
+                <option value="Central African Republic">Central African Republic</option>
+                <option value="Congo">Congo</option>
+                <option value="Mozambique">Mozambique</option>
+                <option value="Madagascar">Madagascar</option>
+                <option value="Bahrain">Bahrain</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Spain">Spain</option>
+                <option value="Gabon">Gabon</option>
+                <option value="Australia">Australia</option>
+                <option value="DR Congo">DR Congo</option>
+                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                <option value="Ethiopia">Ethiopia</option>
+                <option value="Canada">Canada</option>
+                <option value="Chile">Chile</option>
+                <option value="Eswatini">Eswatini</option>
+                <option value="China PR">China PR</option>
+                <option value="United States">United States</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+                <option value="Republic of Ireland">Republic of Ireland</option>
+                <option value="Yugoslavia">Yugoslavia</option>
+                <option value="Tanzania">Tanzania</option>
+                <option value="Fiji">Fiji</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Cuba">Cuba</option>
+                <option value="Japan">Japan</option>
+                <option value="Finland">Finland</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Martinique">Martinique</option>
+                <option value="Jamaica">Jamaica</option>
+                <option value="Burundi">Burundi</option>
+                <option value="Burkina Faso">Burkina Faso</option>
+                <option value="Romania">Romania</option>
+                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Mauritania">Mauritania</option>
+                <option value="Honduras">Honduras</option>
+                <option value="Barbados">Barbados</option>
+                <option value="Guyana">Guyana</option>
+                <option value="England">England</option>
+                <option value="France">France</option>
+                <option value="Sudan">Sudan</option>
+                <option value="Croatia">Croatia</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="Benin">Benin</option>
+                <option value="Russia">Russia</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                <option value="Haiti">Haiti</option>
+                <option value="Hungary">Hungary</option>
+                <option value="Belgium">Belgium</option>
+                <option value="Guatemala">Guatemala</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Namibia">Namibia</option>
+                <option value="South Africa">South Africa</option>
+                <option value="Suriname">Suriname</option>
+                <option value="British Virgin Islands">British Virgin Islands</option>
+                <option value="Maldives">Maldives</option>
+                <option value="Lesotho">Lesotho</option>
+                <option value="Togo">Togo</option>
+                <option value="Ynys Môn">Ynys Môn</option>
+                <option value="Guernsey">Guernsey</option>
+                <option value="Kuwait">Kuwait</option>
+                <option value="Cyprus">Cyprus</option>
+                <option value="Botswana">Botswana</option>
+                <option value="Niger">Niger</option>
+                <option value="Guadeloupe">Guadeloupe</option>
+                <option value="New Caledonia">New Caledonia</option>
+                <option value="Kazakhstan">Kazakhstan</option>
+                <option value="Jordan">Jordan</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Angola">Angola</option>
+                <option value="Uzbekistan">Uzbekistan</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Austria">Austria</option>
+                <option value="Costa Rica">Costa Rica</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="Zanzibar">Zanzibar</option>
+                <option value="Northern Cyprus">Northern Cyprus</option>
+                <option value="Switzerland">Switzerland</option>
+                <option value="Provence">Provence</option>
+                <option value="Panama">Panama</option>
+                <option value="Saare County">Saare County</option>
+                <option value="Isle of Man">Isle of Man</option>
+                <option value="Saint Lucia">Saint Lucia</option>
+                <option value="Latvia">Latvia</option>
+                <option value="Abkhazia">Abkhazia</option>
+                <option value="Ellan Vannin">Ellan Vannin</option>
+                <option value="Padania">Padania</option>
+                <option value="Occitania">Occitania</option>
+                <option value="County of Nice">County of Nice</option>
+                <option value="Curaçao">Curaçao</option>
+                <option value="Gibraltar">Gibraltar</option>
+                <option value="El Salvador">El Salvador</option>
+                <option value="Corsica">Corsica</option>
+                <option value="United Koreans in Japan">United Koreans in Japan</option>
+                <option value="Iraqi Kurdistan">Iraqi Kurdistan</option>
+                <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                <option value="Vietnam">Vietnam</option>
+                <option value="Chagos Islands">Chagos Islands</option>
+                <option value="Papua New Guinea">Papua New Guinea</option>
+                <option value="Peru">Peru</option>
+                <option value="Poland">Poland</option>
+                <option value="Kárpátalja">Kárpátalja</option>
+                <option value="Hitra">Hitra</option>
+                <option value="Greenland">Greenland</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Matabeleland">Matabeleland</option>
+                <option value="Tibet">Tibet</option>
+                <option value="Panjab">Panjab</option>
+                <option value="Oman">Oman</option>
+                <option value="South Ossetia">South Ossetia</option>
+                <option value="Slovakia">Slovakia</option>
+                <option value="Scotland">Scotland</option>
+                <option value="Serbia">Serbia</option>
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="Tajikistan">Tajikistan</option>
+                <option value="Lithuania">Lithuania</option>
+                <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+
+            </select>
+          </div><br>
+          <div class="form-group">
+            <label for="tournament">Select Tournament:</label>
+            <select id="tournament">
+              <option value="">Select</option>
+                <option value="Friendly">Friendly</option>
+                <option value="British Home Championship">British Home Championship</option>
+                <option value="Évence Coppée Trophy">Évence Coppée Trophy</option>
+                <option value="Copa Lipton">Copa Lipton</option>
+                <option value="Copa Newton">Copa Newton</option>
+                <option value="Copa Premio Honor Argentino">Copa Premio Honor Argentino</option>
+                <option value="Copa Premio Honor Uruguayo">Copa Premio Honor Uruguayo</option>
+                <option value="Copa Roca">Copa Roca</option>
+                <option value="Copa América">Copa América</option>
+                <option value="Copa Chevallier Boutell">Copa Chevallier Boutell</option>
+                <option value="Nordic Championship">Nordic Championship</option>
+                <option value="Central European International Cup">Central European International Cup</option>
+                <option value="Baltic Cup">Baltic Cup</option>
+                <option value="Balkan Cup">Balkan Cup</option>
+                <option value="FIFA World Cup">FIFA World Cup</option>
+                <option value="Copa Rio Branco">Copa Rio Branco</option>
+                <option value="FIFA World Cup qualification">FIFA World Cup qualification</option>
+                <option value="Bolivarian Games">Bolivarian Games</option>
+                <option value="CCCF Championship">CCCF Championship</option>
+                <option value="NAFC Championship">NAFC Championship</option>
+                <option value="Copa Oswaldo Cruz">Copa Oswaldo Cruz</option>
+                <option value="Pan American Championship">Pan American Championship</option>
+                <option value="Copa del Pacífico">Copa del Pacífico</option>
+                <option value="Copa Bernardo O'Higgins">Copa Bernardo O'Higgins</option>
+                <option value="AFC Asian Cup qualification">AFC Asian Cup qualification</option>
+                <option value="Atlantic Cup">Atlantic Cup</option>
+                <option value="AFC Asian Cup">AFC Asian Cup</option>
+                <option value="African Cup of Nations">African Cup of Nations</option>
+                <option value="Copa Paz del Chaco">Copa Paz del Chaco</option>
+                <option value="Merdeka Tournament">Merdeka Tournament</option>
+                <option value="UEFA Euro qualification">UEFA Euro qualification</option>
+                <option value="UEFA Euro">UEFA Euro</option>
+                <option value="Windward Islands Tournament">Windward Islands Tournament</option>
+                <option value="African Cup of Nations qualification">African Cup of Nations qualification</option>
+                <option value="Vietnam Independence Cup">Vietnam Independence Cup</option>
+                <option value="Copa Carlos Dittborn">Copa Carlos Dittborn</option>
+                <option value="Phillip Seaga Cup">Phillip Seaga Cup</option>
+                <option value="CONCACAF Championship">CONCACAF Championship</option>
+                <option value="Copa Juan Pinto Durán">Copa Juan Pinto Durán</option>
+                <option value="Arab Cup">Arab Cup</option>
+                <option value="South Pacific Games">South Pacific Games</option>
+                <option value="CONCACAF Championship qualification">CONCACAF Championship qualification</option>
+                <option value="Copa Artigas">Copa Artigas</option>
+                <option value="GaNEFo">GaNEFo</option>
+                <option value="King's Cup">King's Cup</option>
+                <option value="Gulf Cup">Gulf Cup</option>
+                <option value="Indonesia Tournament">Indonesia Tournament</option>
+                <option value="Korea Cup">Korea Cup</option>
+                <option value="Palestine Cup">Palestine Cup</option>
+                <option value="Brazil Independence Cup">Brazil Independence Cup</option>
+                <option value="Copa Ramón Castilla">Copa Ramón Castilla</option>
+                <option value="Oceania Nations Cup">Oceania Nations Cup</option>
+                <option value="CECAFA Cup">CECAFA Cup</option>
+                <option value="Kuneitra Cup">Kuneitra Cup</option>
+                <option value="Copa Félix Bogado">Copa Félix Bogado</option>
+                <option value="Real Madrid 75th Anniversary Cup">Real Madrid 75th Anniversary Cup</option>
+                <option value="Beijing International Friendship Tournament">Beijing International Friendship Tournament</option>
+                <option value="Kirin Cup">Kirin Cup</option>
+                <option value="CFU Caribbean Cup qualification">CFU Caribbean Cup qualification</option>
+                <option value="CFU Caribbean Cup">CFU Caribbean Cup</option>
+                <option value="Amílcar Cabral Cup">Amílcar Cabral Cup</option>
+                <option value="FIFA 75th Anniversary Cup">FIFA 75th Anniversary Cup</option>
+                <option value="Guangzhou International Friendship Tournament">Guangzhou International Friendship Tournament</option>
+                <option value="Mundialito">Mundialito</option>
+                <option value="West African Cup">West African Cup</option>
+                <option value="Nehru Cup">Nehru Cup</option>
+                <option value="Merlion Cup">Merlion Cup</option>
+                <option value="Great Wall Cup">Great Wall Cup</option>
+                <option value="UDEAC Cup">UDEAC Cup</option>
+                <option value="Rous Cup">Rous Cup</option>
+                <option value="CONMEBOL–UEFA Cup of Champions">CONMEBOL–UEFA Cup of Champions</option>
+                <option value="Lunar New Year Cup">Lunar New Year Cup</option>
+                <option value="Arab Cup qualification">Arab Cup qualification</option>
+                <option value="Tournoi de France">Tournoi de France</option>
+                <option value="Malta International Tournament">Malta International Tournament</option>
+                <option value="Matthews Cup">Matthews Cup</option>
+                <option value="Tournament Burkina Faso">Tournament Burkina Faso</option>
+                <option value="Island Games">Island Games</option>
+                <option value="NAFU Championship">NAFU Championship</option>
+                <option value="Dynasty Cup">Dynasty Cup</option>
+                <option value="Dakar Tournament">Dakar Tournament</option>
+                <option value="UNCAF Cup">UNCAF Cup</option>
+                <option value="Gold Cup">Gold Cup</option>
+                <option value="USA Cup">USA Cup</option>
+                <option value="Jordan International Tournament">Jordan International Tournament</option>
+                <option value="Confederations Cup">Confederations Cup</option>
+                <option value="United Arab Emirates Friendship Tournament">United Arab Emirates Friendship Tournament</option>
+                <option value="Oceania Nations Cup qualification">Oceania Nations Cup qualification</option>
+                <option value="Simba Tournament">Simba Tournament</option>
+                <option value="SAFF Cup">SAFF Cup</option>
+                <option value="AFF Championship">AFF Championship</option>
+                <option value="King Hassan II Tournament">King Hassan II Tournament</option>
+                <option value="Cyprus International Tournament">Cyprus International Tournament</option>
+                <option value="Dunhill Cup">Dunhill Cup</option>
+                <option value="COSAFA Cup qualification">COSAFA Cup qualification</option>
+                <option value="COSAFA Cup">COSAFA Cup</option>
+                <option value="Gold Cup qualification">Gold Cup qualification</option>
+                <option value="SKN Football Festival">SKN Football Festival</option>
+                <option value="UNIFFAC Cup">UNIFFAC Cup</option>
+                <option value="WAFF Championship">WAFF Championship</option>
+                <option value="Millennium Cup">Millennium Cup</option>
+                <option value="Cup of Ancient Civilizations">Cup of Ancient Civilizations</option>
+                <option value="Prime Minister's Cup">Prime Minister's Cup</option>
+                <option value="EAFF Championship">EAFF Championship</option>
+                <option value="TIFOCO Tournament">TIFOCO Tournament</option>
+                <option value="Afro-Asian Games">Afro-Asian Games</option>
+                <option value="AFC Challenge Cup">AFC Challenge Cup</option>
+                <option value="FIFI Wild Cup">FIFI Wild Cup</option>
+                <option value="ELF Cup">ELF Cup</option>
+                <option value="Viva World Cup">Viva World Cup</option>
+                <option value="AFC Challenge Cup qualification">AFC Challenge Cup qualification</option>
+                <option value="African Nations Championship">African Nations Championship</option>
+                <option value="VFF Cup">VFF Cup</option>
+                <option value="Dragon Cup">Dragon Cup</option>
+                <option value="ABCS Tournament">ABCS Tournament</option>
+                <option value="Nile Basin Tournament">Nile Basin Tournament</option>
+                <option value="Nations Cup">Nations Cup</option>
+                <option value="Copa Confraternidad">Copa Confraternidad</option>
+                <option value="Pacific Games">Pacific Games</option>
+                <option value="Superclásico de las Américas">Superclásico de las Américas</option>
+                <option value="Kirin Challenge Cup">Kirin Challenge Cup</option>
+                <option value="OSN Cup">OSN Cup</option>
+                <option value="CONIFA World Football Cup">CONIFA World Football Cup</option>
+                <option value="CONIFA European Football Cup">CONIFA European Football Cup</option>
+                <option value="Copa América qualification">Copa América qualification</option>
+                <option value="World Unity Cup">World Unity Cup</option>
+                <option value="Pacific Mini Games">Pacific Mini Games</option>
+                <option value="Intercontinental Cup">Intercontinental Cup</option>
+                <option value="AFF Championship qualification">AFF Championship qualification</option>
+                <option value="UEFA Nations League">UEFA Nations League</option>
+                <option value="CONCACAF Nations League qualification">CONCACAF Nations League qualification</option>
+                <option value="African Nations Championship qualification">African Nations Championship qualification</option>
+                <option value="Atlantic Heritage Cup">Atlantic Heritage Cup</option>
+                <option value="Inter Games Football Tournament">Inter Games Football Tournament</option>
+                <option value="CONCACAF Nations League">CONCACAF Nations League</option>
+                <option value="Three Nations Cup">Three Nations Cup</option>
+                <option value="Mahinda Rajapaksa Cup">Mahinda Rajapaksa Cup</option>
+                <option value="Navruz Cup">Navruz Cup</option>
+                <option value="CONIFA Africa Football Cup">CONIFA Africa Football Cup</option>
+                <option value="CONIFA South America Football Cup">CONIFA South America Football Cup</option>
+                <option value="MSG Prime Minister's Cup">MSG Prime Minister's Cup</option>
+                <option value="Tri Nation Tournament">Tri Nation Tournament</option>
+                <option value="CAFA Nations Cup">CAFA Nations Cup</option>
+                <option value="Mauritius Four Nations Cup">Mauritius Four Nations Cup</option>
+                <option value="CONIFA World Football Cup qualification">CONIFA World Football Cup qualification</option>
+    
+            </select>
+          </div>
+          <div class="team-preview">
+            <h3>Home Team Prediction:</h3>
+            <p id="home-team-preview">---</p>
+            <p id="home-team-prediction-result"></p>
+          </div>
+        </div>
+  
+        <div class="away-team">
+          <h2  for="away-team">Away Team</h2>
+          <div class="form-group">
+            <label for="away-team">Select Away Team:</label>
+            <select id="away-team">
+              <!-- Add options for away teams here -->
+              <option value="">Select</option>
+
+              <option value="India">India</option>
+                <option value="South Korea">South Korea</option>
+                <option value="Thailand">Thailand</option>
+                <option value="Senegal">Senegal</option>
+                <option value="Guinea">Guinea</option>
+                <option value="Mauritius">Mauritius</option>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Cambodia">Cambodia</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Myanmar">Myanmar</option>
+                <option value="Algeria">Algeria</option>
+                <option value="Qatar">Qatar</option>
+                <option value="Hong Kong">Hong Kong</option>
+                <option value="Syria">Syria</option>
+                <option value="Libya">Libya</option>
+                <option value="Morocco">Morocco</option>
+                <option value="Kenya">Kenya</option>
+                <option value="Czechoslovakia">Czechoslovakia</option>
+                <option value="Tunisia">Tunisia</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Zambia">Zambia</option>
+                <option value="Iran">Iran</option>
+                <option value="Paraguay">Paraguay</option>
+                <option value="Guinea-Bissau">Guinea-Bissau</option>
+                <option value="Cameroon">Cameroon</option>
+                <option value="Gambia">Gambia</option>
+                <option value="Italy">Italy</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="Mali">Mali</option>
+                <option value="Rwanda">Rwanda</option>
+                <option value="Ivory Coast">Ivory Coast</option>
+                <option value="Germany">Germany</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Uganda">Uganda</option>
+                <option value="Egypt">Egypt</option>
+                <option value="Brazil">Brazil</option>
+                <option value="Sierra Leone">Sierra Leone</option>
+                <option value="Iraq">Iraq</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Ghana">Ghana</option>
+                <option value="Saudi Arabia">Saudi Arabia</option>
+                <option value="Malawi">Malawi</option>
+                <option value="Chad">Chad</option>
+                <option value="Central African Republic">Central African Republic</option>
+                <option value="Congo">Congo</option>
+                <option value="Mozambique">Mozambique</option>
+                <option value="Madagascar">Madagascar</option>
+                <option value="Bahrain">Bahrain</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Spain">Spain</option>
+                <option value="Gabon">Gabon</option>
+                <option value="Australia">Australia</option>
+                <option value="DR Congo">DR Congo</option>
+                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                <option value="Ethiopia">Ethiopia</option>
+                <option value="Canada">Canada</option>
+                <option value="Chile">Chile</option>
+                <option value="Eswatini">Eswatini</option>
+                <option value="China PR">China PR</option>
+                <option value="United States">United States</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+                <option value="Republic of Ireland">Republic of Ireland</option>
+                <option value="Yugoslavia">Yugoslavia</option>
+                <option value="Tanzania">Tanzania</option>
+                <option value="Fiji">Fiji</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Cuba">Cuba</option>
+                <option value="Japan">Japan</option>
+                <option value="Finland">Finland</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Martinique">Martinique</option>
+                <option value="Jamaica">Jamaica</option>
+                <option value="Burundi">Burundi</option>
+                <option value="Burkina Faso">Burkina Faso</option>
+                <option value="Romania">Romania</option>
+                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Mauritania">Mauritania</option>
+                <option value="Honduras">Honduras</option>
+                <option value="Barbados">Barbados</option>
+                <option value="Guyana">Guyana</option>
+                <option value="England">England</option>
+                <option value="France">France</option>
+                <option value="Sudan">Sudan</option>
+                <option value="Croatia">Croatia</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="Benin">Benin</option>
+                <option value="Russia">Russia</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                <option value="Haiti">Haiti</option>
+                <option value="Hungary">Hungary</option>
+                <option value="Belgium">Belgium</option>
+                <option value="Guatemala">Guatemala</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Namibia">Namibia</option>
+                <option value="South Africa">South Africa</option>
+                <option value="Suriname">Suriname</option>
+                <option value="British Virgin Islands">British Virgin Islands</option>
+                <option value="Maldives">Maldives</option>
+                <option value="Lesotho">Lesotho</option>
+                <option value="Togo">Togo</option>
+                <option value="Ynys Môn">Ynys Môn</option>
+                <option value="Guernsey">Guernsey</option>
+                <option value="Kuwait">Kuwait</option>
+                <option value="Cyprus">Cyprus</option>
+                <option value="Botswana">Botswana</option>
+                <option value="Niger">Niger</option>
+                <option value="Guadeloupe">Guadeloupe</option>
+                <option value="New Caledonia">New Caledonia</option>
+                <option value="Kazakhstan">Kazakhstan</option>
+                <option value="Jordan">Jordan</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Angola">Angola</option>
+                <option value="Uzbekistan">Uzbekistan</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Austria">Austria</option>
+                <option value="Costa Rica">Costa Rica</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="Zanzibar">Zanzibar</option>
+                <option value="Northern Cyprus">Northern Cyprus</option>
+                <option value="Switzerland">Switzerland</option>
+                <option value="Provence">Provence</option>
+                <option value="Panama">Panama</option>
+                <option value="Saare County">Saare County</option>
+                <option value="Isle of Man">Isle of Man</option>
+                <option value="Saint Lucia">Saint Lucia</option>
+                <option value="Latvia">Latvia</option>
+                <option value="Abkhazia">Abkhazia</option>
+                <option value="Ellan Vannin">Ellan Vannin</option>
+                <option value="Padania">Padania</option>
+                <option value="Occitania">Occitania</option>
+                <option value="County of Nice">County of Nice</option>
+                <option value="Curaçao">Curaçao</option>
+                <option value="Gibraltar">Gibraltar</option>
+                <option value="El Salvador">El Salvador</option>
+                <option value="Corsica">Corsica</option>
+                <option value="United Koreans in Japan">United Koreans in Japan</option>
+                <option value="Iraqi Kurdistan">Iraqi Kurdistan</option>
+                <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                <option value="Vietnam">Vietnam</option>
+                <option value="Chagos Islands">Chagos Islands</option>
+                <option value="Papua New Guinea">Papua New Guinea</option>
+                <option value="Peru">Peru</option>
+                <option value="Poland">Poland</option>
+                <option value="Kárpátalja">Kárpátalja</option>
+                <option value="Hitra">Hitra</option>
+                <option value="Greenland">Greenland</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Matabeleland">Matabeleland</option>
+                <option value="Tibet">Tibet</option>
+                <option value="Panjab">Panjab</option>
+                <option value="Oman">Oman</option>
+                <option value="South Ossetia">South Ossetia</option>
+                <option value="Slovakia">Slovakia</option>
+                <option value="Scotland">Scotland</option>
+                <option value="Serbia">Serbia</option>
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="Tajikistan">Tajikistan</option>
+                <option value="Lithuania">Lithuania</option>
+                <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+
+                </select>
+            </div><br>
+            <div class="form-group">
+                <label for="city">Select City:</label>
+                <select id="city">
+                <!-- Add options for cities here -->
+              <option value="">Select</option>
+
+                <option value="Navruz Cup">Navruz Cup</option>
+                <option value="Glasgow">Glasgow</option>
+                <option value="London">London</option>
+                <option value="Wrexham">Wrexham</option>
+                <option value="Blackburn">Blackburn</option>
+                <!-- Add the rest of the options here -->
+                <option value="Kuusankoski">Kuusankoski</option>
+                <option value="Norrbacka">Norrbacka</option>
+                <option value="Samarqand">Samarqand</option>
+                <option value="Colonia">Colonia</option>
+                <option value="San Bernardino">San Bernardino</option>
+                <option value="Drnovice">Drnovice</option>
+                <option value="Badajoz">Badajoz</option>
+                <option value="Albacete">Albacete</option>
+                <option value="Kilkís">Kilkís</option>
+                <option value="Kozáni">Kozáni</option>
+                <option value="Agilat">Agilat</option>
+                <option value="Vieux Fort">Vieux Fort</option>
+                <option value="Tríkala">Tríkala</option>
+                <option value="El Jadida">El Jadida</option>
+                <option value="Kano">Kano</option>
+                <option value="Cartagena">Cartagena</option>
+                <option value="Paphos">Paphos</option>
+                <option value="Zarqa">Zarqa</option>
+                <option value="Frederiksted">Frederiksted</option>
+                <option value="Morogoro">Morogoro</option>
+                <option value="Ashkelon">Ashkelon</option>
+                <option value="Omdurman">Omdurman</option>
+                <option value="Orange Walk">Orange Walk</option>
+                <option value="Reggio di Calabria">Reggio di Calabria</option>
+                <option value="Rustenburg">Rustenburg</option>
+                <option value="Malé">Malé</option>
+                <option value="Zahlé">Zahlé</option>
+                <option value="Winnipeg">Winnipeg</option>
+                <option value="Seongnam">Seongnam</option>
+                <option value="Chaves">Chaves</option>
+                <option value="Port Harcourt">Port Harcourt</option>
+                <option value="Rifu">Rifu</option>
+                <option value="Tosu">Tosu</option>
+                <option value="Wakayama">Wakayama</option>
+                <option value="Thimphu">Thimphu</option>
+                <option value="Baie-Mahault">Baie-Mahault</option>
+                <option value="Blida">Blida</option>
+                <option value="Radès">Radès</option>
+                <option value="Polokwane">Polokwane</option>
+                <option value="Watford">Watford</option>
+                <option value="Misrata">Misrata</option>
+                <option value="Rivière-Pilote">Rivière-Pilote</option>
+                <option value="Centre de Flacq">Centre de Flacq</option>
+                <option value="Logroño">Logroño</option>
+                <option value="Albano Laziale">Albano Laziale</option>
+                <option value="Independencia">Independencia</option>
+                <option value="Petaling Jaya">Petaling Jaya</option>
+                <option value="Šibenik">Šibenik</option>
+                <option value="Chambéry">Chambéry</option>
+                <option value="Águeda">Águeda</option>
+                <option value="San Carlos">San Carlos</option>
+                <option value="Getafe">Getafe</option>
+                <option value="Bacolet">Bacolet</option>
+                <option value="Homs">Homs</option>
+                <option value="Aguascalientes">Aguascalientes</option>
+                <option value="Chongqing">Chongqing</option>
+                <option value="Chiclayo">Chiclayo</option>
+                <option value="Hohhot">Hohhot</option>
+                <option value="Trujillo">Trujillo</option>
+                <option value="Piura">Piura</option>
+                <option value="Tacna">Tacna</option>
+                <option value="Jinan">Jinan</option>
+                <option value="Cusco">Cusco</option>
+                <option value="Al Rayyan">Al Rayyan</option>
+                <option value="Krasnodar">Krasnodar</option>
+                <option value="Hải Phòng">Hải Phòng</option>
+                <option value="Babahoyo">Babahoyo</option>
+                <option value="Scarborough">Scarborough</option>
+                <option value="Grodzisk Wielkopolski">Grodzisk Wielkopolski</option>
+                <option value="Higüey">Higüey</option>
+                <option value="Az Zaqaziq">Az Zaqaziq</option>
+                <option value="Santiago de los Caballeros">Santiago de los Caballeros</option>
+                <option value="West Kelowna">West Kelowna</option>
+                <option value="João Pessoa">João Pessoa</option>
+                <option value="Nouakchott">Nouakchott</option>
+                <option value="Baqubah">Baqubah</option>
+                <option value="Ponce">Ponce</option>
+                <option value="Nan">Nan</option>
+                <option value="Huelva">Huelva</option>
+                <option value="Nador">Nador</option>
+                <option value="Ksar El Kebir">Ksar El Kebir</option>
+                <option value="Mansfield">Mansfield</option>
+                <option value="Yao">Yao</option>
+                <option value="Sefton">Sefton</option>
+                <option value="Bontang">Bontang</option>
+                <option value="Harlow">Harlow</option>
+                <option value="Foggia">Foggia</option>
+                <option value="Guangyuan">Guangyuan</option>
+                <option value="Huntington Beach">Huntington Beach</option>
+                <option value="Macaé">Macaé</option>
+                <option value="Potosí">Potosí</option>
+                <option value="Zaragoza">Zaragoza</option>
+                <option value="Soweto">Soweto</option>
+                <option value="Wolverhampton">Wolverhampton</option>
+                <option value="Agadez">Agadez</option>
+                <option value="Juhaynah">Juhaynah</option>
+                <option value="San Rafael Abajo">San Rafael Abajo</option>
+                <option value="Słupsk">Słupsk</option>
+                <option value="Aachen">Aachen</option>
+                <option value="Rzhev">Rzhev</option>
+                <option value="Babol">Babol</option>
+                <option value="Taza">Taza</option>
+                <option value="Saida">Saida</option>
+                <option value="Rio Claro">Rio Claro</option>
+                <option value="Potosí">Potosí</option>
+                <option value="Qarshi">Qarshi</option>
+                <option value="Maidstone">Maidstone</option>
+                <option value="Kolda">Kolda</option>
+                <option value="Nizwa">Nizwa</option>
+                <option value="Kisumu">Kisumu</option>
+                <option value="Valencia">Valencia</option>
+                <option value="Kazanlak">Kazanlak</option>
+                <option value="Kalemie">Kalemie</option>
+                <option value="Merlo">Merlo</option>
+                <option value="Créteil">Créteil</option>
+                <option value="Eugene">Eugene</option>
+                <option value="Cosenza">Cosenza</option>
+                <option value="Szeged">Szeged</option>
+                <option value="Gweru">Gweru</option>
+                <option value="Naperville">Naperville</option>
+                <option value="Tébessa">Tébessa</option>
+                <option value="Tajimi">Tajimi</option>
+                <option value="Masaka">Masaka</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Taguig">Taguig</option>
+                <option value="Samara">Samara</option>
+                <option value="Barddhamān">Barddhamān</option>
+                <option value="Guaynabo">Guaynabo</option>
+                <option value="Ingrāj Bāzār">Ingrāj Bāzār</option>
+                <option value="Singaraja">Singaraja</option>
+                <option value="Shashemenē">Shashemenē</option>
+                <option value="Buena Park">Buena Park</option>
+                <option value="Ouahigouya">Ouahigouya</option>
+                <option value="Villa Nueva">Villa Nueva</option>
+                <option value="Manisa">Manisa</option>
+                <option value="Zielona Góra">Zielona Góra</option>
+                <option value="Curepipe">Curepipe</option>
+                <option value="Mubi">Mubi</option>
+                <option value="Saint-Denis">Saint-Denis</option>
+                <option value="Palmdale">Palmdale</option>
+                <option value="Berezniki">Berezniki</option>
+                <option value="Beira">Beira</option>
+                <option value="Zelenodolsk">Zelenodolsk</option>
+                <option value="Botosani">Botosani</option>
+                <option value="Biak">Biak</option>
+                <option value="Kuznetsk">Kuznetsk</option>
+                <option value="Kotovsk">Kotovsk</option>
+                <option value="Buzău">Buzău</option>
+                <option value="Falls Church">Falls Church</option>
+                <option value="Parakou">Parakou</option>
+                <option value="Juticalpa">Juticalpa</option>
+                <option value="Parral">Parral</option>
+                <option value="Hagerstown">Hagerstown</option>
+                <option value="Gonaïves">Gonaïves</option>
+                <option value="Bor">Bor</option>
+                <option value="Saint-Pierre">Saint-Pierre</option>
+                <option value="Włocławek">Włocławek</option>
+                <option value="Tottori">Tottori</option>
+                <option value="Palmas">Palmas</option>
+                <option value="Aytos">Aytos</option>
+                <option value="Kismayo">Kismayo</option>
+                <option value="Nou Barris">Nou Barris</option>
+                <option value="Ciego de Ávila">Ciego de Ávila</option>
+                <option value="Birnin Kebbi">Birnin Kebbi</option>
+                <option value="Klagenfurt am Wörthersee">Klagenfurt am Wörthersee</option>
+                <option value="Centro Habana">Centro Habana</option>
+                <option value="Al Fayyūm">Al Fayyūm</option>
+                <option value="Kamakura">Kamakura</option>
+                <option value="Lafayette">Lafayette</option>
+                <option value="Paarl">Paarl</option>
+                <option value="Copiapó">Copiapó</option>
+                <option value="Csongrád">Csongrád</option>
+                <option value="Oradea">Oradea</option>
+                <option value="Khorramabad">Khorramabad</option>
+                <option value="Phitsanulok">Phitsanulok</option>
+                <option value="Puerto Montt">Puerto Montt</option>
+                <option value="Antsiranana">Antsiranana</option>
+                <option value="Ar Raqqah">Ar Raqqah</option>
+                <option value="Gangneung">Gangneung</option>
+                <option value="Fargo">Fargo</option>
+                <option value="Čačak">Čačak</option>
+                <option value="Yuma">Yuma</option>
+                <option value="Concordia">Concordia</option>
+                <option value="El Oued">El Oued</option>
+                <option value="Sherbrooke">Sherbrooke</option>
+                <option value="Zlatoust">Zlatoust</option>
+                <option value="Rio Branco">Rio Branco</option>
+                <option value="Waco">Waco</option>
+                <option value="Buynaksk">Buynaksk</option>
+                <option value="Chechon">Chechon</option>
+                <option value="Chaman">Chaman</option>
+                <option value="Lyubertsy">Lyubertsy</option>
+                <option value="Battambang">Battambang</option>
+                <option value="Babruysk">Babruysk</option>
+                <option value="Siem Reap">Siem Reap</option>
+                <option value="Yeosu">Yeosu</option>
+                <option value="Plaridel">Plaridel</option>
+                <option value="Tarnów">Tarnów</option>
+                <option value="Vinh">Vinh</option>
+                <option value="Isiro">Isiro</option>
+                <option value="Hobart">Hobart</option>
+                <option value="East London">East London</option>
+                <option value="Carolina">Carolina</option>
+                <option value="Conselheiro Lafaiete">Conselheiro Lafaiete</option>
+                <option value="Santa Tecla">Santa Tecla</option>
+                <option value="Chingola">Chingola</option>
+                <option value="Tema">Tema</option>
+                <option value="Camaragibe">Camaragibe</option>
+                <option value="La Serena">La Serena</option>
+                <option value="Guercif">Guercif</option>
+                <option value="Itapevi">Itapevi</option>
+                <option value="Borongan">Borongan</option>
+                <option value="Cleveland">Cleveland</option>
+                <option value="Toowoomba">Toowoomba</option>
+                <option value="Bialystok">Bialystok</option>
+                <option value="Arusha">Arusha</option>
+                <option value="Naka">Naka</option>
+                <option value="Khammam">Khammam</option>
+                <option value="Garland">Garland</option>
+                <option value="Acarigua">Acarigua</option>
+                <option value="L'Hospitalet de Llobregat">L'Hospitalet de Llobregat</option>
+                <option value="Jolo">Jolo</option>
+                <option value="Wau">Wau</option>
+                <option value="Iwaki">Iwaki</option>
+                <option value="Macau">Macau</option>
+                <option value="Apopa">Apopa</option>
+                <option value="Turku">Turku</option>
+                <option value="Barra Mansa">Barra Mansa</option>
+                <option value="Abohar">Abohar</option>
+                <option value="Ghandinagar">Ghandinagar</option>
+                <option value="Porlamar">Porlamar</option>
+                <option value="Shimonoseki">Shimonoseki</option>
+                <option value="Kunduz">Kunduz</option>
+                <option value="Kwangmyŏng">Kwangmyŏng</option>
+                <option value="Palu">Palu</option>
+                <option value="Dourados">Dourados</option>
+                <option value="Lafia">Lafia</option>
+                <option value="Nonthaburi">Nonthaburi</option>
+                <option value="Des Moines">Des Moines</option>
+                <option value="Sumenep">Sumenep</option>
+                <option value="Lilongwe">Lilongwe</option>
+                <option value="Tambov">Tambov</option>
+                <option value="Varna">Varna</option>
+                <option value="Vadodara">Vadodara</option>
+                <option value="Anchorage">Anchorage</option>
+                <option value="Tulsa">Tulsa</option>
+                <option value="Tacloban">Tacloban</option>
+                <option value="Bertoua">Bertoua</option>
+                <option value="Chilpancingo">Chilpancingo</option>
+                <option value="Kohima">Kohima</option>
+                <option value="Berdyans'k">Berdyans'k</option>
+                <option value="Islington">Islington</option>
+                <option value="Dera Ghazi Khan">Dera Ghazi Khan</option>
+                <option value="Idlib">Idlib</option>
+                <option value="Namangan">Namangan</option>
+                <option value="Huánuco">Huánuco</option>
+                <option value="Termiz">Termiz</option>
+                <option value="General Santos">General Santos</option>
+                <option value="Jaén">Jaén</option>
+                <option value="Palopo">Palopo</option>
+                <option value="Nouméa">Nouméa</option>
+                <option value="Blumenau">Blumenau</option>
+                <option value="Sirjan">Sirjan</option>
+                <option value="Tonk">Tonk</option>
+                <option value="Lodz">Lodz</option>
+                <option value="Marabá">Marabá</option>
+                <option value="Banja Luka">Banja Luka</option>
+                <option value="Bārāsat">Bārāsat</option>
+                <option value="Kaesŏng">Kaesŏng</option>
+                <option value="Coro">Coro</option>
+                <option value="Erzurum">Erzurum</option>
+                <option value="Tall 'Afar">Tall 'Afar</option>
+                <option value="Klaipėda">Klaipėda</option>
+                <option value="Timişoara">Timişoara</option>
+                <option value="Zabrze">Zabrze</option>
+                <option value="Gulfport">Gulfport</option>
+                <option value="Kumul">Kumul</option>
+                <option value="Anju">Anju</option>
+                <option value="Gaborone">Gaborone</option>
+                <option value="Sakarya">Sakarya</option>
+                <option value="Drobeta-Turnu Severin">Drobeta-Turnu Severin</option>
+                <option value="Nukus">Nukus</option>
+                <option value="Machida">Machida</option>
+                <option value="Neftekamsk">Neftekamsk</option>
+                <option value="Bata">Bata</option>
+                <option value="Heraklion">Heraklion</option>
+                <option value="Salta">Salta</option>
+                <option value="Indaiatuba">Indaiatuba</option>
+                <option value="Inazawa">Inazawa</option>
+                <option value="Cà Mau">Cà Mau</option>
+                <option value="Biskra">Biskra</option>
+                <option value="Chon Buri">Chon Buri</option>
+                <option value="Loja">Loja</option>
+                <option value="Taganrog">Taganrog</option>
+                <option value="Garoua">Garoua</option>
+                <option value="Campos">Campos</option>
+                <option value="Swansea">Swansea</option>
+                <option value="Izumi">Izumi</option>
+                <option value="Montgomery">Montgomery</option>
+                <option value="Jeonju">Jeonju</option>
+                <option value="Serang">Serang</option>
+                <option value="Wonsan">Wonsan</option>
+                <option value="Sumy">Sumy</option>
+                <option value="Amherst">Amherst</option>
+                <option value="Bytom">Bytom</option>
+                <option value="Fremont">Fremont</option>
+                <option value="Fayetteville">Fayetteville</option>
+                <option value="Sunnyvale">Sunnyvale</option>
+                <option value="Kismaayo">Kismaayo</option>
+                <option value="Tampere">Tampere</option>
+                <option value="Brahmapur">Brahmapur</option>
+                <option value="Guaymas">Guaymas</option>
+                <option value="Ca Mau">Ca Mau</option>
+                <option value="Zaporizhzhia">Zaporizhzhia</option>
+                <option value="Laoag">Laoag</option>
+                <option value="Valdivia">Valdivia</option>
+                <option value="San-Pedro">San-Pedro</option>
+                <option value="Kaliningrad">Kaliningrad</option>
+                <option value="Sumbawa Besar">Sumbawa Besar</option>
+                <option value="Rajapalaiyam">Rajapalaiyam</option>
+                <option value="Iksan">Iksan</option>
+                <option value="Quchan">Quchan</option>
+                <option value="Suzano">Suzano</option>
+                <option value="Cayenne">Cayenne</option>
+                <option value="Riohacha">Riohacha</option>
+                <option value="Olomouc">Olomouc</option>
+                <option value="Lakeland">Lakeland</option>
+                <option value="Brest">Brest</option>
+                <option value="San Carlos de Bariloche">San Carlos de Bariloche</option>
+                <option value="Ap Da Loi">Ap Da Loi</option>
+                <option value="Pueblo">Pueblo</option>
+                <option value="Cherkasy">Cherkasy</option>
+                <option value="Reykjavík">Reykjavík</option>
+                <option value="Guelma">Guelma</option>
+                <option value="Banī Suwayf">Banī Suwayf</option>
+                <option value="Serpukhov">Serpukhov</option>
+                <option value="Nakhon Ratchasima">Nakhon Ratchasima</option>
+                <option value="Gent">Gent</option>
+                <option value="Mubi">Mubi</option>
+                <option value="Machakos">Machakos</option>
+                <option value="Aurora">Aurora</option>
+                <option value="Nanping">Nanping</option>
+                <option value="Barrie">Barrie</option>
+                <option value="Tepic">Tepic</option>
+                <option value="Kislovodsk">Kislovodsk</option>
+                <option value="Al Jubayhah">Al Jubayhah</option>
+                <option value="Masbate">Masbate</option>
+                <option value="Mirzapur">Mirzapur</option>
+                <option value="Khandwa">Khandwa</option>
+                <option value="Bratsk">Bratsk</option>
+                <option value="Maringá">Maringá</option>
+                <option value="Mokolo">Mokolo</option>
+                <option value="Sioux Falls">Sioux Falls</option>
+                <option value="Tan An">Tan An</option>
+                <option value="Rybinsk">Rybinsk</option>
+                <option value="Tychy">Tychy</option>
+                <option value="São Leopoldo">São Leopoldo</option>
+                <option value="Chenzhou">Chenzhou</option>
+                <option value="Erie">Erie</option>
+                <option value="Ciego de Ávila">Ciego de Ávila</option>
+                <option value="Hofu">Hofu</option>
+                <option value="Mangalore">Mangalore</option>
+                <option value="Ruse">Ruse</option>
+                <option value="Sunderland">Sunderland</option>
+                <option value="Ratlam">Ratlam</option>
+                <option value="Bandundu">Bandundu</option>
+                <option value="Lobito">Lobito</option>
+                <option value="Silang">Silang</option>
+                <option value="Machilipatnam">Machilipatnam</option>
+                <option value="Greensboro">Greensboro</option>
+                <option value="Hargeysa">Hargeysa</option>
+                <option value="Tunduma">Tunduma</option>
+                <option value="Thies Nones">Thies Nones</option>
+                <option value="Brno">Brno</option>
+                <option value="Lomé">Lomé</option>
+                <option value="Poza Rica de Hidalgo">Poza Rica de Hidalgo</option>
+                <option value="Lahti">Lahti</option>
+                <option value="Ghardaïa">Ghardaïa</option>
+                <option value="Palakkad">Palakkad</option>
+                <option value="Santa Ana">Santa Ana</option>
+                <option value="Anantapur">Anantapur</option>
+                <option value="La Plata">La Plata</option>
+                <option value="Boa Vista">Boa Vista</option>
+                <option value="San Pablo">San Pablo</option>
+                <option value="Kashmar">Kashmar</option>
+                <option value="Tongchuanshi">Tongchuanshi</option>
+                <option value="Roodepoort">Roodepoort</option>
+                <option value="Gusau">Gusau</option>
+                <option value="Sidi Bel Abbès">Sidi Bel Abbès</option>
+                <option value="Modena">Modena</option>
+                <option value="Banqiao">Banqiao</option>
+                <option value="Agartala">Agartala</option>
+                <option value="Brakpan">Brakpan</option>
+                <option value="Kolwezi">Kolwezi</option>
+                <option value="Ivano-Frankivsk">Ivano-Frankivsk</option>
+                <option value="Yalova">Yalova</option>
+                <option value="Hue">Hue</option>
+                <option value="Makiivka">Makiivka</option>
+                <option value="Taitung City">Taitung City</option>
+                <option value="Brighton">Brighton</option>
+                <option value="Aizawl">Aizawl</option>
+                <option value="Southend-on-Sea">Southend-on-Sea</option>
+                <option value="Pereira">Pereira</option>
+                <option value="Gdynia">Gdynia</option>
+                <option value="Plano">Plano</option>
+                <option value="Kherson">Kherson</option>
+                <option value="Tarhuna">Tarhuna</option>
+                <option value="Bordj Bou Arréridj">Bordj Bou Arréridj</option>
+                <option value="Shakhty">Shakhty</option>
+                <option value="Rancagua">Rancagua</option>
+                <option value="Saransk">Saransk</option>
+                <option value="Odawara">Odawara</option>
+                <option value="Tagum">Tagum</option>
+                <option value="Simao">Simao</option>
+                <option value="Horlivka">Horlivka</option>
+                <option value="Umuarama">Umuarama</option>
+                <option value="Huntington">Huntington</option>
+                <option value="Poços de Caldas">Poços de Caldas</option>
+                <option value="Kasugai">Kasugai</option>
+                <option value="Soyapango">Soyapango</option>
+                <option value="Bilaspur">Bilaspur</option>
+                <option value="Irvine">Irvine</option>
+                <option value="Brindisi">Brindisi</option>
+                <option value="Berbera">Berbera</option>
+                <option value="Grenoble">Grenoble</option>
+                <option value="Tokushima">Tokushima</option>
+                <option value="Dezful">Dezful</option>
+                <option value="Ciudad Obregón">Ciudad Obregón</option>
+                <option value="Milagro">Milagro</option>
+                <option value="Chaozhou">Chaozhou</option>
+                <option value="Prokop'yevsk">Prokop'yevsk</option>
+                <option value="Ravenna">Ravenna</option>
+                <option value="Galkayo">Galkayo</option>
+                <option value="Cuauhtémoc">Cuauhtémoc</option>
+                <option value="Kraljevo">Kraljevo</option>
+                <option value="Wadi as Sir">Wadi as Sir</option>
+                <option value="Jining">Jining</option>
+                <option value="Fulham">Fulham</option>
+                <option value="Orléans">Orléans</option>
+                <option value="Caen">Caen</option>
+                <option value="Khmelnytskyi">Khmelnytskyi</option>
+                <option value="Heze">Heze</option>
+                <option value="Dingzhou">Dingzhou</option>
+                <option value="Isparta">Isparta</option>
+                <option value="Wuzhou">Wuzhou</option>
+                <option value="Merida">Merida</option>
+                <option value="Komsomolsk-on-Amur">Komsomolsk-on-Amur</option>
+                <option value="Ilhéus">Ilhéus</option>
+                <option value="Ibaraki">Ibaraki</option>
+                <option value="Türkistan">Türkistan</option>
+                <option value="Timon">Timon</option>
+                <option value="Dera Ismail Khan">Dera Ismail Khan</option>
+                <option value="Matadi">Matadi</option>
+                <option value="Carolina">Carolina</option>
+                <option value="Iksan">Iksan</option>
+                <option value="Potsdam">Potsdam</option>
+                <option value="Elgin">Elgin</option>
+                <option value="Formosa">Formosa</option>
+                <option value="Mbale">Mbale</option>
+                <option value="East Los Angeles">East Los Angeles</option>
+                <option value="Campeche">Campeche</option>
+                <option value="La Piedad">La Piedad</option>
+                <option value="Jalalpur">Jalalpur</option>
+                <option value="Tomsk">Tomsk</option>
+                <option value="Shangrao">Shangrao</option>
+                <option value="Kwekwe">Kwekwe</option>
+                <option value="Otaru">Otaru</option>
+                <option value="Setif">Setif</option>
+                <option value="Irvine">Irvine</option>
+                <option value="Pindamonhangaba">Pindamonhangaba</option>
+                <option value="As Suwayq">As Suwayq</option>
+                <option value="Okara">Okara</option>
+                <option value="Hamilton">Hamilton</option>
+                <option value="Burlington">Burlington</option>
+                <option value="Bandar-e Bushehr">Bandar-e Bushehr</option>
+                <option value="Århus">Århus</option>
+                <option value="Linhares">Linhares</option>
+                <option value="Neyagawa">Neyagawa</option>
+                <option value="Hayward">Hayward</option>
+                <option value="Xinyu">Xinyu</option>
+                <option value="Ebolowa">Ebolowa</option>
+                <option value="Tokat">Tokat</option>
+                <option value="Thessaloníki">Thessaloníki</option>
+                <option value="Nimes">Nimes</option>
+                <option value="Navojoa">Navojoa</option>
+                <option value="Mbouda">Mbouda</option>
+                <option value="Ebolowa">Ebolowa</option>
+                <option value="Santander">Santander</option>
+                <option value="Nyeri">Nyeri</option>
+                <option value="Ebolowa">Ebolowa</option>
+                <option value="Musashino">Musashino</option>
+                <option value="Bhiwani">Bhiwani</option>
+                <option value="Santa Clarita">Santa Clarita</option>
+                <option value="Bayamón">Bayamón</option>
+                <option value="Longueuil">Longueuil</option>
+                <option value="Meknes">Meknes</option>
+                <option value="Split">Split</option>
+                <option value="Tezpur">Tezpur</option>
+                <option value="Saint John">Saint John</option>
+                <option value="Manggar">Manggar</option>
+                <option value="Aqaba">Aqaba</option>
+                <option value="Saidpur">Saidpur</option>
+                <option value="Cuernavaca">Cuernavaca</option>
+                <option value="Des Moines">Des Moines</option>
+                <option value="Eugene">Eugene</option>
+                <option value="Orsha">Orsha</option>
+                <option value="Juiz de Fora">Juiz de Fora</option>
+                <option value="Bacau">Bacau</option>
+                <option value="Gresham">Gresham</option>
+                <option value="Baguio">Baguio</option>
+                <option value="Skikda">Skikda</option>
+                <option value="Aurora">Aurora</option>
+                <option value="Port Said">Port Said</option>
+                <option value="Vilnius">Vilnius</option>
+                <option value="Sétif">Sétif</option>
+                <option value="Khon Kaen">Khon Kaen</option>
+                <option value="Victorville">Victorville</option>
+                <option value="Oshawa">Oshawa</option>
+                <option value="Karbala">Karbala</option>
+                <option value="Mary">Mary</option>
+                <option value="San Luis">San Luis</option>
+                <option value="Valencia">Valencia</option>
+                <option value="Taraz">Taraz</option>
+                <option value="Cotabato">Cotabato</option>
+                <option value="Newport News">Newport News</option>
+                <option value="Murmansk">Murmansk</option>
+                <option value="San Miguel">San Miguel</option>
+                <option value="Khujand">Khujand</option>
+                <option value="Nellore">Nellore</option>
+                <option value="Naha">Naha</option>
+                <option value="Chishtian Mandi">Chishtian Mandi</option>
+                <option value="Etawah">Etawah</option>
+                <option value="Pathum Thani">Pathum Thani</option>
+                <option value="Qo`qon">Qo`qon</option>
+                <option value="Qyzylorda">Qyzylorda</option>
+                <option value="San Bernardino">San Bernardino</option>
+                <option value="Magway">Magway</option>
+                <option value="Naga City">Naga City</option>
+                <option value="Ed Damer">Ed Damer</option>
+                <option value="Iligan City">Iligan City</option>
+                <option value="Miramar">Miramar</option>
+                <option value="Bahir Dar">Bahir Dar</option>
+                <option value="Bergen">Bergen</option>
+                <option value="Mandaluyong City">Mandaluyong City</option>
+                <option value="Parana">Parana</option>
+                <option value="Gurupi">Gurupi</option>
+                <option value="Potsdam">Potsdam</option>
+                <option value="Santa Maria">Santa Maria</option>
+                <option value="Itajai">Itajai</option>
+                <option value="Várzea Grande">Várzea Grande</option>
+                <option value="Béchar">Béchar</option>
+                <option value="Ālbū Kamāl">Ālbū Kamāl</option>
+                <option value="Karaman">Karaman</option>
+                <option value="Lahore">Lahore</option>
+                <option value="Al Hufūf">Al Hufūf</option>
+                <option value="Bor">Bor</option>
+                <option value="El Eulma">El Eulma</option>
+                <option value="Armenia">Armenia</option>
+                <option value="Amiens">Amiens</option>
+                <option value="Ikare">Ikare</option>
+                <option value="Mardan">Mardan</option>
+                <option value="Valparaíso">Valparaíso</option>
+                <option value="Dali">Dali</option>
+                <option value="Macon">Macon</option>
+                <option value="Sarajevo">Sarajevo</option>
+                <option value="Sampit">Sampit</option>
+                <option value="Jieshou">Jieshou</option>
+                <option value="Iligan City">Iligan City</option>
+                <option value="Saida">Saida</option>
+                <option value="Kuala Terengganu">Kuala Terengganu</option>
+                <option value="Cauayan">Cauayan</option>
+                <option value="Lakewood">Lakewood</option>
+                <option value="Bardhaman">Bardhaman</option>
+                <option value="Mazatlán">Mazatlán</option>
+                <option value="Dera Bugti">Dera Bugti</option>
+                <option value="Khammam">Khammam</option>
+                <option value="Yibin">Yibin</option>
+                <option value="Anchorage">Anchorage</option>
+                <option value="Ar Ramtha">Ar Ramtha</option>
+                <option value="Pinar del Río">Pinar del Río</option>
+                <option value="Pasadena">Pasadena</option>
+                <option value="Guelmim">Guelmim</option>
+                <option value="Huizhou">Huizhou</option>
+                <option value="Jember">Jember</option>
+                <option value="West Jerusalem">West Jerusalem</option>
+                <option value="Al Fujayrah">Al Fujayrah</option>
+                <option value="Tarakan">Tarakan</option>
+                <option value="Linhai">Linhai</option>
+                <option value="Canoas">Canoas</option>
+                <option value="Yeosu">Yeosu</option>
+                <option value="Biskra">Biskra</option>
+                <option value="Najafabad">Najafabad</option>
+                <option value="Leicester">Leicester</option>
+                <option value="Wilmington">Wilmington</option>
+                <option value="Maebashi">Maebashi</option>
+                <option value="Magdalena Contreras">Magdalena Contreras</option>
+                <option value="Kariya">Kariya</option>
+                <option value="Vologda">Vologda</option>
+                <option value="Ramadi">Ramadi</option>
+                <option value="Oita">Oita</option>
+                <option value="Sete Lagoas">Sete Lagoas</option>
+                <option value="Abakan">Abakan</option>
+                <option value="Jalal-Abad">Jalal-Abad</option>
+                <option value="Phan Thiết">Phan Thiết</option>
+                <option value="São José dos Campos">São José dos Campos</option>
+                <option value="Northcote">Northcote</option>
+                <option value="Piracicaba">Piracicaba</option>
+                <option value="Khujand">Khujand</option>
+                <option value="Cachoeiro de Itapemirim">Cachoeiro de Itapemirim</option>
+                <option value="Chongjin">Chongjin</option>
+                <option value="Melun">Melun</option>
+                <option value="Wad Medani">Wad Medani</option>
+                <option value="Zelenograd">Zelenograd</option>
+                <option value="Londrina">Londrina</option>
+                <option value="Dongtai">Dongtai</option>
+                <option value="Brescia">Brescia</option>
+                <option value="Aswan">Aswan</option>
+                <option value="Bratislava">Bratislava</option>
+                <option value="Tsukuba">Tsukuba</option>
+                <option value="Fasa">Fasa</option>
+                <option value="Morelia">Morelia</option>
+                <option value="Asan">Asan</option>
+                <option value="Al Kharj">Al Kharj</option>
+                <option value="Vũng Tàu">Vũng Tàu</option>
+                <option value="Mandsaur">Mandsaur</option>
+                <option value="Oakville">Oakville</option>
+                <option value="Tokorozawa">Tokorozawa</option>
+                <option value="Coventry">Coventry</option>
+                <option value="Astrakhan">Astrakhan</option>
+                <option value="Novotroitsk">Novotroitsk</option>
+                <option value="Modesto">Modesto</option>
+                <option value="El Eulma">El Eulma</option>
+                <option value="Oulu">Oulu</option>
+                <option value="Tama">Tama</option>
+                <option value="Hospet">Hospet</option>
+                <option value="Walsall">Walsall</option>
+                <option value="San Cristóbal">San Cristóbal</option>
+                <option value="Leipzig">Leipzig</option>
+                <option value="Khujand">Khujand</option>
+                <option value="Seremban">Seremban</option>
+                <option value="Asaka">Asaka</option>
+                <option value="Nal'chik">Nal'chik</option>
+                <option value="Nakhon Si Thammarat">Nakhon Si Thammarat</option>
+                <option value="Sutton Coldfield">Sutton Coldfield</option>
+                <option value="Tegal">Tegal</option>
+                <option value="Malmö">Malmö</option>
+                <option value="Astara">Astara</option>
+                <option value="Al Qatif">Al Qatif</option>
+                <option value="Arapiraca">Arapiraca</option>
+                <option value="Osogbo">Osogbo</option>
+                <option value="Santos">Santos</option>
+                <option value="Gravataí">Gravataí</option>
+                <option value="Itu">Itu</option>
+                <option value="Manisa">Manisa</option>
+                <option value="Ipswich">Ipswich</option>
+                <option value="Owo">Owo</option>
+                <option value="Sagamihara">Sagamihara</option>
+                <option value="Pamplona">Pamplona</option>
+                <option value="Tulsa">Tulsa</option>
+                <option value="Hino">Hino</option>
+                <option value="Split">Split</option>
+                <option value="Roubaix">Roubaix</option>
+                <option value="Kunp'o">Kunp'o</option>
+                <option value="Juazeiro do Norte">Juazeiro do Norte</option>
+                <option value="San Jose del Monte">San Jose del Monte</option>
+                <option value="Kassala">Kassala</option>
+                <option value="Alchevsk">Alchevsk</option>
+                <option value="Bertoua">Bertoua</option>
+                <option value="East Chattanooga">East Chattanooga</option>
+                <option value="Taganrog">Taganrog</option>
+                <option value="Carapicuíba">Carapicuíba</option>
+                <option value="Vila Velha">Vila Velha</option>
+                <option value="Calapan">Calapan</option>
+                <option value="Bamako">Bamako</option>
+                <option value="City of Balikpapan">City of Balikpapan</option>
+                <option value="Sambalpur">Sambalpur</option>
+                <option value="Yokosuka">Yokosuka</option>
+                <option value="Tarakan">Tarakan</option>
+                <option value="Fuxin">Fuxin</option>
+                <option value="Dyurtyuli">Dyurtyuli</option>
+                <option value="Cleveland">Cleveland</option>
+                <option value="Kandy">Kandy</option>
+                <option value="Angers">Angers</option>
+                <option value="Niihama">Niihama</option>
+                <option value="Gilbert">Gilbert</option>
+                <option value="Labe">Labe</option>
+                <option value="Lille">Lille</option>
+                <option value="Kasur">Kasur</option>
+                <option value="Calbayog City">Calbayog City</option>
+                <option value="Namangan">Namangan</option>
+                <option value="Shahin Dezh">Shahin Dezh</option>
+                <option value="Sikar">Sikar</option>
+                <option value="Yonkers">Yonkers</option>
+                <option value="Mwene-Ditu">Mwene-Ditu</option>
+                <option value="Magé">Magé</option>
+                <option value="Fyzabad">Fyzabad</option>
+                <option value="Kusatsu">Kusatsu</option>
+                <option value="Pakalongan">Pakalongan</option>
+                <option value="Nara">Nara</option>
+                <option value="Albany">Albany</option>
+                <option value="Fukayachō">Fukayachō</option>
+                <option value="Baruta">Baruta</option>
+                <option value="Khammam">Khammam</option>
+                <option value="Kokshetau">Kokshetau</option>
+                <option value="Lugansk">Lugansk</option>
+                <option value="Balashikha">Balashikha</option>
+                <option value="Ede">Ede</option>
+                <option value="Sonipat">Sonipat</option>
+                <option value="Thanh Hóa">Thanh Hóa</option>
+                <option value="Sahiwal">Sahiwal</option>
+                <option value="Kolomna">Kolomna</option>
+                <option value="Taizhou">Taizhou</option>
+                <option value="Kütahya">Kütahya</option>
+                <option value="Huntington Beach">Huntington Beach</option>
+                <option value="Hollywood">Hollywood</option>
+                <option value="Leipzig">Leipzig</option>
+                <option value="Jaén">Jaén</option>
+                <option value="Hongjiang">Hongjiang</option>
+                <option value="Daloa">Daloa</option>
+                <option value="Ivano-Frankivsk">Ivano-Frankivsk</option>
+                <option value="Carrollton">Carrollton</option>
+                <option value="Juhaynah">Juhaynah</option>
+                <option value="Miyakonojō">Miyakonojō</option>
+                <option value="Miri">Miri</option>
+                <option value="Pensacola">Pensacola</option>
+                <option value="Mobile">Mobile</option>
+                <option value="Rohtak">Rohtak</option>
+                <option value="Jining">Jining</option>
+                <option value="City of Parañaque">City of Parañaque</option>
+                <option value="Cleveland">Cleveland</option>
+                <option value="Ichihara">Ichihara</option>
+                <option value="Kiryu">Kiryu</option>
+                <option value="Bournemouth">Bournemouth</option>
+                <option value="San Lorenzo">San Lorenzo</option>
+                <option value="Santa Clara">Santa Clara</option>
+                <option value="San Juan">San Juan</option>
+                <option value="City of Balikpapan">City of Balikpapan</option>
+                <option value="Garland">Garland</option>
+                <option value="Guankou">Guankou</option>
+                <option value="Kikwit">Kikwit</option>
+                <option value="Almería">Almería</option>
+                <option value="Puerto La Cruz">Puerto La Cruz</option>
+                <option value="Bacolod City">Bacolod City</option>
+                <option value="Jandira">Jandira</option>
+                <option value="Iriga City">Iriga City</option>
+                <option value="Girardot City">Girardot City</option>
+                <option value="Osorno">Osorno</option>
+
+            </select>
+          </div>
+          <div class="team-preview">
+            <h3>Away Team Prediction:</h3>
+            <p id="away-team-preview">---</p>
+            <p id="away-team-prediction-result"></p>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" id="csrf-token" value='{% csrf_token %}'>
+      {% csrf_token %}
+      <button type="button" id="predict-btn">Predict</button>
+    </div>
+    <button id="reload-btn" style="display: none;">Reload Page</button>
+</form><br><br>
+
+<footer>
+  <p>&copy; 2023 Olympic Vibes. All rights reserved.</p>
+</footer>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const predictButton = document.getElementById("predict-btn");
+    const reloadButton = document.getElementById("reload-btn");
+    const homeTeamSelect = document.getElementById("home-team");
+    const awayTeamSelect = document.getElementById("away-team");
+    const tournamentSelect = document.getElementById("tournament");
+    const citySelect = document.getElementById("city");
+    const homeTeamPreview = document.getElementById("home-team-preview");
+    const awayTeamPreview = document.getElementById("away-team-preview");
+    const predictionResultHome = document.getElementById("home-team-prediction-result");
+    const predictionResultAway = document.getElementById("away-team-prediction-result");
+
+    let prevSelections = {
+      home_team: null,
+      away_team: null,
+      tournament: null,
+      city: null,
+    };
+
+    predictButton.addEventListener("click", function () {
+      const homeTeam = homeTeamSelect.value;
+      const awayTeam = awayTeamSelect.value;
+      const tournament = tournamentSelect.value;
+      const city = citySelect.value;
+
+      // Check if all options are selected
+      if (homeTeam && awayTeam && tournament && city) {
+        // Check if selections have changed
+        if (
+          homeTeam !== prevSelections.home_team ||
+          awayTeam !== prevSelections.away_team ||
+          tournament !== prevSelections.tournament ||
+          city !== prevSelections.city
+        ) {
+          // Perform the prediction using AJAX
+          fetch("/football_prediction/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": getCookie("csrftoken"),
+            },
+            body: JSON.stringify({
+              home_team: homeTeam,
+              away_team: awayTeam,
+              tournament: tournament,
+              city: city,
+            }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              // Update the team previews
+              homeTeamPreview.textContent = homeTeam;
+              awayTeamPreview.textContent = awayTeam;
+
+              // Update the prediction results
+              predictionResultHome.textContent =
+                `Predicted Percentage for Home Team: ${data.home_team_prediction}%`;
+              predictionResultAway.textContent =
+                `Predicted Percentage for Away Team: ${data.away_team_prediction}%`;
+
+              // Update the previous selections
+              prevSelections.home_team = homeTeam;
+              prevSelections.away_team = awayTeam;
+              prevSelections.tournament = tournament;
+              prevSelections.city = city;
+
+              // Show the "Reload Page" button
+              reloadButton.style.display = "block";
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              // Display an error message on the webpage
+              predictionResultHome.textContent = "Error occurred during prediction.";
+              predictionResultAway.textContent = "";
+            });
+        }
+      } else {
+        // If any of the options are not selected, show a message
+        predictionResultHome.textContent = "Please select Home Team, Away Team, Tournament, and City.";
+        predictionResultAway.textContent = "";
+
+        // Reset the previous selections to null
+        prevSelections.home_team = null;
+        prevSelections.away_team = null;
+        prevSelections.tournament = null;
+        prevSelections.city = null;
+      }
+    });
+
+    reloadButton.addEventListener("click", function () {
+      // Reload the page
+      location.reload();
+    });
+  });
+
+  // Helper function to get the CSRF token for making POST requests
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
+  
+</body>
+
+</html>

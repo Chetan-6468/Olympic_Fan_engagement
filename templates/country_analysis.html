@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Country-wise Analysis</title>
     <!-- Include any necessary CSS or JavaScript libraries here -->
@@ -56,92 +59,136 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
-
     <h1>Country-wise Analysis</h1>
-    
-    <h2>Year-wise Medals</h2>
-    <div id="yearwiseMedalChart"></div>
 
-    <h2>Sport-wise Medals</h2>
-    <div id="sportwiseMedalChart"></div>
+    
+    <form method="post" id="countryAnalysisForm">
+        {% csrf_token %}
+        <!-- Add form elements for year and country input -->
+        <label for="year">Year:</label>
+        <input type="text" id="year" name="year" value="2021">
+    
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" value="United States">
+    
+        <button type="submit">Country-wise Analysis</button>
+    </form>
 
-    <h2>Most Successful Athletes</h2>
-    <table>
-        <tbody id="mostSuccessfulAthletesTable">
-            <!-- Populate the table dynamically using JavaScript -->
-        </tbody>
-    </table>
+    <form method="post">
+        {% csrf_token %}
+        <!-- Rest of the form fields and submit button -->
+        
+        <h2>Year-wise Medals</h2>
+        <div id="yearwiseMedalChart"></div>
+        
+        <h2>Sport-wise Medals</h2>
+        <div id="sportwiseMedalChart"></div>
+        
+        <h2>Most Successful Athletes</h2>
+       
+        <table>
+            <tbody id="mostSuccessfulAthletesTable">
+                <!-- Populate the table dynamically using JavaScript -->
+            </tbody>
+        </table>
+    </form>
 
-    <!-- Include any necessary JavaScript code here -->
-    <script>
-        // Function to update the country analysis using the received data
-        function updateCountryAnalysis(data) {
-            // Update year-wise medal chart
-            const yearwiseMedalChart = document.getElementById("yearwiseMedalChart");
-            const yearwiseMedalData = data.yearwiseMedal;
-            const yearwiseMedalFig = {
-                x: yearwiseMedalData.Year,
-                y: yearwiseMedalData.Medal,
-                type: 'line'
-            };
-            const yearwiseMedalLayout = {
-                title: 'Year-wise Medals',
-                xaxis: { title: 'Year' },
-                yaxis: { title: 'Medal Count' }
-            };
-            Plotly.newPlot(yearwiseMedalChart, [yearwiseMedalFig], yearwiseMedalLayout);
-    
-            // Update sport-wise medal chart
-            const sportwiseMedalChart = document.getElementById("sportwiseMedalChart");
-            const sportwiseMedalData = data.sportwiseMedal;
-            const sportwiseMedalFig = {
-                z: Object.values(sportwiseMedalData),
-                x: Object.keys(sportwiseMedalData[0]),
-                y: Object.keys(sportwiseMedalData),
-                type: 'heatmap'
-            };
-            const sportwiseMedalLayout = {
-                title: 'Sport-wise Medals',
-                xaxis: { title: 'Year' },
-                yaxis: { title: 'Sport' }
-            };
-            Plotly.newPlot(sportwiseMedalChart, [sportwiseMedalFig], sportwiseMedalLayout);
-    
-            // Update most successful athletes table
-            const mostSuccessfulAthletesTable = document.getElementById("mostSuccessfulAthletesTable");
-            const mostSuccessfulAthletesData = data.mostSuccessfulAthletes;
-            mostSuccessfulAthletesTable.innerHTML = mostSuccessfulAthletesData;
-        }
-    
-        // Function to fetch the country analysis data
-        function fetchCountryAnalysis(year, country) {
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    
-            fetch("/country_analysis/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": csrfToken
-                },
-                body: JSON.stringify({
-                    year: year,
-                    country: country
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                updateCountryAnalysis(data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        }
-    
-        // Call the fetchCountryAnalysis function with the desired year and country values
-        // You can update these values based on your requirements
-        fetchCountryAnalysis('2021', 'United States');
-    </script>
-    
-    
+
+<!-- Include Plotly.js library -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<!-- Your existing JavaScript code... -->
+<script>
+    // Function to get the CSRF token value from the page
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+
+      // Function to update the country analysis using the received data
+      function updateCountryAnalysis(data) {
+        // Get the chart div elements
+        const yearwiseMedalChart = document.getElementById("yearwiseMedalChart");
+        const sportwiseMedalChart = document.getElementById("sportwiseMedalChart");
+        const mostSuccessfulAthletesTable = document.getElementById("mostSuccessfulAthletesTable");
+
+        // Update Year-wise Medals chart
+        const yearwiseMedalData = data.yearwiseMedal;
+        const yearwiseMedalLayout = {
+            title: 'Year-wise Medals',
+            xaxis: {
+                title: 'Year'
+            },
+            yaxis: {
+                title: 'Medals'
+            }
+        };
+        Plotly.newPlot(yearwiseMedalChart, yearwiseMedalData, yearwiseMedalLayout);
+
+        // Update Sport-wise Medals chart
+        const sportwiseMedalData = data.sportwiseMedal;
+        const sportwiseMedalLayout = {
+            title: 'Sport-wise Medals',
+            xaxis: {
+                title: 'Year'
+            },
+            yaxis: {
+                title: 'Sport'
+            }
+        };
+        Plotly.newPlot(sportwiseMedalChart, sportwiseMedalData, sportwiseMedalLayout);
+
+        // Update Most Successful Athletes table
+        const tableData = data.mostSuccessfulAthletes;
+        let tableHtml = "<tr><th>Name</th><th>Medals</th><th>Sport</th></tr>";
+        tableData.forEach(row => {
+            tableHtml += `<tr><td>${row.Name}</td><td>${row.Medals}</td><td>${row.Sport}</td></tr>`;
+        });
+        mostSuccessfulAthletesTable.innerHTML = tableHtml;
+    }
+
+
+    // Function to fetch the country analysis data
+    function fetchCountryAnalysis(year, country) {
+        const csrfToken = getCSRFToken();
+
+        fetch("/country_analysis/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
+            },
+            body: JSON.stringify({
+                year: year,
+                country: country,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            updateCountryAnalysis(data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    // Function to handle form submission
+    function handleFormSubmit(event) {
+        event.preventDefault(); // Prevent form submission
+
+        const yearInput = document.getElementById("year").value;
+        const countryInput = document.getElementById("country").value;
+        fetchCountryAnalysis(yearInput, countryInput);
+    }
+
+    // Add event listener to the form for form submission
+    const form = document.getElementById("countryAnalysisForm");
+    form.addEventListener("submit", handleFormSubmit);
+
+    // Call the fetchCountryAnalysis function with default values on page load
+    fetchCountryAnalysis('2021', 'United States');
+</script>
+
+
+
 </body>
 </html>

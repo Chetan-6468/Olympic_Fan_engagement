@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Which Bollywood Celebrity Are You?</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+        }
+        
+        .imageContainer,
+        .resultContainer {
+            margin-top: 40px;
+        }
+        
+        .imageContainer img,
+        .resultContainer img {
+            width: 300px;
+            height: auto;
+            margin-top: 10px;
+        }
+        
+        #resultHeader {
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .resultContainer {
+            display: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Which Sport Celebrity Are You?</h1>
+    <input type="file" id="uploadImage" accept="image/*">
+    <div class="imageContainer">
+        <h2>Your Uploaded Image</h2>
+        <img id="displayImage" src="#" alt="Uploaded Image">
+    </div>
+    <div class="resultContainer">
+        <h2 id="resultHeader"></h2>
+        <img id="resultImage" src="#" alt="Recommended Celebrity">
+    </div>
+    <script src="script.js"></script>
+
+<script>
+    const uploadImage = document.getElementById("uploadImage");
+const displayImage = document.getElementById("displayImage");
+const resultHeader = document.getElementById("resultHeader");
+const resultImage = document.getElementById("resultImage");
+const resultContainer = document.querySelector(".resultContainer");
+
+uploadImage.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+        displayImage.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+
+    // Perform image upload and processing (similar to the Python code)
+    // ...
+
+    // After processing, show the result
+    // For demonstration purposes, I'm assuming the result is "predictedActor" and "resultImageUrl"
+    const predictedActor = "Bollywood Celebrity Name"; // Replace with the actual predicted celebrity name
+    const resultImageUrl = "path/to/result/image"; // Replace with the actual URL of the recommended celebrity image
+
+    resultHeader.textContent = "Seems like " + predictedActor;
+    resultImage.src = resultImageUrl;
+    resultContainer.style.display = "block";
+});
+
+</script>
+
+</body>
+</html>
