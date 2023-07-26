@@ -179,57 +179,68 @@ def football_prediction(request):
         return render(request, 'football_game.html')
 
 
-
-
 #---------------------------image classification-----------------------------------
-
-# classifier/views.py
 import os
 import pickle
 import numpy as np
 from django.shortcuts import render
 from django.http import JsonResponse
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
-from keras_vggface.utils import preprocess_input
-import tensorflow_addons as tfa
+from PIL import Image
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import NearestNeighbors
 
+# Load the filenames and features from the generated files
+filenames = pickle.load(open(r'C:\Users\Chetan\Desktop\olympicweb\pycode\filenames.pkl', 'rb'))
+features = pickle.load(open(r'C:\Users\Chetan\Desktop\olympicweb\pycode\embedding.pkl', 'rb'))
 
+# Apply PCA for dimensionality reduction
+scaler = StandardScaler()
+features_scaled = scaler.fit_transform(features)
+pca = PCA(n_components=100)
+features_pca = pca.fit_transform(features_scaled)
 
-
-# Load the trained model
-model = load_model('path/to/trained/model.h5')
-
-# Your code for loading the filenames and feature extraction
-filenames = pickle.load(open('filenames.pkl', 'rb'))
+# Fit Nearest Neighbors model
+nbrs = NearestNeighbors(n_neighbors=1, algorithm='ball_tree').fit(features_pca)
 
 def classify_image(request):
-    if request.method == 'POST' and request.FILES['image']:
-        uploaded_image = request.FILES['image']
-        
-        # Save the uploaded image to a temporary location (optional)
+    if request.method == 'POST' and request.FILES.get('image'):
+        try:
+            uploaded_image = request.FILES['image']
 
-        # Perform feature extraction (similar to your existing code)
-        # Note: You can use the feature_extractor function defined in your image.py file
-        uploaded_feature = feature_extractor('path/to/temporary/uploaded/image', model)
+            # Save the uploaded image to a temporary location (optional)
+            with open('uploaded_image.jpg', 'wb') as f:
+                f.write(uploaded_image.read())
 
-        # Find the closest matching celebrity from your dataset
-        min_distance = float('inf')
-        predicted_actor = None
+            # Perform feature extraction
+            img = Image.open('uploaded_image.jpg').convert('RGB')
+            img_array = np.array(img.resize((224, 224)))
+            img_array = img_array / 255.0  # Normalize image
+            img_feature = img_array.reshape(1, -1)  # Flatten the image array
+            img_feature_scaled = scaler.transform(img_feature)
+            img_feature_pca = pca.transform(img_feature_scaled)
 
-        for filename in filenames:
-            celebrity_feature = pickle.load(open('embedding.pkl', 'rb')) # Load features of celebrity images
-            distance = np.linalg.norm(uploaded_feature - celebrity_feature)
-            if distance < min_distance:
-                min_distance = distance
-                predicted_actor = os.path.basename(os.path.dirname(filename))
-        
-        # Remove the temporary uploaded image (optional)
+            # Find the closest matching celebrity using Nearest Neighbors
+            distances, indices = nbrs.kneighbors(img_feature_pca)
+            predicted_index = indices[0][0]
+            predicted_actor = os.path.basename(os.path.dirname(filenames[predicted_index]))
 
-        result_image_url = f"/static/sport_image/{predicted_actor}/{uploaded_image.name}"
-        return JsonResponse({
-            "predicted_actor": predicted_actor,
-            "result_image_url": result_image_url
-        })
+            # Remove the temporary uploaded image (optional)
+            os.remove('uploaded_image.jpg')
+
+            result_image_url = f"sport image/{predicted_actor}/{uploaded_image.name}"
+            return JsonResponse({
+                "predicted_actor": predicted_actor,
+                "result_image_url": result_image_url
+            })
+        except Exception as e:
+            # Log the error
+            print(f"Error in classify_image: {e}")
+
+            # Return an error response
+            return JsonResponse({
+                "error": "An internal server error occurred. Please try again later."
+            }, status=500)
 
     return render(request, 'image_classification.html')
+

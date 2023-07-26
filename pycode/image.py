@@ -1,41 +1,32 @@
 import os
 import pickle
 import numpy as np
-from tensorflow.keras.preprocessing import image
-from keras_vggface.vggface import VGGFace
-from keras_vggface.utils import preprocess_input
-from tqdm import tqdm
-import tensorflow_addons as tfa
+from PIL import Image
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
 
-
-
-actors = os.listdir('cropped')
+actors = os.listdir(r'C:\Users\Chetan\Desktop\olympicweb\pycode\sport image')
 
 filenames = []
 
 for actor in actors:
-    for file in os.listdir(os.path.join('cropped', actor)):
-        filenames.append(os.path.join('cropped', actor, file))
-
+    for file in os.listdir(os.path.join(r'C:\Users\Chetan\Desktop\olympicweb\pycode\sport image', actor)):
+        filenames.append(os.path.join(r'C:\Users\Chetan\Desktop\olympicweb\pycode\sport image', actor, file))
 pickle.dump(filenames, open('filenames.pkl', 'wb'))
-
-filenames = pickle.load(open('filenames.pkl', 'rb'))
-
-model = VGGFace(model='resent50', include_top=False, input_shape=(224, 224, 3), pooling='avg')
-print(model.summary())
-
-
-def feature_extractor(img_path, model):
-    img = image.load_img(img_path, target_size=(224, 224))
-    img_array = image.img_to_array(img)
-    expanded_img = np.expand_dims(img_array, axis=0)
-    preprocessed_img = preprocess_input(expanded_img)
-    result = model.predict(preprocessed_img).flatten()
-    return result
-
-
+# Your code for loading the images and feature extraction
 features = []
-for file in tqdm(filenames):
-    features.append(feature_extractor(file, model))
+for file in filenames:
+    img = Image.open(file).convert('RGB')
+    img_array = np.array(img.resize((224, 224)))
+    img_array = img_array / 255.0  # Normalize image
+    img_feature = img_array.reshape(1, -1)  # Flatten the image array
+    features.append(img_feature)
 
-pickle.dump(features, open('embedding.pkl', 'wb'))
+# Apply PCA for dimensionality reduction
+scaler = StandardScaler()
+features_scaled = scaler.fit_transform(np.concatenate(features, axis=0))
+pca = PCA(n_components=100)
+features_pca = pca.fit_transform(features_scaled)
+
+
+pickle.dump(features_pca, open('embedding.pkl', 'wb'))
