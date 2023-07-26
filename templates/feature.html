@@ -118,13 +118,77 @@ footer p:last-child {
     margin: 0;
   }
 
+  .navbar-top {
+    background-color: #318fb5;;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.hello {
+    width: 90%;
+    
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 40px;
+    margin: 0;
+    color: #fff;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.navbar-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar-links li {
+    margin-right: 20px;
+}
+
+.navbar-links li:last-child {
+    margin-right: 0;
+}
+
+.navbar-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-links li a:hover {
+    background-color: #318fb5;;
+}
+
   </style>
 </head>
 <body>
 
-    <header class="header">
-        <h1>Olympic Vibes</h1>
-      </header>
+  <div class="navbar-top">
+    <div class="hello">
+        <ul class="navbar-links">
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <h1>Game Predictions</h1>
+        <img src="/static/img/logo3.png" alt="Logo" class="logo">
+    </div>
+</div>
     
   <section class="features">
     <div class="container">

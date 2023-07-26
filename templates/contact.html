@@ -95,7 +95,19 @@ footer a:hover {
     margin-right: auto;
     width: 50%;
   }
-
+  footer {
+    background-color: #f8f8f8;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+  }
+  
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -129,35 +141,58 @@ footer a:hover {
         <form id="contactForm">
           <div class="row">
             <div class="col-md-6">
-              <input type="text" name="name" placeholder="Your Name" required>
+              <input type="text"  id="name" name="name" placeholder="Your Name" required>
             </div>
             <div class="col-md-6">
-              <input type="email" name="email" placeholder="Your Email" required>
+              <input type="email" name="email" id="email" placeholder="Your Email" required>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <input type="text" name="subject" placeholder="Subject" required>
+              <input type="text" id="subject" name="subject" placeholder="Subject" required>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <textarea name="message" placeholder="Your Message" required></textarea>
+              <textarea name="message"  id="message" placeholder="Your Message" required></textarea>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <button type="submit">Send Message</button>
+              <button type="submit" onclick="send()">Send Message</button>
             </div>
           </div>
         </form>
       </div>
     </section>
-  </main>
-
+  </main><br><br>
   <footer>
-    <!-- Include your footer code here -->
+    <p>&copy; 2023 Olympic Vibes. All rights reserved.</p>
   </footer>
 
+  <script src="https://smtpjs.com/v3/smtp.js">
+  </script>
+<script>
+  function send() {
+
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var subject = document.getElementById("subject").value;
+        var message = document.getElementById("message").value;
+
+        var body = "name :" + name + "<br/> email :" + email + "<br/> subject :" + subject + "<br/> message " + message; 
+        
+    console.log(body);
+      Email.send({
+        Host : "smtp.elasticemail.com",
+        Username : "thegreenlandindia@gmail.com",
+        Password : "ADBDC8AE1A87D50E31104C8E8F5751996181",
+        To : 'thegreenlandindia@gmail.com',
+        From : "thegreenlandindia@gmail.com",
+        Subject : subject,
+        Body : body
+      })
+    }
+</script>
 </body>
 </html>

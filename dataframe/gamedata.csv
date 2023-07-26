@@ -1,16 +1,16 @@
 Title,genre
-Athletics 2,Athletics
+Athletics,Athletics
 Athletics mania,Athletics
 Super athlete,Athletics
-Swimming Race 3D,Swimmimg
-Swim Out,Swimmimg
-Flip Diving,Swimmimg
+Swimming,Swimming
+Swim Out,Swimming
+Flip Diving,Swimming
 Badminton League,Badminton
 Badminton 3D,Badminton
 Badminton Blitz,Badminton
-Sailboat Championship,Sailng
-Sailing Champions,Sailng
-Sailway,Sailng
+Sailboat Championship,Sailing
+Sailing Champions,Sailing
+Sailway,Sailing
 Gymnastics Superstar,Gymnastics
 Gymnastics Queen,Gymnastics
 Super Gymnast,Gymnastics
@@ -68,9 +68,9 @@ Volleyball Championship 3D,Volleyball
 MLB Tap Sports Baseball 2021,Baseball
 Baseball superstars 2023,Baseball
 9 Innings,Baseball
-Rythmic Gymnastic Dream Team,Rythmic Gymnastic
-Rythmic Gymnastic star,Rythmic Gymnastic
-Gymnastic Superstars,Rythmic Gymnastic
+Rhythmic Gymnastic Dream Team,Rhythmic Gymnastic
+Rhythmic Gymnastic star,Rhythmic Gymnastic
+Gymnastic Superstars,Rhythmic Gymnastic
 Real Polo Simulator,Polo
 Horse Polo Championship,Polo
 Polo Games,Polo
@@ -83,13 +83,13 @@ Speed Skating 2019,Speed Skating
 Cross Country Skiing,Cross Country Skiing
 Ski Jumping Pro,Cross Country Skiing
 Ski Jumping 2022,Cross Country Skiing
-Baithlon Mania,Baithlon
-Winter Sports Game,Baithlon
-Baithlon Shooting,Baithlon
+Biathlon Mania,Biathlon
+Winter Sports Game,Biathlon
+Biathlon Shooting,Biathlon
 Luge Crush,Luge
 Luge Race 3D,Luge
 Luge Simulator,Luge
-Taekwondo Gane,Taekwondo
+Taekwondo Game,Taekwondo
 Taekwondo Tournament,Taekwondo
 Taekwondo Kicking & Punching,Taekwondo
 Bobsleigh- Ice Race,Bobsleigh
@@ -116,7 +116,7 @@ Curling Game,Curling
 Snowboarding Party,Snowboarding
 Snowboarding Master,Snowboarding
 Snowboarding Party:Aspan,Snowboarding
-Lacrosse Acrade 2019,Lacrosse
+Lacrosse Arcade 2019,Lacrosse
 Lacrosse Dodge,Lacrosse
 Lacrosse Shooter 3D,Lacrosse
 Racquets Attack,Racquets
@@ -136,4 +136,3 @@ Judo in brief,Judo
 NBA 2K22,Basketball
 Basketball Stars,Basketball
 NBA LIVE Mobile Basketball,Basketball
-,

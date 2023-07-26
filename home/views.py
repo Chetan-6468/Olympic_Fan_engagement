@@ -27,11 +27,19 @@ import pycode.game
 def game_recommendation(request):
     return render(request, 'game_recommendation.html')
 
+def game_prediction(request):
+    return render(request, 'game_prediction.html')
+
+def football_game(request):
+    return render(request, 'football_game.html')
+
+def empty(request):
+    return render(request, 'empty.html')
+
+def image_classification(request):
+    return render(request, 'image_classification.html')
+
 from django.shortcuts import render
-
-# def index(request):
-#     return render(request, 'index.html', {'fetch_medal': fetch_medal_tally()})
-
 
 
 import json
@@ -57,6 +65,11 @@ def fetch_medal(request):
 
 
 
+from pycode.oly import yearwise_medal, country_medal_heatmap, most_successful_athletecountry
+import json
+from django.http import JsonResponse
+
+
 df = pd.read_csv(r'dataframe/athlete_events.csv')
 region_df = pd.read_csv(r'dataframe/noc_regions.csv')
 
@@ -65,31 +78,38 @@ df = df.merge(region_df, on='NOC', how='left')
 df.drop_duplicates(inplace=True)
 df = pd.concat([df, pd.get_dummies(df['Medal'])], axis=1)
 
-from pycode.oly import yearwise_medal, country_medal_heatmap, most_successful_athletecountry
+from pycode.oly import fetch_medal_tally, yearwise_medal, country_medal_heatmap, most_successful_athletecountry
 
 '''def country_analysis(request):
     if request.method == 'POST':
-        year = request.POST['year']
-        country = request.POST['country']
-       # result = fetch_medal_tally(year, country)   Call the function and store the result
+        try:
+            data = json.loads(request.body)
+            print("Received data:", data)
 
-        # Process the result to get specific data for country-wise analysis
-        yearwise_medal_data = yearwise_medal(df, country)
-        sportwise_medal_data = country_medal_heatmap(df, country)
-        most_successful_athletes = most_successful_athletecountry(df, country)
+            year = data.get('year')
+            country = data.get('country')
+            print("Year:", year)
+            print("Country:", country)
 
-        # Render the country_analysis.html template and pass the data as a context variable
-        return render(request, 'country_analysis.html', {
-            'yearwiseMedalData': yearwise_medal_data,
-            'sportwiseMedalData': sportwise_medal_data,
-            'mostSuccessfulAthletes': most_successful_athletes
-        })
+            # Process the result to get specific data for country-wise analysis
+            yearwise_medal_data = yearwise_medal(df, country)
+            sportwise_medal_data = country_medal_heatmap(df, country)
+            most_successful_athletes = most_successful_athletecountry(df, country)
 
-    return render(request, 'country_analysis.html')'''
-    
-def yearwise_medal(request):
-    if request.method=='POST':
-        country=request.POST['country']
-        yearwise=yearwise_medal(df,country)
-        yearwise_medal_data=yearwise.to_html()
-        return HttpResponse(request, 'country_analysis.html',{'yearwiseMedalData':yearwise_medal_data})
+            # Create a dictionary with the required data
+            result_data = {
+                'yearwiseMedal': yearwise_medal_data,
+                'sportwiseMedal': sportwise_medal_data,
+                'mostSuccessfulAthletes': most_successful_athletes.to_dict(orient='records')  # Convert DataFrame to list of dictionaries
+            }
+
+            print("Result Data:", result_data)
+
+            # Return the JSON response
+            return JsonResponse(result_data)
+
+        except json.JSONDecodeError as e:
+            # Handle JSONDecodeError
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+
+    return render(request, 'country_analysis.html')
