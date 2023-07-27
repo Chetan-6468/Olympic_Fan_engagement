@@ -21,4 +21,7 @@ urlpatterns = [
     path('image_classification/', views.image_classification, name='image_classification'),
     path('football_prediction/', views.football_prediction, name='football_prediction'),
     path('classify_image/', views.classify_image, name='classify_image'),
+    path('health_pre/', views.health_pre, name='health_pre'),
+    path('health_prediction_view/', views.health_prediction_view, name='health_prediction_view'),
+
 ]

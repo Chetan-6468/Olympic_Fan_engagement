@@ -11,6 +11,8 @@
 <!-- animated slider -->
 <link rel="stylesheet" href="static/css/animated-slider.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/static/img/logo4.png">
+
 
 
 <style>
@@ -187,7 +189,7 @@ p {
                   <li>
                       <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Predictions</a>
                       <ul class="collapse list-unstyled" id="homeSubmenu">
-                          <li><a href="#">Upcoming Events</a></li>
+                          <li><a href={% url 'health_pre' %}>Health Prediction</a></li>
                           <li><a href={% url 'game_prediction' %}>Games Predictions</a></li>
                          
                       </ul>

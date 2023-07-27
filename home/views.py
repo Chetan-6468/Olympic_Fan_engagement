@@ -39,6 +39,10 @@ def empty(request):
 def image_classification(request):
     return render(request, 'image_classification.html')
 
+
+def health_pre(request):
+    return render(request, 'health_pre.html')   
+
 from django.shortcuts import render
 
 
@@ -244,3 +248,53 @@ def classify_image(request):
 
     return render(request, 'image_classification.html')
 
+
+
+
+
+# ----------------------health_prediction---------------
+
+
+import numpy as np
+import pandas as pd
+from django.shortcuts import render
+from pycode.health_predict import minscaler, encoder, model, cols_scaled, encoded_cols, categorical_cols
+
+def health_prediction_view(request):
+    if request.method == 'POST':
+        gender = request.POST.get('gender')
+        age = request.POST.get('age')
+        heart_rate = request.POST.get('heart_rate')
+        temperature = request.POST.get('temperature')
+        SpO2_saturation = request.POST.get('SpO2_saturation')
+        bpm = request.POST.get('bpm')
+
+        # Check if all fields are filled
+        if not all([gender, age, heart_rate, temperature, SpO2_saturation, bpm]):
+            return render(request, 'health_pre.html', {'error_message': 'Please fill all the details.'})
+
+        # Convert data to float
+        try:
+            age = float(age)
+            heart_rate = float(heart_rate)
+            temperature = float(temperature)
+            SpO2_saturation = float(SpO2_saturation)
+            bpm = float(bpm)
+        except ValueError:
+            return render(request, 'health_pre.html', {'error_message': 'Invalid input. Please provide numeric values.'})
+
+        # Preprocess the input data
+        input_data = np.array([[gender, age, heart_rate, temperature, SpO2_saturation, bpm]])
+        input_df = pd.DataFrame(input_data, columns=['gender', 'age', 'heart_rate', 'temperature', 'SpO2_saturation', 'bpm'])
+        input_df['temperature'] = input_df['temperature'].astype(float).apply(lambda x: ((x - 32) * 5) / 9 if x > 80.0 else x)
+        input_df[cols_scaled] = minscaler.transform(input_df[cols_scaled])
+        input_df[encoded_cols] = encoder.transform(input_df[categorical_cols])
+        input_df.drop(['gender'], axis=1, inplace=True)
+
+        # Predict the health status
+        prediction = model.predict(input_df)[0]
+        health_status = 'Healthy' if prediction == 1 else 'Not Healthy'
+
+        return render(request, 'health_pre.html', {'health_status': health_status})
+
+    return render(request, 'health_pre.html', {'health_status': None, 'error_message': None})
