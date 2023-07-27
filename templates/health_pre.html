@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Prediction</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="shortcut icon" href="/static/img/logo4.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+/* Global styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* Container styles */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+}
+
+/* Note styles */
+.note {
+  width: 220px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: slideInLeft 0.5s ease;
+}
+
+/* Form styles */
+.form {
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease;
+}
+
+/* Heading styles */
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Input row styles */
+.input-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+/* Label styles */
+label {
+  font-weight: bold;
+  color: #555;
+  font-size: 14px;
+  margin-right:105px;
+}
+
+/* Input styles */
+input, select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #444;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input::placeholder {
+  color: #999;
+}
+
+input:focus {
+  border-color: #66afe9;
+}
+
+select {
+  appearance: none;
+  background: url("down-arrow.svg") no-repeat right center;
+  background-size: 20px 20px;
+  padding-right: 40px;
+}
+
+/* Predict button styles */
+.predict-btn {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007BFF;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+
+.result input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #444;
+  text-align: center;
+  width: 200px;
+  outline: none;
+}
+.navbar-top {
+  background-color: #318fb5;;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.hello {
+  width: 90%;
+  
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1 {
+  font-size: 40px;
+  margin: 0;
+  color: #fff;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.navbar-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-links li {
+  margin-right: 20px;
+}
+
+.navbar-links li:last-child {
+  margin-right: 0;
+}
+
+.navbar-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-links li a:hover {
+  background-color: #318fb5;;
+}
+
+
+
+footer {
+  background-color: #f8f8f8;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+  </style>
+</head>
+<body>
+  <div class="navbar-top">
+    <div class="hello">
+        <ul class="navbar-links">
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <h1>Health Predictions</h1>
+        <img src="/static/img/logo3.png" alt="Logo" class="logo">
+    </div>
+</div>
+  <div class="container">
+    <div class="note">
+      <h2>Note:</h2>
+      <ul>
+        <li>Age should be between <br>15 and 100.</li><br>
+        <li>Heart rate should be<br> between 40 and 120.</li><br>
+        <li>Temperature should be<br> between 35 and 42 (°C).</li><br>
+        <li>SpO2 saturation should <br>be between 20 and<br> 340 (%).</li><br>
+        <li>BPM should be between<br> 40 and 110.</li>
+      </ul>
+    </div>
+    <div class="form">
+      <h1>Health Prediction</h1>
+      <form method="post" action="{% url 'health_prediction_view' %}">
+        {% csrf_token %}
+      <div class="input-row">
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="15" max="100" placeholder="Enter age (15-100)">
+
+
+        <label for="heart_rate">Heart Rate:</label>
+        <input type="number" id="heart_rate" name="heart_rate" min="40" max="120" placeholder="Enter heart rate (40-120)">
+      </div>
+
+      <div class="input-row">
+        <label for="temperature">Temperature (°C):</label>
+        <input type="number" id="temperature" name="temperature" step="0.1" min="35" max="42" placeholder="Enter temperature (35-42)">
+
+        <label for="SpO2_saturation">SpO2 Saturation (%):</label>
+        <input type="number" id="SpO2_saturation" name="SpO2_saturation" min="20" max="340" placeholder="Enter SpO2 saturation (20-340)">
+
+        <label for="bpm">BPM:</label>
+        <input type="number" id="bpm" name="bpm" min="40" max="110" placeholder="Enter BPM (40-110)">
+      </div>
+
+      <div class="predict-btn">
+        <button type="submit" onclick="predictHealthStatus()">Predict Probability</button>
+      </div>
+      <!-- Add this section after the "predict-btn" div -->
+{% if error_message %}
+<div class="error-message">
+  <p>{{ error_message }}</p>
+</div>
+{% endif %}
+      </form>
+      <div class="result">
+        {% if health_status %}
+          <label for="health_status">Health Status:</label>
+          <input type="text" id="health_status" name="health_status" value="{{ health_status }}" readonly >
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p>&copy; 2023 Olympic Vibes. All rights reserved.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

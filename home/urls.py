@@ -13,18 +13,15 @@ urlpatterns = [
     path('feature/', views.feature, name='feature'),
     path('stories/', views.stories, name='stories'),
     path('game_recommendation/', views.game_recommendation, name='game_recommendation'),
-<<<<<<< HEAD
-    path('yearwise_medal/', views.yearwise_medal, name='yearwise_medal'),
-
-]
-=======
      path("recommend_games/", views.recommend_games, name="recommend_games"),
     path('country_analysis/', views.country_analysis, name='country_analysis'),
     path('game_prediction/', views.game_prediction, name='game_prediction'),
     path('football_game/', views.football_game, name='football_game'),
     path('empty/', views.empty, name='empty'),
-    path('image_classification/', views.image_classification, name='image_classification'),
+    
     path('football_prediction/', views.football_prediction, name='football_prediction'),
-    path('classify_image/', views.classify_image, name='classify_image'),
+    
+    path('health_pre/', views.health_pre, name='health_pre'),
+    path('health_prediction_view/', views.health_prediction_view, name='health_prediction_view'),
+
 ]
->>>>>>> a92db9f0e9eb27fc4bc2104a0c19575010feeb4b

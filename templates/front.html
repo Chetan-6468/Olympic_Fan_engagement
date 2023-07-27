@@ -3,6 +3,38 @@
 <head>
 <meta charset="utf-8">
 <title>Olympic Vibes</title>
+
+<!-- Start of Async Drift Code -->
+<!-- Start of Async Drift Code -->
+<script>
+  "use strict";
+  
+  !function() {
+    var t = window.driftt = window.drift = window.driftt || [];
+    if (!t.init) {
+      if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
+      t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], 
+      t.factory = function(e) {
+        return function() {
+          var n = Array.prototype.slice.call(arguments);
+          return n.unshift(e), t.push(n), t;
+        };
+      }, t.methods.forEach(function(e) {
+        t[e] = t.factory(e);
+      }), t.load = function(t) {
+        var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+        o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
+        var i = document.getElementsByTagName("script")[0];
+        i.parentNode.insertBefore(o, i);
+      };
+    }
+  }();
+  drift.SNIPPET_VERSION = '0.3.1';
+  drift.load('akvz4k5ktttw');
+  </script>
+  <!-- End of Async Drift Code -->
+  <!-- End of Async Drift Code -->
+
 <link rel="stylesheet" href="static/css/styles.css">
 <link rel="stylesheet" href="static/css/responsive.css">
 <link rel="stylesheet" href="static/css/bootstrap.min.css">
@@ -11,6 +43,8 @@
 <!-- animated slider -->
 <link rel="stylesheet" href="static/css/animated-slider.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/static/img/logo4.png">
+
 
 
 <style>
@@ -150,7 +184,116 @@ p {
   }
 
 
- 
+
+
+
+/* General styles */
+.about-us {
+  padding: 80px 0;
+}
+
+.about-item {
+  text-align: center;
+}
+
+.about-item h4 {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.about-item h6 {
+  font-size: 16px;
+}
+
+/* Section heading styles */
+.section-heading h6 {
+  color: #f39c12;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.section-heading h2 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* Button styles */
+.btn {
+  display: inline-block;
+  background-color: #f39c12;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 30px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #e67e22;
+}
+
+/* Image styles */
+.right-image img {
+  max-width: 100%;
+  height: 320px;
+  margin-top: 110px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation styles */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wow {
+  visibility: hidden;
+}
+
+/* Animation delay for each element */
+.wow.fadeInUp {
+  animation-name: fadeInUp;
+}
+
+/* Customize animation duration and delay */
+[data-wow-duration="1s"] {
+  animation-duration: 1s;
+}
+
+[data-wow-delay="0.5s"] {
+  animation-delay: 0.5s;
+}
+
+[data-wow-delay="0.7s"] {
+  animation-delay: 0.7s;
+}
+
+[data-wow-delay="0.9s"] {
+  animation-delay: 0.9s;
+}
+
+[data-wow-delay="1.1s"] {
+  animation-delay: 1.1s;
+}
+
+[data-wow-delay="1.3s"] {
+  animation-delay: 1.3s;
+}
+
+[data-wow-delay="1.5s"] {
+  animation-delay: 1.5s;
+}
 
 </style>
 
@@ -184,16 +327,13 @@ p {
                 </div>
               <ul class="list-unstyled components">
                   <p>MENU</p>
-                  <li>
-                      <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Predictions</a>
-                      <ul class="collapse list-unstyled" id="homeSubmenu">
-                          <li><a href="#">Upcoming Events</a></li>
-                          <li><a href={% url 'game_prediction' %}>Games Predictions</a></li>
-                         
-                      </ul>
-                  </li>
+                  
+                  <li><a href={% url 'health_pre' %}>Health Prediction</a></li>
+
+                  <li><a href={% url 'game_prediction' %}>Games Predictions</a></li>
+
                   <li><a href={% url 'index' %}>Player Statistics</a></li>
-                  <li><a href={% url 'image_classification' %}>Image Classification</a></li>
+                  
                   <li><a href={% url 'game_recommendation' %}>Games recommendations</a></li>
                   <li><a href={% url 'stories' %}>Player Stories</a></li>
               </ul>
@@ -248,7 +388,57 @@ p {
               </div>
       </div>
   </section>
- <section><br><br><br>
+ <section><br><br>
+
+
+
+{% comment %} --------------------new section----------------------- {% endcomment %}
+
+<div id="about" class="about-us section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 align-self-center wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.5s">
+        <div class="section-heading">
+          <h6>Olympics Games</h6>
+          <h2>The Greatest Sporting Event on Earth</h2>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-sm-4">
+            <div class="about-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.7s">
+              <h4>3,000+</h4>
+              <h6>Athletes from Around the World</h6>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-4">
+            <div class="about-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.9s">
+              <h4>200+</h4>
+              <h6>Nations Participating</h6>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-4">
+            <div class="about-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.1s">
+              <h4>33</h4>
+              <h6>Sports and Disciplines</h6>
+            </div>
+          </div>
+        </div>
+        <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.3s">
+          The Olympic Games is the world's most prestigious and celebrated international multi-sport event. It takes place every four years and brings together thousands of athletes from various countries to compete in a spirit of friendship and sportsmanship. 
+        </p>
+       
+        <a class="btn btn-primary btn-lg wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.7s" rel="nofollow" href="https://olympics.com/en/" target="_parent">Learn More</a>
+      </div>
+      <div class="col-lg-6">
+        <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+          <img class="right-image"src="/static/img/game.png" alt="img" style="border: 2px solid black;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div><br>
+
+
+
 <!-- testimonial area Start  -->
 <div class="testimonial-section sbs-testimonial-section pd-top-105 pd-bottom-120" style="background-image:url(assets/img/bg/1h3.png);">
   <div class="container">
