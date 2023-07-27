@@ -6,8 +6,6 @@
   <link rel="stylesheet" href="static/css/styles.css">
   <link rel="stylesheet" href="static/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="shortcut icon" href="/static/img/logo4.png">
-
 
   <style>
 
@@ -15,7 +13,10 @@
 body {
   font-family: Arial, sans-serif;
 }
-
+*{
+  margin:0;
+  padding:0;
+}
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -50,11 +51,15 @@ body {
   margin-bottom: 20px;
 }
 
-.feature-card h3 {
+.feature-card a{
   font-size: 24px;
   font-weight: bold;
   color: #333;
   margin-bottom: 15px;
+  text-decoration: none;
+}
+.feature-card a:hover{
+  font-size: 27px;
 }
 
 .feature-card p {
@@ -121,7 +126,7 @@ footer p:last-child {
   }
 
   .navbar-top {
-    background-color: #318fb5;;
+    background-color: #ff6b6b;
     color: #fff;
     padding: 10px 0;
     text-align: center;
@@ -174,10 +179,10 @@ h1 {
 }
 
 .navbar-links li a:hover {
-    background-color: #318fb5;;
+    background-color: #fa5050;
 }
-
   </style>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 
@@ -187,7 +192,7 @@ h1 {
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
         </ul>
-        <h1>Game Predictions</h1>
+        <h1>Distinctive Features</h1>
         <img src="/static/img/logo3.png" alt="Logo" class="logo">
     </div>
 </div>
@@ -197,22 +202,29 @@ h1 {
       <div class="row">
         <div class="col-lg-4">
           <div class="feature-card">
-            <i class="fa fa-line-chart"></i>
-            <h3>Accurate Predictions</h3>
+            <i class="fa fa-vollyball"></i><br>
+            <a href={% url 'game_prediction' %}>Game Predictions</a>
             <p>Stay ahead with our accurate predictions for upcoming Olympic events. Make informed decisions and boost your winning chances.</p>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="feature-card">
-            <i class="fa fa-bar-chart"></i>
-            <h3>Player Statistics</h3>
+            <i class="fa fa-hospital"></i><br>
+            <a href={% url 'health_pre' %}>Health Predictions</a>
+            <p>Stay ahead with our accurate predictions for athlete's health. Make informed decisions and boost your winning chances.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="feature-card">
+            <i class="fa fa-bar-chart"></i><br>
+            <a href={% url 'index' %}>Player Statistics</a>
             <p>Explore comprehensive player statistics and analyze their performance. Get insights into their strengths and weaknesses.</p>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="feature-card">
-            <i class="fa fa-gamepad"></i>
-            <h3>Interactive Games</h3>
+            <i class="fa fa-gamepad"></i><br>
+            <a href={% url 'game_recommendation' %}>Games Recommendation</a>
             <p>Engage in fun and interactive games related to the Olympics. Challenge your friends and compete for high scores.</p>
           </div>
         </div>
@@ -220,25 +232,19 @@ h1 {
       <div class="row">
         <div class="col-lg-4">
           <div class="feature-card">
-            <i class="fa fa-calendar-check-o"></i>
-            <h3>Event Schedule</h3>
+            <i class="fa fa-line-chart"></i><br>
+            <a href=#>Olympic Analysis</a>
             <p>Stay updated with the complete schedule of Olympic events. Never miss an exciting match or competition.</p>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="feature-card">
-            <i class="fa fa-heart"></i>
-            <h3>Fan Engagement</h3>
+            <i class="fa fa-book"></i><br>
+            <a href={% url 'stories' %}>Fascinating Stories</a>
             <p>Connect with fellow fans, share your thoughts, and engage in discussions. Join a passionate community of Olympic enthusiasts.</p>
           </div>
         </div>
-        <div class="col-lg-4">
-          <div class="feature-card">
-            <i class="fa fa-bullhorn"></i>
-            <h3>Live Updates</h3>
-            <p>Get real-time updates on Olympic events, scores, and news. Stay informed and be part of the action as it unfolds.</p>
-          </div>
-        </div>
+        
       </div>
     </div>
   </section>

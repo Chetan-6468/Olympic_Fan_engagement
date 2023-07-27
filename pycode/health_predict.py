@@ -80,18 +80,6 @@ model1.fit(input_train,train_target)
 numeric_cols = input_train.select_dtypes(include=np.number).columns.tolist()[:-2]
 pred = model1.predict(input_train)
 
-from sklearn.metrics import confusion_matrix
-mat = confusion_matrix(train_target,pred,normalize='true')
 
-from sklearn.ensemble import RandomForestClassifier
-
-model2 = RandomForestClassifier(random_state=42,n_jobs=-1,n_estimators=20,max_depth=5)
-model2.fit(input_train,train_target)
-
-model2.score(input_train,train_target)
-
-model2.score(input_test,test_target)
-
-
-pickle.dump(model2,open('model.pkl','wb'))
+pickle.dump(model1,open('model.pkl','wb'))
 model=pickle.load(open('model.pkl','rb'))

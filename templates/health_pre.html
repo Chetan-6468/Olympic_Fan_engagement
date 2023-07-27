@@ -6,6 +6,7 @@
   <title>Health Prediction</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="shortcut icon" href="/static/img/logo4.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <style>
 /* Global styles */
@@ -208,7 +209,7 @@ footer {
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
         </ul>
-        <h1>Game Predictions</h1>
+        <h1>Health Predictions</h1>
         <img src="/static/img/logo3.png" alt="Logo" class="logo">
     </div>
 </div>
@@ -217,10 +218,10 @@ footer {
       <h2>Note:</h2>
       <ul>
         <li>Age should be between <br>15 and 100.</li><br>
-        <li>Heart rate should be<br> between 20 and 100.</li><br>
+        <li>Heart rate should be<br> between 40 and 120.</li><br>
         <li>Temperature should be<br> between 35 and 42 (°C).</li><br>
-        <li>SpO2 saturation should <br>be between 70 and<br> 100 (%).</li><br>
-        <li>BPM should be between<br> 1 and 300.</li>
+        <li>SpO2 saturation should <br>be between 20 and<br> 340 (%).</li><br>
+        <li>BPM should be between<br> 40 and 110.</li>
       </ul>
     </div>
     <div class="form">
@@ -239,7 +240,7 @@ footer {
 
 
         <label for="heart_rate">Heart Rate:</label>
-        <input type="number" id="heart_rate" name="heart_rate" min="20" max="100" placeholder="Enter heart rate (20-100)">
+        <input type="number" id="heart_rate" name="heart_rate" min="40" max="120" placeholder="Enter heart rate (40-120)">
       </div>
 
       <div class="input-row">
@@ -247,10 +248,10 @@ footer {
         <input type="number" id="temperature" name="temperature" step="0.1" min="35" max="42" placeholder="Enter temperature (35-42)">
 
         <label for="SpO2_saturation">SpO2 Saturation (%):</label>
-        <input type="number" id="SpO2_saturation" name="SpO2_saturation" min="70" max="100" placeholder="Enter SpO2 saturation (70-100)">
+        <input type="number" id="SpO2_saturation" name="SpO2_saturation" min="20" max="340" placeholder="Enter SpO2 saturation (20-340)">
 
         <label for="bpm">BPM:</label>
-        <input type="number" id="bpm" name="bpm" min="1" max="300" placeholder="Enter BPM (1-300)">
+        <input type="number" id="bpm" name="bpm" min="40" max="110" placeholder="Enter BPM (40-110)">
       </div>
 
       <div class="predict-btn">
@@ -266,7 +267,7 @@ footer {
       <div class="result">
         {% if health_status %}
           <label for="health_status">Health Status:</label>
-          <input type="text" id="health_status" name="health_status" value="{{ health_status }}" readonly>
+          <input type="text" id="health_status" name="health_status" value="{{ health_status }}" readonly >
         {% endif %}
       </div>
     </div>

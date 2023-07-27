@@ -183,73 +183,6 @@ def football_prediction(request):
         return render(request, 'football_game.html')
 
 
-#---------------------------image classification-----------------------------------
-import os
-import pickle
-import numpy as np
-from django.shortcuts import render
-from django.http import JsonResponse
-from PIL import Image
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-from sklearn.neighbors import NearestNeighbors
-
-# Load the filenames and features from the generated files
-filenames = pickle.load(open(r'C:\Users\Chetan\Desktop\olympicweb\pycode\filenames.pkl', 'rb'))
-features = pickle.load(open(r'C:\Users\Chetan\Desktop\olympicweb\pycode\embedding.pkl', 'rb'))
-
-# Apply PCA for dimensionality reduction
-scaler = StandardScaler()
-features_scaled = scaler.fit_transform(features)
-pca = PCA(n_components=100)
-features_pca = pca.fit_transform(features_scaled)
-
-# Fit Nearest Neighbors model
-nbrs = NearestNeighbors(n_neighbors=1, algorithm='ball_tree').fit(features_pca)
-
-def classify_image(request):
-    if request.method == 'POST' and request.FILES.get('image'):
-        try:
-            uploaded_image = request.FILES['image']
-
-            # Save the uploaded image to a temporary location (optional)
-            with open('uploaded_image.jpg', 'wb') as f:
-                f.write(uploaded_image.read())
-
-            # Perform feature extraction
-            img = Image.open('uploaded_image.jpg').convert('RGB')
-            img_array = np.array(img.resize((224, 224)))
-            img_array = img_array / 255.0  # Normalize image
-            img_feature = img_array.reshape(1, -1)  # Flatten the image array
-            img_feature_scaled = scaler.transform(img_feature)
-            img_feature_pca = pca.transform(img_feature_scaled)
-
-            # Find the closest matching celebrity using Nearest Neighbors
-            distances, indices = nbrs.kneighbors(img_feature_pca)
-            predicted_index = indices[0][0]
-            predicted_actor = os.path.basename(os.path.dirname(filenames[predicted_index]))
-
-            # Remove the temporary uploaded image (optional)
-            os.remove('uploaded_image.jpg')
-
-            result_image_url = f"sport image/{predicted_actor}/{uploaded_image.name}"
-            return JsonResponse({
-                "predicted_actor": predicted_actor,
-                "result_image_url": result_image_url
-            })
-        except Exception as e:
-            # Log the error
-            print(f"Error in classify_image: {e}")
-
-            # Return an error response
-            return JsonResponse({
-                "error": "An internal server error occurred. Please try again later."
-            }, status=500)
-
-    return render(request, 'image_classification.html')
-
-
-
 
 
 # ----------------------health_prediction---------------
@@ -258,6 +191,7 @@ def classify_image(request):
 import numpy as np
 import pandas as pd
 from django.shortcuts import render
+import pickle
 from pycode.health_predict import minscaler, encoder, model, cols_scaled, encoded_cols, categorical_cols
 
 def health_prediction_view(request):
@@ -292,8 +226,12 @@ def health_prediction_view(request):
         input_df.drop(['gender'], axis=1, inplace=True)
 
         # Predict the health status
+        model=pickle.load(open('model.pkl','rb'))
         prediction = model.predict(input_df)[0]
-        health_status = 'Healthy' if prediction == 1 else 'Not Healthy'
+        if prediction==1:
+            health_status='Athlete is fit'
+        else:
+            health_status='Athlete is not fit'
 
         return render(request, 'health_pre.html', {'health_status': health_status})
 
