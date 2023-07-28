@@ -64,11 +64,9 @@
     <form method="post" id="countryAnalysisForm">
         {% csrf_token %}
         <!-- Add form elements for year and country input -->
-        <label for="year">Year:</label>
-        <input type="text" id="year" name="year" value="2021">
-    
+        
         <label for="country">Country:</label>
-        <input type="text" id="country" name="country" value="United States">
+        <input type="text" id="country" name="country" value="country">
     
         <button type="submit">Country-wise Analysis</button>
     </form>
@@ -157,7 +155,7 @@
                 "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({
-                year: year,
+                year: year,y
                 country: country,
             }),
         })
@@ -184,49 +182,9 @@
     form.addEventListener("submit", handleFormSubmit);
 
     // Call the fetchCountryAnalysis function with default values on page load
-    fetchCountryAnalysis('2021', 'United States');
+    //fetchCountryAnalysis('2021', 'United States');
 </script>
 
 
-<<<<<<< HEAD
-    <h2>Most Successful Athletes</h2>
-    <table>
-        <tbody id="mostSuccessfulAthletesTable">
-            <!-- Populate the table dynamically using JavaScript -->
-        </tbody>
-    </table>
-    <div class="form-group">
-        <label for="country">Select country:</label>
-        <input type="text" id="country" name="country" placeholder="Enter country">
-    </div>
-    <div class="paragraph2">
-        <button type="submit">Show</button>
-    </div>
-    <!-- Include any necessary JavaScript code here -->
-    <script>
-        // Function to update the country analysis using the received data
-        function updateCountryAnalysis(data) {
-            // Update year-wise medal chart
-            const yearwiseMedalChart = document.getElementById("yearwiseMedalChart");
-            const yearwiseMedalData = data.yearwiseMedal;
-            const yearwiseMedalFig = {
-                x: yearwiseMedalData.Year,
-                y: yearwiseMedalData.Medal,
-                type: 'line'
-            };
-            const yearwiseMedalLayout = {
-                title: 'Year-wise Medals',
-                xaxis: { title: 'Year' },
-                yaxis: { title: 'Medal Count' }
-            };
-            Plotly.newPlot(yearwiseMedalChart, [yearwiseMedalFig], yearwiseMedalLayout);
-    
-            
-    </script>
-    
-    
-=======
-
->>>>>>> a92db9f0e9eb27fc4bc2104a0c19575010feeb4b
 </body>
 </html>

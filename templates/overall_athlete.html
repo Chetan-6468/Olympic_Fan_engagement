@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overall Athlete Analysis</title>
+</head>
+<body>
+    <h1>Athlete Analyis</h1>
+    <form method="POST" action="{% url 'overall_mostsuccessfull_athlete' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="Sport">Select Sport:</label>
+            <input type="text" id="Sport" name="Sport" placeholder="Enter sport">
+        </div>
+        <div class="paragraph2">
+            <button type="submit">Show</button>
+        </div>
+    </form>
+    <table>
+        {% for i in overallathletewiseMedal %}
+        <tr>{% for n in i.values %}
+            <td>{{n}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        
+       
+    </table>
+</body>
+</html>

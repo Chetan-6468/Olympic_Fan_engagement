@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete-wise Analysis</title>
+</head>
+<body>
+    <h1>Athlete-wise Analysis</h1>
+    <form method="POST" action="{% url 'athletewise' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="country">Select country:</label>
+            <input type="text" id="country" name="country" placeholder="Enter country">
+        </div>
+        <div class="paragraph2">
+            <button type="submit">Show</button>
+        </div>
+    </form>
+    <table>
+        {% for i in athletewiseMedal %}
+        <tr>{% for n in i.values %}
+            <td>{{n}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        
+       
+    </table>
+</body>
+</html>

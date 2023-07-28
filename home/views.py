@@ -43,6 +43,7 @@ def image_classification(request):
 def health_pre(request):
     return render(request, 'health_pre.html')   
 
+
 from django.shortcuts import render
 
 
@@ -69,9 +70,18 @@ def fetch_medal(request):
 
 
 
-from pycode.oly import yearwise_medal, country_medal_heatmap, most_successful_athletecountry
+from pycode.oly import yearwise_medal, country_medal_heatmap, most_successful_athletecountry,most_successful
 import json
 from django.http import JsonResponse
+import plotly.offline as pyo
+import numpy as np
+import plotly.express as px
+import seaborn as sns
+import matplotlib.pyplot as plt
+import plotly.figure_factory as ff
+import plotly as p
+import plotly.graph_objects as go
+
 
 
 df = pd.read_csv(r'dataframe/athlete_events.csv')
@@ -82,42 +92,134 @@ df = df.merge(region_df, on='NOC', how='left')
 df.drop_duplicates(inplace=True)
 df = pd.concat([df, pd.get_dummies(df['Medal'])], axis=1)
 
-from pycode.oly import fetch_medal_tally, yearwise_medal, country_medal_heatmap, most_successful_athletecountry
-
-def country_analysis(request):
+def yearwise(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
-            print("Received data:", data)
-
-            year = data.get('year')
-            country = data.get('country')
-            print("Year:", year)
-            print("Country:", country)
+            
+            country = request.POST['country']
+            
 
             # Process the result to get specific data for country-wise analysis
             yearwise_medal_data = yearwise_medal(df, country)
-            sportwise_medal_data = country_medal_heatmap(df, country)
-            most_successful_athletes = most_successful_athletecountry(df, country)
+            # sportwise_medal_data = country_medal_heatmap(df, country)
+            # most_successful_athletes = most_successful_athletecountry(df, country)
 
             # Create a dictionary with the required data
-            result_data = {
-                'yearwiseMedal': yearwise_medal_data,
-                'sportwiseMedal': sportwise_medal_data,
-                'mostSuccessfulAthletes': most_successful_athletes.to_dict(orient='records')  # Convert DataFrame to list of dictionaries
-            }
+           
+            yearwiseMedal=yearwise_medal_data
+                # 'sportwiseMedal': sportwise_medal_data,
+                # 'mostSuccessfulAthletes': most_successful_athletes.to_dict(orient='records')  # Convert DataFrame to list of dictionaries
+    
 
-            print("Result Data:", result_data)
+            #print("Result Data:", result_data)
 
             # Return the JSON response
-            return JsonResponse(result_data)
+            return render(request,'yearwise_data.html',{'yearwiseMedal':yearwiseMedal}
+            )
+
 
         except json.JSONDecodeError as e:
             # Handle JSONDecodeError
             return JsonResponse({'error': 'Invalid JSON data'}, status=400)
 
-    return render(request, 'country_analysis.html')
+    return render(request,'yearwise_data.html')
+import base64
+from io import BytesIO
+def sportwise(request):
+    if request.method == 'POST':
+        try:
+            
+            country = request.POST['country']
+            
 
+            # Process the result to get specific data for country-wise analysis
+            sportwise_medal_data = country_medal_heatmap(df, country)
+            # sportwise_medal_data = country_medal_heatmap(df, country)
+            # most_successful_athletes = most_successful_athletecountry(df, country)
+
+            # Create a dictionary with the required data
+            sns.heatmap(sportwise_medal_data.pivot_table(index='Sport',columns='Year',values='Medal',aggfunc='count').fillna(0).astype(int),annot=True)
+            
+            buffer=BytesIO()
+            plt.savefig(buffer,format='png')
+            plt.close()
+            buffer.seek(0)
+            image_base64=base64.b64encode(buffer.read().decode('utf-16'))
+            
+                # 'sportwiseMedal': sportwise
+                # 'mostSuccessfulAthletes': most_successful_athletes.to_dict(orient='records')  # Convert DataFrame to list of dictionaries
+    
+
+            #print("Result Data:", result_data)
+
+            # Return the JSON response
+            return render(request,'sportwise_data.html',{'image_base64':image_base64})
+            
+
+
+        except json.JSONDecodeError as e:
+            # Handle JSONDecodeError
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+
+    return render(request,'sportwise_data.html')
+
+def athletewise(request):
+    if request.method == 'POST':
+        try:
+            
+            country = request.POST['country']
+            
+
+            athlete_wise_Medal = most_successful_athletecountry(df, country)
+            
+            athletewiseMedal=athlete_wise_Medal.to_dict(orient='records')
+            
+                    
+            return render(request,'athletewise_data.html',{'athletewiseMedal':athletewiseMedal})
+            
+
+
+        except json.JSONDecodeError as e:
+            # Handle JSONDecodeError
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+
+    return render(request,'athletewise_data.html')
+
+def top_statistics(request):
+    edition=df['Year'].unique().shape[0]-1                         #no of edition
+    host=df['City'].unique().shape[0]                              #no of cities
+    sport=df['Sport'].unique().shape[0]                            #no of sports
+    event=df['Event'].unique().shape[0]                            #no of events
+    athletes=df['Name'].unique().shape[0]                          #no of athletes
+    country=df['region'].unique().shape[0]
+    return render(request,'top_stat.html',{'edition':edition,'host':host,'sport':sport,'event':event,'athletes':athletes,'country':country})
+
+temp_df=df.dropna(subset='Medal')
+temp_df['Name'].value_counts().reset_index().merge(temp_df, left_on='index', right_on='Name', how='left')[
+        ['index', 'Name_x', 'Sport', 'region']].drop_duplicates('index')
+def overall_mostsuccessfull_athlete(request):
+    if request.method == 'POST':
+        try:
+            
+            Sport = request.POST['Sport']
+            
+
+            overall_athlete_wise_Medal = most_successful(temp_df,Sport)
+            
+            overallathletewiseMedal=overall_athlete_wise_Medal.to_dict(orient='records')
+            
+                    
+            return render(request,'overall_athlete.html',{'overallathletewiseMedal':overallathletewiseMedal})
+            
+
+
+        except json.JSONDecodeError as e:
+            # Handle JSONDecodeError
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+
+    return render(request,'overall_athlete.html')
+    
+    
 # -----------------------game recommenation---------------
 
 from django.http import JsonResponse
@@ -125,8 +227,8 @@ from pycode.game import recommend
 import pandas as pd
 from django.views.decorators.csrf import csrf_exempt
 
-df = pd.read_csv("dataframe/gamedata.csv")
-df.dropna(inplace=True)
+df_2 = pd.read_csv("dataframe/gamedata.csv")
+df_2.dropna(inplace=True)
 
 @csrf_exempt
 def recommend_games(request):
@@ -162,8 +264,8 @@ from sklearn.pipeline import Pipeline
 import random
 
 # Load the dataset
-df = pd.read_csv('dataframe/shootouts.csv')
-df.drop(['date'], axis=1, inplace=True)
+df_1 = pd.read_csv('dataframe/shootouts.csv')
+df_1.drop(['date'], axis=1, inplace=True)
 
 def football_prediction(request):
     if request.method == 'POST':

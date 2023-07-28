@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olympics Data Analysis</title>
   <link rel="shortcut icon" href="/static/img/logo4.png">
-
-
+  
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -150,9 +149,7 @@ button {
     margin-right: auto;
     width: 38%;
     margin-top:2%;
-    
-  }
-        
+}  
     </style>
 </head>
 <body>
@@ -161,8 +158,19 @@ button {
         <h2>Menu</h2>
         <ul>
             <li><a href="#" onclick="showMedalTally()">Medal Tally</a></li>
-            <li><a href="#" onclick="showOverallAnalysis()">Overall Analysis</a></li>
-            <li><a href={% url 'yearwise_medal' %} onclick="showCountryWiseAnalysis()">Country-wise Analysis</a></li>
+            <li>Overall Analysis
+            <li> <a class="dropdown-item" href={% url 'top_statistics' %} onclick="showTopStastics()">Top Statistics</a></li>
+            <li> <a class="dropdown-item" href={% url 'overall_mostsuccessfull_athlete' %} onclick="showoverall()">Most Successful Athletes</a></li>
+            </li>
+
+            <li>Country-wise Analysis
+           
+             <li> <a class="dropdown-item" href={% url 'yearwise' %} onclick="showYearWiseAnalysis()">Yearwise Analysis</a></li>
+            <li> <a class="dropdown-item" href={% url 'sportwise' %} onclick="showSportWiseAnalysis()">Sportwise Analysis</a></li>
+                <li> <a class="dropdown-item" href={% url 'athletewise' %} onclick="showathleteWiseAnalysis()">Athletewise Analysis</a>
+              
+             </li>
+            </li>
             <li><a href="#" onclick="showAthleteWiseAnalysis()">Athlete-wise Analysis</a></li>
         </ul>
     </div>

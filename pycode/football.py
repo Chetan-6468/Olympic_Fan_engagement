@@ -3,11 +3,11 @@ import numpy as np
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-df = pd.read_csv(r"dataframe/shootouts.csv")
-df.drop(['date'], axis=1, inplace=True)
-df['result'] = np.where(df['home_team'] == df['winner'], 1, 0)
-x = df.iloc[:, :-2]
-y = df.iloc[:, -1]
+df_1 = pd.read_csv(r"dataframe/shootouts.csv")
+df_1.drop(['date'], axis=1, inplace=True)
+df_1['result'] = np.where(df['home_team'] == df['winner'], 1, 0)
+x = df_1.iloc[:, :-2]
+y = df_1.iloc[:, -1]
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=1)

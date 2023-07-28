@@ -14,7 +14,12 @@ urlpatterns = [
     path('stories/', views.stories, name='stories'),
     path('game_recommendation/', views.game_recommendation, name='game_recommendation'),
      path("recommend_games/", views.recommend_games, name="recommend_games"),
-    path('country_analysis/', views.country_analysis, name='country_analysis'),
+
+    path('yearwise/', views.yearwise, name='yearwise'),
+    path('top_statistics/', views.top_statistics, name='top_statistics'),
+    path('overall_mostsuccessfull_athlete/', views.overall_mostsuccessfull_athlete, name='overall_mostsuccessfull_athlete'),
+    path('sportwise/', views.sportwise, name='sportwise'),
+    path('athletewise/', views.athletewise, name='athletewise'),
     path('game_prediction/', views.game_prediction, name='game_prediction'),
     path('football_game/', views.football_game, name='football_game'),
     path('empty/', views.empty, name='empty'),
