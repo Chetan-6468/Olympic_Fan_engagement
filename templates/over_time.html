@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Athlete-wise Analysis</title>
-    <link rel="stylesheet" href="styles.css">
-
+    <title>Over-time Analysis</title>
     <style>
         /* Reset default styles */
 * {
@@ -22,7 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
   }
   
   .container {
@@ -32,10 +30,6 @@
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
     animation: fade-in 1s ease-in-out;
   }
   
@@ -78,24 +72,12 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: bold;
   }
   
   button:hover {
     background: linear-gradient(135deg, #0056b3, #2a9745);
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    animation: slide-in-bottom 1s ease-in-out;
-  }
-  
-  table td {
-    padding: 15px;
-    border-bottom: 1px solid #ccc;
-    text-align: center;
   }
   
   /* Animation */
@@ -108,45 +90,94 @@
     }
   }
   
-  @keyframes slide-in-bottom {
-    from {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+  /* Table styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  table th,
+  table td {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+  }
+
+  select#choice {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #007BFF 50%), linear-gradient(135deg, #007BFF 50%, transparent 50%);
+    background-position: calc(100% - 15px) center, calc(100% - 10px) center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+  
+  select#choice:focus {
+    outline: none;
+    border-color: #007BFF;
+  }
+  
+  select#choice option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+  }
+  
+  /* Hover style */
+  select#choice:hover {
+    border-color: #0056b3;
+  }
+  
+  /* Active style */
+  select#choice:active {
+    border-color: #0056b3;
+  }
+  
+  /* Disabled style */
+  select#choice:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
   }
   
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Athlete-wise Analysis</h1>
-        <form method="POST" action="{% url 'athletewise' %}">
+        <h1>Over-time Analysis</h1>
+        <form method="POST" action="{% url 'overall' %}">
             {% csrf_token %}
             <div class="form-group">
-                <label for="country">Select country:</label>
-                <input type="text" id="country" name="country" placeholder="Enter country">
+                <label for="choice">Select:</label>
+                <select id="choice" name="choice">
+                    <option value="nations_over_time">Nations</option>
+                    <option value="athletes_over_time">Athletes</option>
+                    <option value="events_over_time">Events</option>
+                </select>
             </div>
             <div class="paragraph2">
                 <button type="submit">Show</button>
             </div>
         </form>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Medals</th>
-                <th>Sport</th>
-            </tr>
-            {% for i in athletewiseMedal %}
-            <tr>{% for n in i.values %}
-                <td>{{n}}</td>
-            {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
+        <div id="result">
+            {% autoescape off %}
+            {{ over_time.output_type|safe }}
+            {% endautoescape %}
+        </div>
     </div>
 </body>
 </html>

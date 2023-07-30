@@ -8,7 +8,7 @@ def recommend(favorite_game):
 
     favorite_game_lower = favorite_game.lower()
     temp_df = df_2[df_2["Title"].str.lower().str.contains(favorite_game_lower)]
-
+    temp_df['Title']
     print("Recommendation DataFrame:")
     print(temp_df)
 

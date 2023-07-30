@@ -18,12 +18,14 @@ urlpatterns = [
     path('yearwise/', views.yearwise, name='yearwise'),
     path('top_statistics/', views.top_statistics, name='top_statistics'),
     path('overall_mostsuccessfull_athlete/', views.overall_mostsuccessfull_athlete, name='overall_mostsuccessfull_athlete'),
-    path('sportwise/', views.sportwise, name='sportwise'),
+    
     path('athletewise/', views.athletewise, name='athletewise'),
     path('game_prediction/', views.game_prediction, name='game_prediction'),
     path('football_game/', views.football_game, name='football_game'),
     path('empty/', views.empty, name='empty'),
-    
+    path('overall/', views.overall, name='overall'),
+    path('winning/', views.winning, name='winning'),
+    path('athlete_dist/', views.athlete_dist, name='athlete_dist'),
     path('football_prediction/', views.football_prediction, name='football_prediction'),
     
     path('health_pre/', views.health_pre, name='health_pre'),

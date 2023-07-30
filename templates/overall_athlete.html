@@ -4,28 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overall Athlete Analysis</title>
+  <style>
+    /* Reset default styles */
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .container {
+    max-width: 800px;
+    width: 90%;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: slide-in-bottom 1s ease-in-out;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 36px;
+    color: #007BFF;
+  }
+  
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #007BFF, #3ac569);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background: linear-gradient(135deg, #0056b3, #2a9745);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  table td {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  /* Animation */
+  @keyframes slide-in-bottom {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  </style>
 </head>
 <body>
-    <h1>Athlete Analyis</h1>
-    <form method="POST" action="{% url 'overall_mostsuccessfull_athlete' %}">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="Sport">Select Sport:</label>
-            <input type="text" id="Sport" name="Sport" placeholder="Enter sport">
-        </div>
-        <div class="paragraph2">
-            <button type="submit">Show</button>
-        </div>
-    </form>
-    <table>
-        {% for i in overallathletewiseMedal %}
-        <tr>{% for n in i.values %}
-            <td>{{n}}</td>
+    <div class="container">
+        <h1>Athlete Analysis</h1>
+        <form method="POST" action="{% url 'overall_mostsuccessfull_athlete' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="Sport">Select Sport:</label>
+                <input type="text" id="Sport" name="Sport" placeholder="Enter sport">
+            </div>
+            <div class="paragraph2">
+                <button type="submit">Show</button>
+            </div>
+        </form>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Medal</th>
+                <th>Sport</th>
+                <th>Country</th>
+            </tr>
+            {% for i in overallathletewiseMedal %}
+            <tr>{% for n in i.values %}
+                <td>{{n}}</td>
             {% endfor %}
-        </tr>
-        {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
         
-       
-    </table>
+    </div>
 </body>
 </html>

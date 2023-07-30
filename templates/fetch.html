@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Athlete-wise Analysis</title>
-    <link rel="stylesheet" href="styles.css">
-
-    <style>
-        /* Reset default styles */
+    <title>fetch_medal</title>
+   <style>
+    /* Reset default styles */
+/* Reset default styles */
 * {
     margin: 0;
     padding: 0;
@@ -22,7 +21,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
   }
   
   .container {
@@ -32,17 +31,14 @@
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
     animation: fade-in 1s ease-in-out;
   }
   
-  h1 {
+  h5.paragraph1 {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 32px;
+    font-size: 24px;
+    font-weight: bold;
     color: #007BFF;
   }
   
@@ -78,24 +74,32 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: bold;
   }
   
   button:hover {
     background: linear-gradient(135deg, #0056b3, #2a9745);
   }
   
+  /* Table styles */
   table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    animation: slide-in-bottom 1s ease-in-out;
   }
   
+  table th,
   table td {
     padding: 15px;
     border-bottom: 1px solid #ccc;
-    text-align: center;
+    text-align: left;
+  }
+  
+  table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
   }
   
   /* Animation */
@@ -108,45 +112,44 @@
     }
   }
   
-  @keyframes slide-in-bottom {
-    from {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  
-    </style>
+   </style>
 </head>
 <body>
     <div class="container">
-        <h1>Athlete-wise Analysis</h1>
-        <form method="POST" action="{% url 'athletewise' %}">
+        <h5 class="paragraph1">Medal Tally</h5>
+        <form method="POST" action="{% url 'fetch_medal' %}">
             {% csrf_token %}
+            <div class="form-group">
+                <label for="year">Year:</label>
+                <input type="text" id="year" name="year" placeholder="Enter year">
+            </div>
             <div class="form-group">
                 <label for="country">Select country:</label>
                 <input type="text" id="country" name="country" placeholder="Enter country">
             </div>
             <div class="paragraph2">
-                <button type="submit">Show</button>
+                <button type="submit">Medal Tally</button>
             </div>
         </form>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Medals</th>
-                <th>Sport</th>
-            </tr>
-            {% for i in athletewiseMedal %}
-            <tr>{% for n in i.values %}
-                <td>{{n}}</td>
-            {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
+        <div id="result">
+            <table>
+                <TR>
+                    <th>Country</th>
+                    <th>Gold</th>
+                    <th>Silver</th>
+                    <th>Bronze</th>
+                    <th>Total</th>
+                </TR>
+                <tbody>
+                    {% for i in result %}
+                    <tr>{% for n in i.values %}
+                        <td>{{n}}</td>
+                    {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

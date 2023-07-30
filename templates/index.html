@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olympics Data Analysis</title>
-  <link rel="shortcut icon" href="/static/img/logo4.png">
-  
+    <link rel="shortcut icon" href="/static/img/logo4.png">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -57,99 +57,44 @@
         }
 
         .hidden {
-    display: none;
-}
+            display: none;
+        }
 
-.medal-tally-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 40px;
-}
+        select {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 5px;
+            width: 200px;
+        }
 
-.medal-tally-table th,
-.medal-tally-table td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
+        /* Styling for the li elements */
+        #sidebar li {
+            list-style-type: none;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .slider-container {
+            width: 925px; /* Adjust this width to match your image width */
+            height: 100vh; /* Adjust this height to cover the full page */
+            overflow: hidden;
+            position: fixed;
+             right: 0;
+            top: 0; 
+        }
 
-.medal-tally-table th {
-    background-color: #f1f1f1;
-    font-weight: bold;
-}
+        /* Add styles for the image slider content (the actual images) */
+        .slider-content {
+            display: flex;
+            transition: transform 1s ease-in-out;
+        }
 
-.container {
-    margin-top: 20px;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.form-group {
-    margin-bottom: 10px;
-}
-
-.paragraph2 {
-    margin-top: 10px;
-}
-
-#result {
-    margin-top: 20px;
-}
-
-#result table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#result table th,
-#result table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-}
-
-#result table th {
-    background-color: #f1f1f1;
-    font-weight: bold;
-}
-
-.paragraph1 {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    color: #000;
-}
-
-button {
-    width: 100px;
-    height: 30px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    color: black;
-    background-color:#eae127;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.paragraph1,
-.paragraph2 {
-    color: #000;
-    font-family: sans-serif;
-}
-
-.container {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 20px;
-}
-#imageContainer {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 38%;
-    margin-top:2%;
-}  
+        /* Add styles for each individual image */
+        .slider-content img {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -157,143 +102,84 @@ button {
         <h1>Olympics Data Analysis</h1>
         <h2>Menu</h2>
         <ul>
-            <li><a href="#" onclick="showMedalTally()">Medal Tally</a></li>
+            <li><a href="{% url 'fetch_medal' %}">Medal Tally</a></li>
+
             <li>Overall Analysis
-            <li> <a class="dropdown-item" href={% url 'top_statistics' %} onclick="showTopStastics()">Top Statistics</a></li>
-            <li> <a class="dropdown-item" href={% url 'overall_mostsuccessfull_athlete' %} onclick="showoverall()">Most Successful Athletes</a></li>
+                <select id="overallSelect" onchange="handleOverallAnalysis()">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="{% url 'top_statistics' %}">Top Statistics</option>
+                    <option value="{% url 'overall_mostsuccessfull_athlete' %}">Most Successful Athletes</option>
+                    <option value="{% url 'overall' %}">Overtime Analysis</option>
+                </select>
             </li>
 
             <li>Country-wise Analysis
-           
-             <li> <a class="dropdown-item" href={% url 'yearwise' %} onclick="showYearWiseAnalysis()">Yearwise Analysis</a></li>
-            <li> <a class="dropdown-item" href={% url 'sportwise' %} onclick="showSportWiseAnalysis()">Sportwise Analysis</a></li>
-                <li> <a class="dropdown-item" href={% url 'athletewise' %} onclick="showathleteWiseAnalysis()">Athletewise Analysis</a>
-              
-             </li>
+                <select id="countrySelect" onchange="handleCountryAnalysis()">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="{% url 'yearwise' %}">Yearwise Analysis</option>
+                    <option value="{% url 'athletewise' %}">Athlete Analysis</option>
+                </select>
             </li>
-            <li><a href="#" onclick="showAthleteWiseAnalysis()">Athlete-wise Analysis</a></li>
+
+            <li>Athlete-wise Analysis
+                <select id="athleteSelect" onchange="handleAthleteAnalysis()">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="{% url 'athlete_dist' %}">Athlete Distributions</option>
+                    <option value="{% url 'winning' %}">Winning Gold Rate</option>
+                </select>
+            </li>
         </ul>
     </div>
 
-
-
-    <div id="content">
-        <div id="medalTallyContent" class="hidden">
-            <section>
-                <h5 class="paragraph1">Medal tally</h5>
-                <div class="container">
-                    <form method="POST" action="{% url 'fetch_medal' %}">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="year">Year:</label>
-                            <input type="text" id="year" name="year" placeholder="Enter year">
-                        </div>
-                        <div class="form-group">
-                            <label for="country">Select country:</label>
-                            <input type="text" id="country" name="country" placeholder="Enter country">
-                        </div>
-                        <div class="paragraph2">
-                            <button type="submit">Medal Tally</button>
-                        </div>
-                    </form>
-                    <div id="result">
-                        <table>
-                            
-                            <tbody>
-                                {% for row in fetch_medal %}
-                                    <tr>
-                                        <td>{{ row.region }}</td>
-                                        <td>{{ row.Gold }}</td>
-                                        <td>{{ row.Silver }}</td>
-                                        <td>{{ row.Bronze }}</td>
-                                        <td>{{ row.total }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
+    <div class="slider-container">
+        <div class="slider-content">
+            <img src="/static/img/index1.jpeg" alt="Image 1">
+            <img src="/static/img/index2.jpeg" alt="Image 2">
+            <img src="/static/img/index3.jpeg" alt="Image 3">
+            <img src="/static/img/index4.jpeg" alt="Image 4">
+            <img src="/static/img/index5.jpeg" alt="Image 5">
         </div>
     </div>
-    <div id="imageContainer">
-        <img src="/static/img/7.png" alt="background img" width="650" height="280">
-      </div>
 
     <script>
-        function showMedalTally() {
-            var medalTallyContent = document.getElementById("medalTallyContent");
-            medalTallyContent.classList.remove("hidden");
+        // JavaScript for automatic image slider
+        const sliderContent = document.querySelector('.slider-content');
+        let slideIndex = 0;
+
+        function showSlide() {
+            slideIndex++;
+            if (slideIndex > 5) {
+                slideIndex = 1;
+            }
+            sliderContent.style.transform = `translateX(-${(slideIndex - 1) * 550}px)`; // Adjust the width of the slider container (550px) based on your image width.
         }
 
-        function showOverallAnalysis() {
-            // Implement the code to show the Overall Analysis results
-        }
-
-        function showCountryWiseAnalysis() {
-            // Implement the code to show the Country-wise Analysis results
-           
-        }
-
-        function showAthleteWiseAnalysis() {
-            // Implement the code to show the Athlete-wise Analysis results
-        }
-
-        function fetchMedalData(year, country) {
-            fetch('/fetch_medal/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({
-                    'year': year,
-                    'country': country
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                updateMedalTable(data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        }
-
-        function updateMedalTable(data) {
-            var tableBody = document.querySelector("#medalTallyContent table tbody");
-
-            // Clear the existing table rows
-            tableBody.innerHTML = "";
-
-            // Iterate through the fetched data and add rows to the table
-            data.forEach(function (row) {
-                var newRow = document.createElement("tr");
-
-                var regionCell = document.createElement("td");
-                regionCell.textContent = row.region;
-                newRow.appendChild(regionCell);
-
-                var goldCell = document.createElement("td");
-                goldCell.textContent = row.Gold;
-                newRow.appendChild(goldCell);
-
-                var silverCell = document.createElement("td");
-                silverCell.textContent = row.Silver;
-                newRow.appendChild(silverCell);
-
-                var bronzeCell = document.createElement("td");
-                bronzeCell.textContent = row.Bronze;
-                newRow.appendChild(bronzeCell);
-
-                var totalCell = document.createElement("td");
-                totalCell.textContent = row.total;
-                newRow.appendChild(totalCell);
-
-                tableBody.appendChild(newRow);
-            });
-        }
+        setInterval(showSlide, 3000); // Change slide every 1 second
     </script>
+    
+
+    <script>
+function handleOverallAnalysis() {
+    const selectedOption = document.getElementById("overallSelect").value;
+    if (selectedOption) {
+        window.location.href = selectedOption;
+    }
+}
+
+function handleCountryAnalysis() {
+    const selectedOption = document.getElementById("countrySelect").value;
+    if (selectedOption) {
+        window.location.href = selectedOption;
+    }
+}
+
+function handleAthleteAnalysis() {
+    const selectedOption = document.getElementById("athleteSelect").value;
+    if (selectedOption) {
+        window.location.href = selectedOption;
+    }
+}
+</script>
 
     
 

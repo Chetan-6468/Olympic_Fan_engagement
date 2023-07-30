@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Year-wise Analysis</title>
-    <style>
-        /* Reset default styles */
+    <title>Winning</title>
+   <style>
+
 * {
     margin: 0;
     padding: 0;
@@ -41,31 +40,9 @@
     color: #007BFF;
   }
   
-  form {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
-  input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
   button {
     display: block;
-    width: 100%;
+    width: 100px;
     padding: 10px;
     background: linear-gradient(135deg, #007BFF, #3ac569);
     color: #fff;
@@ -75,6 +52,8 @@
     transition: background-color 0.3s;
     font-size: 16px;
     font-weight: bold;
+    margin: 0 auto;
+    margin-top: 20px;
   }
   
   button:hover {
@@ -91,46 +70,29 @@
     }
   }
   
-  /* Table styles */
-  table {
-    width: 100%;
-    border-collapse: collapse;
+  /* Additional styling for the output */
+  .output {
     margin-top: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    text-align: center;
   }
   
-  table th,
-  table td {
-    padding: 15px;
-    border-bottom: 1px solid #ccc;
-    text-align: left;
-  }
-  
-  table th {
-    background-color: #f1f1f1;
-    font-weight: bold;
-  }
-  
-    </style>
+   </style>
 </head>
 <body>
     <div class="container">
-        <h1>Year-wise Analysis</h1>
-        <form method="POST" action="{% url 'yearwise' %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="country">Select country:</label>
-                <input type="text" id="country" name="country" placeholder="Enter country">
-            </div>
+        <h1>Winning gold rate</h1>
+        <div class="paragraph2">
             <button type="submit">Show</button>
-        </form>
-        <div id="result">
+        </div>
+        <div class="output">
             {% autoescape off %}
-            {{ yearwiseMedal.output_type|safe }}
+            {{ winning_data.output_type|safe }}
             {% endautoescape %}
         </div>
     </div>
-</body>
-</html>
 </body>
 </html>

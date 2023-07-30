@@ -57,11 +57,11 @@ def fetch_medal(request):
         result = fetch_medal_tally(year, country)  # Call the function and store the result
         
         # Convert DataFrame to a list of dictionaries
-        result_json = result.to_dict(orient='records')
+        result= result.to_dict(orient='records')
         
-        return JsonResponse(result_json, safe=False)  # Return the converted result as a JSON response
+        return render(request,'fetch.html',{'result':result})  # Return the converted result as a JSON response
 
-    return JsonResponse({}, safe=False)  # Return an empty JSON response if the request is not a POST request
+    return render(request,'fetch.html')  # Return an empty JSON response if the request is not a POST request
 
 
 
@@ -70,7 +70,7 @@ def fetch_medal(request):
 
 
 
-from pycode.oly import yearwise_medal, country_medal_heatmap, most_successful_athletecountry,most_successful
+from pycode.oly import yearwise_medal, most_successful_athletecountry,most_successful,nations_over,athlete_over,events_over,age_dist,height_dist,weight_dist,winning_gold
 import json
 from django.http import JsonResponse
 import plotly.offline as pyo
@@ -95,73 +95,16 @@ df = pd.concat([df, pd.get_dummies(df['Medal'])], axis=1)
 def yearwise(request):
     if request.method == 'POST':
         try:
-            
             country = request.POST['country']
-            
-
-            # Process the result to get specific data for country-wise analysis
             yearwise_medal_data = yearwise_medal(df, country)
-            # sportwise_medal_data = country_medal_heatmap(df, country)
-            # most_successful_athletes = most_successful_athletecountry(df, country)
-
-            # Create a dictionary with the required data
-           
             yearwiseMedal=yearwise_medal_data
-                # 'sportwiseMedal': sportwise_medal_data,
-                # 'mostSuccessfulAthletes': most_successful_athletes.to_dict(orient='records')  # Convert DataFrame to list of dictionaries
-    
-
-            #print("Result Data:", result_data)
-
-            # Return the JSON response
-            return render(request,'yearwise_data.html',{'yearwiseMedal':yearwiseMedal}
-            )
-
-
+            return render(request,'yearwise_data.html',{'yearwiseMedal':yearwiseMedal})
         except json.JSONDecodeError as e:
-            # Handle JSONDecodeError
-            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+           return JsonResponse({'error': 'Invalid JSON data'}, status=400)
 
     return render(request,'yearwise_data.html')
-import base64
-from io import BytesIO
-def sportwise(request):
-    if request.method == 'POST':
-        try:
-            
-            country = request.POST['country']
-            
-
-            # Process the result to get specific data for country-wise analysis
-            sportwise_medal_data = country_medal_heatmap(df, country)
-            # sportwise_medal_data = country_medal_heatmap(df, country)
-            # most_successful_athletes = most_successful_athletecountry(df, country)
-
-            # Create a dictionary with the required data
-            sns.heatmap(sportwise_medal_data.pivot_table(index='Sport',columns='Year',values='Medal',aggfunc='count').fillna(0).astype(int),annot=True)
-            
-            buffer=BytesIO()
-            plt.savefig(buffer,format='png')
-            plt.close()
-            buffer.seek(0)
-            image_base64=base64.b64encode(buffer.read().decode('utf-16'))
-            
-                # 'sportwiseMedal': sportwise
-                # 'mostSuccessfulAthletes': most_successful_athletes.to_dict(orient='records')  # Convert DataFrame to list of dictionaries
-    
-
-            #print("Result Data:", result_data)
-
-            # Return the JSON response
-            return render(request,'sportwise_data.html',{'image_base64':image_base64})
-            
 
 
-        except json.JSONDecodeError as e:
-            # Handle JSONDecodeError
-            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
-
-    return render(request,'sportwise_data.html')
 
 def athletewise(request):
     if request.method == 'POST':
@@ -218,6 +161,55 @@ def overall_mostsuccessfull_athlete(request):
             return JsonResponse({'error': 'Invalid JSON data'}, status=400)
 
     return render(request,'overall_athlete.html')
+
+def overall(request):
+    if request.method == 'POST':
+        choice = request.POST['choice']
+        try:
+            if choice=='nations_over_time':
+                over_time=nations_over(df)
+            if choice=='athletes_over_time':
+                over_time=athlete_over(df)
+                 
+            if choice=='events_over_time':
+                over_time=events_over(df)
+                
+            return render(request,'over_time.html',{'over_time':over_time})
+        except:
+            return render("error")
+    return render(request,'over_time.html')
+
+athlete_df = df.drop_duplicates(subset=['Name', 'region'])
+def athlete_dist(request):
+    if request.method == 'POST':
+        choice = request.POST['choice']
+        try:
+            if choice=='age':
+                dist=age_dist(athlete_df)
+            if choice=='height':
+                dist=height_dist(athlete_df)
+                 
+            if choice=='weight':
+                dist=weight_dist(athlete_df)
+                
+            return render(request,'athlete_distribution.html',{'dist':dist})
+        except:
+            return render("error")
+    return render(request,'athlete_distribution.html')
+
+famous_sports = ['Basketball', 'Judo', 'Football',  'Athletics',
+                     'Swimming', 'Badminton', 'Sailing', 'Gymnastics',
+                     'Art Competitions', 'Handball', 'Weightlifting', 'Wrestling',
+                     'Water Polo', 'Hockey', 'Rowing', 'Fencing',
+                     'Shooting', 'Boxing', 'Cycling', 'Diving', 'Canoeing',
+                     'Tennis', 'Golf', 'Softball', 'Archery',
+                     'Volleyball', 'Table Tennis', 'Baseball',
+                     'Rhythmic Gymnastics', 'Polo', 'Ice Hockey']
+    
+def winning(request):
+        winning_data = winning_gold(famous_sports)
+        return render(request,'winning_athlete.html',{'winning_data':winning_data})
+       
     
     
 # -----------------------game recommenation---------------

@@ -1,56 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us - Olympic Vibes</title>
-  <link rel="stylesheet" href="static/css/styles.css">
-  <link rel="shortcut icon" href="/static/img/logo4.png">
-  <!-- Add your additional CSS stylesheets here -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="shortcut icon" href="favicon.ico">
 
   <style>
     /* Additional CSS styles for the About Us page */
-    .about-section {
-      background-color: #f8f8f8;
-      padding: 40px 0;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
       text-align: center;
+      padding: 20px;
+    }
+
+    main {
+      background-color: #f8f8f8;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-section {
+      text-align: center;
+      margin-bottom: 40px;
+      animation: fadeInUp 1s ease-out;
     }
 
     .about-section h2 {
-      font-size: 32px;
+      font-size: 36px;
       color: #333;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
 
     .about-section p {
       font-size: 18px;
-      line-height: 1.5;
-      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .team-section {
-      background-color: #fff;
-      padding: 60px 0;
-      text-align: center;
-    }
-
-    .team-section h2 {
-      font-size: 32px;
-      color: #333;
-      margin-bottom: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .team-member {
-      display: inline-block;
-      margin-bottom: 30px;
+      width: 300px;
+      margin: 20px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      animation: zoomIn 1s ease-out;
     }
 
     .team-member img {
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
-      width: 200px;
-      height: 200px;
       object-fit: cover;
-      object-position: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .team-member h3 {
@@ -65,64 +96,57 @@
       margin-bottom: 0;
     }
 
-    footer {
-      background-color: #f8f8f8;
-      padding: 20px;
-      text-align: center;
-      color: #666;
+    @keyframes zoomIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
-    
-    .center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      width: 50%;
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
     }
   </style>
 </head>
-
 <body>
   <header>
-    <!-- Include your header content here -->
+    <h1>Olympic Vibes</h1>
   </header>
 
   <main>
-    <section class="about-section">
-      <div class="container">
+    <div class="container">
+      <section class="about-section">
         <h2>About Olympic Vibes</h2>
-        <img src="/static/img/logo3.png" alt="logo" height="100" width="150">
-        <p>Olympic Vibes is a vibrant and engaging platform dedicated to providing a thrilling experience for Olympic enthusiasts. We aim to bring fans closer to the action by offering comprehensive player statistics, accurate predictions, captivating stories, and interactive games. Join our community and explore the world of Olympic sports like never before!</p>
-      </div>
-    </section>
+        <p>Olympic Vibes is a vibrant and engaging platform dedicated to providing a thrilling experience for Olympic enthusiasts. We aim to bring fans closer to the action by offering comprehensive player statistics, accurate game predictions, accurate health predictions, captivating player stories, and game recommendations . Join our community and explore the world of Olympic sports like never before!</p>
+      </section>
 
-    <section class="team-section">
-      <div class="container">
-        <h2>Meet Our Team</h2>
+      <section class="team-section">
+        <h1>Our Team</h1>
         <div class="team-member">
-          <img src="/static/img/chetan23.jpeg" alt="Team Member 1">
-          <h3>Chetan Garg </h3>
-          <p>Cyber security</p>
+          <img src="/static/img/chetan.png.jpeg" alt="Team Member 1">
+          <h3>Chetan </h3>
+          <p>Bug Hunter</p>
         </div>
         <div class="team-member">
-          <img src="/static/img/3.png" alt="Team Member 2">
-          <h3>Jane Smith</h3>
-          <p>Chief Marketing Officer</p>
+          <img src="/static/img/s.png.jpeg" alt="Team Member 2">
+          <h3>Sanya</h3>
+          <p>Data Scientist</p>
         </div>
-        <div class="team-member">
-          <img src="/static/img/4.png" alt="Team Member 3">
-          <h3>Mike Johnson</h3>
-          <p>Head of Product Development</p>
-        </div>
+       
         <!-- Add more team members as needed -->
-      </div>
-    </section>
-  </main><br><br>
+      </section>
+    </div>
+  </main>
 
   <footer>
     <p>&copy; 2023 Olympic Vibes. All rights reserved.</p>
   </footer>
-
-  <script src="static/js/main.js"></script>
-  <!-- Add your additional JavaScript files here -->
 </body>
 </html>
